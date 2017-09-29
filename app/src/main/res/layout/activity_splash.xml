@@ -15,10 +15,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+<<<<<<< HEAD
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Button" />
 
+=======
+>>>>>>> 4193f38867b4d61258fcbc3493514974b6dd8030
 </android.support.constraint.ConstraintLayout>
