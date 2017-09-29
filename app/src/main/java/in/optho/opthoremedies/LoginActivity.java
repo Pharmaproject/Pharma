@@ -2,12 +2,14 @@ package in.optho.opthoremedies;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText idET;
     private EditText passwordET;
+    private Button okButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,6 @@ public class LoginActivity extends AppCompatActivity {
     private void initialize() {
         idET = (EditText) findViewById(R.id.idET);
         passwordET = (EditText) findViewById(R.id.passwordET);
-
+        okButton = (Button) findViewById(R.id.okButton);
     }
 }
