@@ -3,8 +3,8 @@ package in.optho.opthoremedies;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.andrognito.pinlockview.IndicatorDots;
 import com.andrognito.pinlockview.PinLockListener;
@@ -15,7 +15,7 @@ import mehdi.sakout.fancybuttons.FancyButton;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText idET;
-    private String TAG = "dvdsv";
+    private String TAG = "OPTHO";
 
     private EditText passwordET;
     private FancyButton okButton;
@@ -51,7 +51,14 @@ public class LoginActivity extends AppCompatActivity {
     private PinLockListener mPinLockListener = new PinLockListener() {
         @Override
         public void onComplete(String pin) {
+
             Log.d(TAG, "Pin complete: " + pin);
+
+            if(pin.equals("1234")){
+                Toast.makeText(LoginActivity.this, "successfully loged in "+pin, Toast.LENGTH_SHORT).show();
+            }
+
+
         }
 
         @Override

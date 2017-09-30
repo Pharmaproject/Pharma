@@ -19,9 +19,11 @@ public class SplashActivity extends AppCompatActivity {
 
                     System.out.println("New user");
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                    finish();
 
             }
         }, 1000);
+
 
     }
 }
