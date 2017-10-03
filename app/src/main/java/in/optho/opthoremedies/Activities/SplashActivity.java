@@ -1,4 +1,4 @@
-package in.optho.opthoremedies;
+package in.optho.opthoremedies.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+
+import in.optho.opthoremedies.Database.DatabaseHelper;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -19,7 +21,8 @@ public class SplashActivity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences("EMPLOYEE_ID", Context.MODE_PRIVATE);
 
-        final String ID=sharedpreferences.getString("ID", "0000");
+
+        final String ID=sharedpreferences.getString("SNO", "0000");
 
         Toast.makeText(this, "Emplyee: "+ID, Toast.LENGTH_SHORT).show();
 
@@ -53,11 +56,11 @@ public class SplashActivity extends AppCompatActivity {
     private void insertData() {
         DatabaseHelper db = new DatabaseHelper(SplashActivity.this);
 
-        db.insterData("12", "1232");
-        db.insterData("13", "1233");
-        db.insterData("14", "1234");
-        db.insterData("15", "1235");
-        db.insterData("16", "1236");
+        db.insertData("12", "1232");
+        db.insertData("13", "1233");
+        db.insertData("14", "1234");
+        db.insertData("15", "1235");
+        db.insertData("16", "1236");
 
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putBoolean("isDataSaved", true);

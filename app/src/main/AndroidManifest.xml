@@ -10,18 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name=".Activities.SplashActivity"
             android:theme="@style/SplashTheme">
+        </activity>
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:theme="@style/SplashTheme" />
+        <activity android:name=".Activities.IDActivity" />
+        <activity android:name=".Activities.GridViewActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"
-            android:theme="@style/SplashTheme"/>
-
-        <activity android:name=".IDActivity"></activity>
     </application>
 
 </manifest>

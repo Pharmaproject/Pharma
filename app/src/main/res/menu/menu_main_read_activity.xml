@@ -1,0 +1,38 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.krishna.optionmenusample.MainActivity">
+
+    <item
+        android:id="@+id/layoutButton"
+        android:icon="@drawable/grid_icon"
+        app:showAsAction="always"
+        android:title="favourite"/>
+    <item
+        android:id="@+id/menu"
+        android:orderInCategory="0"
+        app:showAsAction="always"
+        android:icon="@drawable/icon_sort">
+        <menu>
+            <item
+                android:id="@+id/menuSortAlphabet"
+                android:title="Sort by Alphabetic" />
+            <item
+                android:id="@+id/menuSortCreator"
+                android:title="Sort by Creator" />
+            <item
+                android:id="@+id/menuSortAmntPledged"
+                android:title="Sort by amount pledged" />
+            <item
+                android:id="@+id/menuSortCountry"
+                android:title="Sort by Country" />
+            <item
+                android:id="@+id/menuSortLocation"
+                android:title="Sort by Priority" />
+            <item
+                android:id="@+id/menuSortType"
+                android:title="Most accessed" />
+        </menu>
+    </item>
+
+</menu>

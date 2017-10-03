@@ -1,4 +1,4 @@
-package in.optho.opthoremedies;
+package in.optho.opthoremedies.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import com.andrognito.pinlockview.IndicatorDots;
 import com.andrognito.pinlockview.PinLockListener;
 import com.andrognito.pinlockview.PinLockView;
 
+import in.optho.opthoremedies.Database.DatabaseHelper;
+import in.optho.opthoremedies.R;
 import mehdi.sakout.fancybuttons.FancyButton;
 
 public class LoginActivity extends AppCompatActivity {
@@ -69,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         sharedpreferences = getSharedPreferences("EMPLOYEE_ID", Context.MODE_PRIVATE);
-        ID= sharedpreferences.getString("ID", null);
+        ID= sharedpreferences.getString("SNO", null);
         employeePin = db.getPin(ID);
         Log.i(TAG, "onCreate: pin: "+employeePin);
 
@@ -85,6 +87,8 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, "Pin complete: " + pin);
 
             if(pin.equals(employeePin)){
+                startActivity(new Intent(LoginActivity.this,GridViewActivity.class));
+                finish();
                 Toast.makeText(LoginActivity.this, "successfully loged in "+pin, Toast.LENGTH_SHORT).show();
             }else
                 Toast.makeText(LoginActivity.this, "Wrong pin "+pin, Toast.LENGTH_SHORT).show();

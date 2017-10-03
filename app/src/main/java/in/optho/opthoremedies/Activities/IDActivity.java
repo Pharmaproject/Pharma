@@ -1,4 +1,4 @@
-package in.optho.opthoremedies;
+package in.optho.opthoremedies.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import in.optho.opthoremedies.Database.DatabaseHelper;
+import in.optho.opthoremedies.R;
 
 public class IDActivity extends AppCompatActivity {
 
@@ -44,14 +47,14 @@ public class IDActivity extends AppCompatActivity {
                 final String ID=idET.getText().toString();
 
                 if(TextUtils.isEmpty(ID)){
-                    idET.setError("Enter the Employee ID");
-                    Toast.makeText(IDActivity.this, "Enter the Employee ID", Toast.LENGTH_SHORT).show();
+                    idET.setError("Enter the Employee SNO");
+                    Toast.makeText(IDActivity.this, "Enter the Employee SNO", Toast.LENGTH_SHORT).show();
                     idET.requestFocus();
                     return;
                 }
                 else if(db.checkId(ID)){
                     SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putString("ID",ID);
+                    editor.putString("SNO",ID);
                     editor.commit();
 
                     Intent intent = new Intent(IDActivity.this, LoginActivity.class);
@@ -59,8 +62,8 @@ public class IDActivity extends AppCompatActivity {
                     finish();
                 }
                 else{
-                    idET.setError("Invalid Employee ID");
-                    Toast.makeText(IDActivity.this, "Invalid Employee ID", Toast.LENGTH_SHORT).show();
+                    idET.setError("Invalid Employee SNO");
+                    Toast.makeText(IDActivity.this, "Invalid Employee SNO", Toast.LENGTH_SHORT).show();
                     idET.requestFocus();
                     return;
                 }
