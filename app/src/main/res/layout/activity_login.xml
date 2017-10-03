@@ -12,7 +12,7 @@
         android:layout_width="84dp"
         android:layout_height="84dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="16dp"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
@@ -48,5 +48,13 @@
         app:keypadShowDeleteButton="true"
         app:keypadTextColor="@color/white"
         app:keypadTextSize="18dp" />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login with diffrent ID"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_below="@+id/pin_lock_view"/>
 
 </RelativeLayout>
