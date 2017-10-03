@@ -33,6 +33,8 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 
+                //sample
+
                     System.out.println("New user");
 
                     if(ID.equals("0000")){
