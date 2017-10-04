@@ -110,9 +110,6 @@ public class MainListActivity extends AppCompatActivity {
         initialise();
 
 
-        //checking if product data is already saved or not
-
-            insertData();
 
 
 
@@ -131,16 +128,4 @@ public class MainListActivity extends AppCompatActivity {
 
     }
 
-
-    private void insertData() {
-        ProductDatabaseHelper db = new ProductDatabaseHelper(MainListActivity.this);
-
-
-        db.insertData("Kumar");
-        db.insertData("Leader");
-        db.insertData("Bhuvan");
-        db.insertData("Ankit");
-        db.insertData("Madhav");
-
-    }
 }

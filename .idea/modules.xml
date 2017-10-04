@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Optho Remedies.iml" filepath="$PROJECT_DIR$/Optho Remedies.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OpthoRemedies.iml" filepath="$PROJECT_DIR$/OpthoRemedies.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/json-20090211/json-20090211.iml" filepath="$PROJECT_DIR$/json-20090211/json-20090211.iml" />
     </modules>
