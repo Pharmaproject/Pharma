@@ -26,16 +26,12 @@ public class MainListActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private GridLayoutManager gridLayoutManager;
 
-    ArrayList<String> productname=new ArrayList<>();
-    ArrayList<String> productcategory=new ArrayList<>();
-    ArrayList<String> productdefault=new ArrayList<>();
 
     ArrayList<Product> productdb=new ArrayList<>();
 
 
     private MyGridLayoutAdapter adapter;
 
-    ArrayList<Product> productList=new ArrayList<>();
     private boolean isGridView=false;
 
     private void initialise() {
@@ -75,7 +71,6 @@ public class MainListActivity extends AppCompatActivity {
 
             }else{
                 Toast.makeText(this, "Grid enabled", Toast.LENGTH_SHORT).show();
-
                 gridLayoutManager =new GridLayoutManager(MainListActivity.this,2);
                 recyclerView.setLayoutManager(gridLayoutManager);
                 MyGridLayoutAdapter adapter = new MyGridLayoutAdapter(MainListActivity.this, productdb);
@@ -89,7 +84,7 @@ public class MainListActivity extends AppCompatActivity {
         }
         if(id==R.id.menuSortAlphabet){
 //            Toast.makeText(this, "sort clicked", Toast.LENGTH_SHORT).show();
-  //          Collections.sort(adapter.toString());
+       //     Collections.sort(adapter);
             adapter.notifyDataSetChanged();
             recyclerView.setAdapter(adapter);
             Toast.makeText(this, "sorted Alphabetically", Toast.LENGTH_LONG).show();
@@ -121,13 +116,6 @@ public class MainListActivity extends AppCompatActivity {
         //fetching the data from the database in ArrayList
         ProductDatabaseHelper db = new ProductDatabaseHelper(this);
         productdb=db.getProductList();
-
-        for (Product p : productdb){
-            productname.add(p.getName()); // <-- add it to your List<Item>.
-            productcategory.add(p.getCategory());
-            productdefault.add(p.getpDefault());
-
-        }
 
 
 

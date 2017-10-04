@@ -16,22 +16,19 @@
         <menu>
             <item
                 android:id="@+id/menuSortAlphabet"
-                android:title="Sort by Alphabetic" />
+                android:title="Alphabetic Sorting" />
             <item
                 android:id="@+id/menuSortCreator"
-                android:title="Sort by Creator" />
-            <item
-                android:id="@+id/menuSortAmntPledged"
-                android:title="Sort by amount pledged" />
+                android:title="Default Sorting" />
             <item
                 android:id="@+id/menuSortCountry"
-                android:title="Sort by Country" />
+                android:title="Category Sorting" />
             <item
                 android:id="@+id/menuSortLocation"
                 android:title="Sort by Priority" />
             <item
                 android:id="@+id/menuSortType"
-                android:title="Most accessed" />
+                android:title="Most Accessed" />
         </menu>
     </item>
 

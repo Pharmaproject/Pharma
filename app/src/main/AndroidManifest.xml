@@ -21,7 +21,10 @@
         <activity
             android:name=".Activities.LoginActivity"
             android:theme="@style/SplashTheme" />
-        <activity android:name=".Activities.IDActivity" />
+
+        <activity android:name=".Activities.IDActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan"      />
+
         <activity android:name=".Activities.MainListActivity">
 
 

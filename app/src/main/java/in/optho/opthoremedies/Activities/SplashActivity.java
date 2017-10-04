@@ -20,10 +20,6 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                //sample
-
-                    System.out.println("New user");
-
                         startActivity(new Intent(SplashActivity.this, IDActivity.class));
 
                     finish();

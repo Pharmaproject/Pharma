@@ -15,19 +15,31 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/logocrop" />
 
+
     <TextView
         android:id="@+id/profile_name"
         android:layout_width="256dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/profile_image"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp"
         android:fontFamily="sans-serif-thin"
         android:gravity="center"
         android:maxLines="1"
-        android:text="Welcome"
+        android:text="Enter 4 Digit PIN"
         android:textColor="@color/white"
-        android:textSize="34sp" />
+        android:textSize="34sp"
+        android:layout_marginEnd="39dp"
+        android:layout_below="@+id/profile_image"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:tint="@color/colorWhiteHigh"
+        app:srcCompat="@drawable/ic_lock_outline_black_24dp"
+        android:layout_alignBottom="@+id/profile_name"
+        android:layout_toStartOf="@+id/profile_name" />
 
     <com.andrognito.pinlockview.IndicatorDots
         android:id="@+id/indicator_dots"
@@ -41,20 +53,21 @@
         android:id="@+id/pin_lock_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/indicator_dots"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="19dp"
         app:keypadButtonSize="72dp"
         app:keypadShowDeleteButton="true"
         app:keypadTextColor="@color/white"
-        app:keypadTextSize="18dp" />
+        app:keypadTextSize="18dp"
+        android:layout_below="@+id/indicator_dots"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/loginBtn"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login with diffrent ID"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_below="@+id/pin_lock_view"/>
+        android:text="Login using different ID"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

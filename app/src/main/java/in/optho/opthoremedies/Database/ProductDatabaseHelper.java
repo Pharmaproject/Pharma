@@ -132,6 +132,14 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
 
     public void openDataBase() throws SQLException {
 
+        try
+        {
+            createDataBase();
+        }
+        catch (IOException ex)
+        {
+            Toast.makeText(myContext, "data not available"+ex, Toast.LENGTH_SHORT).show();
+        }
         //Open the database
         String myPath = DB_PATH + DB_NAME;
         myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
@@ -173,7 +181,7 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = myDataBase.rawQuery("select * from " + TABLE_NAME+";" , null);
 
         if(cursor.getCount()==0){
-            Toast.makeText(myContext, "data not availabel", Toast.LENGTH_SHORT).show();
+            Toast.makeText(myContext, "Empty Database", Toast.LENGTH_SHORT).show();
         }
         while (cursor.moveToNext()){
             product=new Product(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),

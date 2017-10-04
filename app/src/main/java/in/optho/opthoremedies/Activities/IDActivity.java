@@ -1,13 +1,24 @@
 package in.optho.opthoremedies.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.Html;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.support.design.widget.Snackbar;
+
+import com.chaos.view.PinView;
 
 import in.optho.opthoremedies.Database.EmployeeDatabaseHelper;
 import in.optho.opthoremedies.SessionHelper.SQLiteHandler;
@@ -16,8 +27,7 @@ import in.optho.opthoremedies.R;
 
 public class IDActivity extends AppCompatActivity {
 
-    private Button nextBtn;
-    private EditText idET;
+    private PinView  idET;
 
     EmployeeDatabaseHelper db;
 
@@ -25,8 +35,7 @@ public class IDActivity extends AppCompatActivity {
     private SQLiteHandler iddb;
 
     void initialise(){
-        nextBtn = (Button) findViewById(R.id.nextBtn);
-        idET = (EditText) findViewById(R.id.idET);
+
 
         // SQLite database handler
         iddb = new SQLiteHandler(getApplicationContext());
@@ -43,7 +52,15 @@ public class IDActivity extends AppCompatActivity {
             Intent intent = new Intent(IDActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
+
+
+
+
         }
+
+        idET = (PinView) findViewById(R.id.pinView);
+        idET.setBorderColor(getResources().getColor(R.color.colorWhiteHigh));
+        idET.setAnimationEnable(true);// start animation when adding text
 
     }
 
@@ -56,39 +73,59 @@ public class IDActivity extends AppCompatActivity {
 
 
 
-        nextBtn.setOnClickListener(new View.OnClickListener() {
+        idET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-
-                final String ID=idET.getText().toString();
-
-                if(TextUtils.isEmpty(ID)){
-                    idET.setError("Enter the Employee SNO");
-                    Toast.makeText(IDActivity.this, "Enter the Employee SNO", Toast.LENGTH_SHORT).show();
-                    idET.requestFocus();
-                    return;
-                }
-                else if(db.checkID(ID)){
-                    Toast.makeText(IDActivity.this, " Valid UD", Toast.LENGTH_SHORT).show();
-
-                    iddb.addUser(ID);
-
-                    Intent intent = new Intent(IDActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-                else{
-                    idET.setError("Invalid Employee SNO");
-                    Toast.makeText(IDActivity.this, "Invalid Employee SNO", Toast.LENGTH_SHORT).show();
-                    idET.requestFocus();
-                    return;
-                }
-
-
-
+            public void beforeTextChanged(CharSequence s,
+                                          int start,
+                                          int count,
+                                          int after) {
 
             }
+
+            @Override
+            public void onTextChanged(CharSequence s,
+                                      int start,
+                                      int before,
+                                      int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() == 4) {
+                    String ID = s.toString();
+                    if (db.checkID(ID)) {
+
+                        iddb.addUser(ID);
+                        session.setLogin(true);
+
+                        Intent intent = new Intent(IDActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+
+                        idET.setError(Html.fromHtml("<font color='red'>Invalid Employee ID</font>"));
+
+
+                        Snackbar.make(getWindow().getDecorView(), "Invalid Employee ID", Snackbar.LENGTH_LONG).show();
+
+                        idET.requestFocus();
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                idET.setText(null);
+
+                            }
+                        }, 1000);
+
+
+                    }
+                }
+            }
         });
+
+
 
 
     }

@@ -1,36 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.optho.opthoremedies.Activities.IDActivity"
     android:orientation="vertical"
-    android:background="@color/colorBlack">
+    tools:context="in.optho.opthoremedies.Activities.IDActivity"
+    android:background="@color/mine_shaft">
 
-    <Button
-        android:id="@+id/nextBtn"
-        style="@style/Widget.AppCompat.Button.Borderless"
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:tint="@color/colorWhiteHigh"
+        app:srcCompat="@drawable/ic_person_outline_black_24dp" />
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="end"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-thin"
+        android:text="Enter your 4 digit ID"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         android:textColor="@color/colorWhite"
-        android:fontFamily="sans-serif-condensed"
-        android:text="next" />
+        android:textSize="30sp" />
 
-    <EditText
-        android:id="@+id/idET"
-        style="@android:style/Widget.AutoCompleteTextView"
-        android:layout_width="200dp"
+    <com.chaos.view.PinView
+        android:id="@+id/pinView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:hint="Enter the Employee ID"
-        android:textColorHint="@color/colorWhite"
-        android:textColor="@color/colorWhite"
+        android:layout_gravity="center"
         android:inputType="number"
-        android:layout_above="@+id/nextBtn"
-        android:layout_centerHorizontal="true" />
+        android:padding="5dp"
+        android:textColor="@color/colorWhite"
+        android:focusableInTouchMode="true"
+        android:textSize="18sp"
+        app:borderWidth="2dp"
+        app:itemCount="4"
+        app:itemRadius="4dp"
+        app:itemSize="48dp"
+        app:itemSpacing="4dp" />
 
-</RelativeLayout>
+
+</LinearLayout>

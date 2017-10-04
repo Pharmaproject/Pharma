@@ -2,12 +2,14 @@ package in.optho.opthoremedies.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.os.Vibrator;
 
 import com.andrognito.pinlockview.IndicatorDots;
 import com.andrognito.pinlockview.PinLockListener;
@@ -81,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                session.setLogin(false);
                 iddb.deleteUsers();
                 startActivity(new Intent(LoginActivity.this,IDActivity.class));
                 finish();
@@ -100,9 +102,13 @@ public class LoginActivity extends AppCompatActivity {
             if(pin.equals(employeePin)){
                 startActivity(new Intent(LoginActivity.this,MainListActivity.class));
                 finish();
-                Toast.makeText(LoginActivity.this, "successfully loged in "+pin, Toast.LENGTH_SHORT).show();
-            }else
-                Toast.makeText(LoginActivity.this, "Wrong pin "+pin, Toast.LENGTH_SHORT).show();
+                Snackbar.make(getWindow().getDecorView(), "Logged im", Snackbar.LENGTH_LONG).show();
+
+            }else{
+                Snackbar.make(getWindow().getDecorView(), "Wrong Pin", Snackbar.LENGTH_LONG).show();
+                mPinLockView.resetPinLockView();
+
+            }
 
 
 
@@ -110,15 +116,13 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public void onEmpty() {
-            Toast.makeText(LoginActivity.this, "Pin empty: ", Toast.LENGTH_SHORT).show();
 
             Log.d(TAG, "Pin empty");
         }
 
         @Override
         public void onPinChange(int pinLength, String intermediatePin) {
-            Toast.makeText(LoginActivity.this, "Pin changed, new length " + pinLength + " with intermediate pin " + intermediatePin, Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "Pin changed, new length " + pinLength + " with intermediate pin " + intermediatePin);
+
         }
     };
 }

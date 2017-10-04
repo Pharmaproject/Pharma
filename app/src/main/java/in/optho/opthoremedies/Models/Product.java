@@ -149,4 +149,17 @@ public class Product {
     public void setCustomicon(String customicon) {
         this.customicon = customicon;
     }
+
+
+    public int compareTo(Product compareProduct) {
+
+        int compareQuantity = Integer.parseInt( compareProduct.getId());
+
+        //ascending order
+        return Integer.parseInt(this.id) - compareQuantity;
+
+        //descending order
+        //return compareQuantity - this.quantity;
+
+    }
 }

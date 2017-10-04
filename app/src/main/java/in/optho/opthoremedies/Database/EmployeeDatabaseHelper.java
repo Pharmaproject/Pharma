@@ -201,7 +201,7 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
         Boolean emp = null;
         openDataBase();
 
-        Cursor cursor = myDataBase.rawQuery("select * from " + TABLE_NAME+" where id="+ id+";" , null);
+        Cursor cursor = myDataBase.rawQuery("select * from " + TABLE_NAME+" where id="+ id +";" , null);
 
         if(cursor.getCount()==0){
             Toast.makeText(myContext, "ID doesn't exist", Toast.LENGTH_SHORT).show();

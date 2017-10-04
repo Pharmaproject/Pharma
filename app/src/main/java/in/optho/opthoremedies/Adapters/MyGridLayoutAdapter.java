@@ -1,5 +1,6 @@
 package in.optho.opthoremedies.Adapters;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.R;
@@ -59,4 +62,10 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
         }
     }
+    public void sort(Comparator comparator) {
+        Collections.sort(productList, comparator);
+        notifyItemRangeChanged(0, getItemCount());
+    }
+
+
 }
