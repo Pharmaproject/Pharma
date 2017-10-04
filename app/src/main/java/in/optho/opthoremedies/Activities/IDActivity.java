@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import in.optho.opthoremedies.Database.DatabaseHelper;
+import in.optho.opthoremedies.SessionHelper.SQLiteHandler;
+import in.optho.opthoremedies.SessionHelper.SessionManager;
 import in.optho.opthoremedies.R;
 
 public class IDActivity extends AppCompatActivity {
@@ -19,16 +21,33 @@ public class IDActivity extends AppCompatActivity {
     private Button nextBtn;
     private EditText idET;
 
-    private SharedPreferences sharedpreferences;
+    DatabaseHelper db;
 
-    private DatabaseHelper db;
-
+    private SessionManager session;
+    private SQLiteHandler iddb;
 
     void initialise(){
         nextBtn = (Button) findViewById(R.id.nextBtn);
         idET = (EditText) findViewById(R.id.idET);
-        sharedpreferences = getSharedPreferences("EMPLOYEE_ID", Context.MODE_PRIVATE);
-        db = new DatabaseHelper(this);
+
+        // SQLite database handler
+        iddb = new SQLiteHandler(getApplicationContext());
+
+        // Session manager
+        session = new SessionManager(getApplicationContext());
+
+
+
+        db = new DatabaseHelper(getApplicationContext());
+
+        // Check if user is already logged in or not
+        if (session.isLoggedIn()) {
+            // User is already logged in. Take him to main activity
+            Intent intent = new Intent(IDActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
     @Override
@@ -53,9 +72,9 @@ public class IDActivity extends AppCompatActivity {
                     return;
                 }
                 else if(db.checkId(ID)){
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putString("SNO",ID);
-                    editor.commit();
+                    Toast.makeText(IDActivity.this, " Valid UD", Toast.LENGTH_SHORT).show();
+
+                    iddb.addUser(ID);
 
                     Intent intent = new Intent(IDActivity.this, LoginActivity.class);
                     startActivity(intent);

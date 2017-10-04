@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">lib</string>
+    <string name="app_name" translatable="false">Optho Remedies</string>
 
     <string name="button1_large_text" translatable="false">1</string>
     <string name="button2_large_text" translatable="false">2</string>

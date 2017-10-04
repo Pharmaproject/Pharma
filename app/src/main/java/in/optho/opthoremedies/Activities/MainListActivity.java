@@ -18,7 +18,7 @@ import in.optho.opthoremedies.Adapters.MyGridLayoutAdapter;
 import in.optho.opthoremedies.Database.ProductDatabaseHelper;
 import in.optho.opthoremedies.R;
 
-public class GridViewActivity extends AppCompatActivity {
+public class MainListActivity extends AppCompatActivity {
 
 
     private RecyclerView recyclerView;
@@ -34,8 +34,8 @@ public class GridViewActivity extends AppCompatActivity {
 
     private void initialise() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        linearLayoutManager = new LinearLayoutManager(GridViewActivity.this);
-//        linearLayoutManager=new GridLayoutManager(GridViewActivity.this,2);
+        linearLayoutManager = new LinearLayoutManager(MainListActivity.this);
+//        linearLayoutManager=new GridLayoutManager(MainListActivity.this,2);
         sharedpreferences = getSharedPreferences("PRODUCT_ID", Context.MODE_PRIVATE);
 
 
@@ -67,10 +67,10 @@ public class GridViewActivity extends AppCompatActivity {
 
         if (id == R.id.layoutButton) {
             if(isGridView){
-                Toast.makeText(this, "ListView Enabled", Toast.LENGTH_SHORT).show();
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(GridViewActivity.this);
+                Toast.makeText(this, "List Enabled", Toast.LENGTH_SHORT).show();
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainListActivity.this);
                 recyclerView.setLayoutManager(linearLayoutManager);
-                MyGridLayoutAdapter adapter = new MyGridLayoutAdapter(GridViewActivity.this, productList);
+                MyGridLayoutAdapter adapter = new MyGridLayoutAdapter(MainListActivity.this, productList);
                 recyclerView.setAdapter(adapter);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putBoolean("isGridView", false);
@@ -79,11 +79,11 @@ public class GridViewActivity extends AppCompatActivity {
 
 
             }else{
-                Toast.makeText(this, "GridView enabled", Toast.LENGTH_SHORT).show();
-                linearLayoutManager =new GridLayoutManager(GridViewActivity.this,2);
+                Toast.makeText(this, "Grid enabled", Toast.LENGTH_SHORT).show();
+                linearLayoutManager =new GridLayoutManager(MainListActivity.this,2);
 
                 recyclerView.setLayoutManager(linearLayoutManager);
-                MyGridLayoutAdapter adapter = new MyGridLayoutAdapter(GridViewActivity.this, productList);
+                MyGridLayoutAdapter adapter = new MyGridLayoutAdapter(MainListActivity.this, productList);
                 recyclerView.setAdapter(adapter);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putBoolean("isGridView", true);
@@ -137,7 +137,7 @@ public class GridViewActivity extends AppCompatActivity {
 //        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new MyGridLayoutAdapter(GridViewActivity.this, productList);
+        adapter = new MyGridLayoutAdapter(MainListActivity.this, productList);
         recyclerView.setAdapter(adapter);
 
 
@@ -145,7 +145,7 @@ public class GridViewActivity extends AppCompatActivity {
 
 
     private void insertData() {
-        ProductDatabaseHelper db = new ProductDatabaseHelper(GridViewActivity.this);
+        ProductDatabaseHelper db = new ProductDatabaseHelper(MainListActivity.this);
 
 
         db.insertData("Kumar");

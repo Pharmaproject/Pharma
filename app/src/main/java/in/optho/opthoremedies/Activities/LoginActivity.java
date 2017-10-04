@@ -1,8 +1,6 @@
 package in.optho.opthoremedies.Activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,7 +13,11 @@ import com.andrognito.pinlockview.IndicatorDots;
 import com.andrognito.pinlockview.PinLockListener;
 import com.andrognito.pinlockview.PinLockView;
 
+import java.util.HashMap;
+
 import in.optho.opthoremedies.Database.DatabaseHelper;
+import in.optho.opthoremedies.SessionHelper.SQLiteHandler;
+import in.optho.opthoremedies.SessionHelper.SessionManager;
 import in.optho.opthoremedies.R;
 import mehdi.sakout.fancybuttons.FancyButton;
 
@@ -23,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText idET;
     private String TAG = "OPTHO";
+    private static final String KEY_ID = "id";
 
     private EditText passwordET;
     private FancyButton okButton;
@@ -30,8 +33,10 @@ public class LoginActivity extends AppCompatActivity {
     IndicatorDots mIndicatorDots;
 
     private Button loginBtn;
-    private SharedPreferences sharedpreferences;
     private DatabaseHelper db;
+    private SessionManager session;
+    private SQLiteHandler iddb;
+
 
     String ID;
     String employeePin;
@@ -51,6 +56,14 @@ public class LoginActivity extends AppCompatActivity {
 
         db = new DatabaseHelper(this);
 
+
+
+        // SQLite database handler
+        iddb = new SQLiteHandler(getApplicationContext());
+
+        // Session manager
+        session = new SessionManager(getApplicationContext());
+
     }
 
     @Override
@@ -62,18 +75,21 @@ public class LoginActivity extends AppCompatActivity {
         // Initialise all the variables
         initialize();
 
+
+
+        String ID = iddb.getUserDetails();
+        employeePin = db.getPin(ID);
+        Log.i(TAG, "onCreate: pin: "+employeePin);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                iddb.deleteUsers();
                 startActivity(new Intent(LoginActivity.this,IDActivity.class));
                 finish();
             }
         });
 
-        sharedpreferences = getSharedPreferences("EMPLOYEE_ID", Context.MODE_PRIVATE);
-        ID= sharedpreferences.getString("SNO", null);
-        employeePin = db.getPin(ID);
-        Log.i(TAG, "onCreate: pin: "+employeePin);
 
 
 
@@ -87,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, "Pin complete: " + pin);
 
             if(pin.equals(employeePin)){
-                startActivity(new Intent(LoginActivity.this,GridViewActivity.class));
+                startActivity(new Intent(LoginActivity.this,MainListActivity.class));
                 finish();
                 Toast.makeText(LoginActivity.this, "successfully loged in "+pin, Toast.LENGTH_SHORT).show();
             }else

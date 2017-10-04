@@ -12,24 +12,15 @@ import in.optho.opthoremedies.Database.DatabaseHelper;
 
 public class SplashActivity extends AppCompatActivity {
 
-    SharedPreferences sharedpreferences;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        sharedpreferences = getSharedPreferences("EMPLOYEE_ID", Context.MODE_PRIVATE);
 
-
-        final String ID=sharedpreferences.getString("SNO", "0000");
-
-        Toast.makeText(this, "Emplyee: "+ID, Toast.LENGTH_SHORT).show();
-
-        boolean isDataSaved=sharedpreferences.getBoolean("isDataSaved", false);
-        if(!isDataSaved)
-            insertData();
-
+        insertData();
+        //remove
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -40,11 +31,8 @@ public class SplashActivity extends AppCompatActivity {
 
                     System.out.println("New user");
 
-                    if(ID.equals("0000")){
                         startActivity(new Intent(SplashActivity.this, IDActivity.class));
-                    }
-                    else
-                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+
                     finish();
 
             }
@@ -62,9 +50,6 @@ public class SplashActivity extends AppCompatActivity {
         db.insertData("15", "1235");
         db.insertData("16", "1236");
 
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putBoolean("isDataSaved", true);
-        editor.commit();
 
     }
 }

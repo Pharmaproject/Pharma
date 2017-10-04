@@ -19,18 +19,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "OPTHO";
 
-
     public static final String DATABASE_NAME = "Employee.db";
     public static final String TABLE_NAME = "employee_table";
     public static final String ID = "ID";
     public static final String PIN = "PIN";
 
-    private SharedPreferences sharedpreferences;
 
     Context context;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
+
 
         this.context = context;
 
@@ -40,6 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         Log.i(TAG, "onCreate: onCreate");
         db.execSQL("create table " + TABLE_NAME + " (ID text primary key, pin text)");
+        Log.d(TAG, TABLE_NAME+ " Created");
 
     }
 
@@ -68,25 +68,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void dropTable(){
 
-        
-        SQLiteDatabase db = this.getWritableDatabase();
-        
-        if(db!=null)
-            db.execSQL("drop table if exists "+TABLE_NAME);
-        else
-            Log.i(TAG, "dropTable: Table does not exist");
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putBoolean("dataIsSaved", false);
-        editor.commit();
-
-
-
-    }
     public String getPin(String id) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         String pin="invalid";
+
 
         Cursor res = db.rawQuery("select * from " + TABLE_NAME+" where id="+id+";" , null);
 
@@ -94,10 +80,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "No such data found!", Toast.LENGTH_SHORT).show();
         }
         while (res.moveToNext()){
-            pin = res.getString(1);
-//            Toast.makeText(context, "Pin: "+pin, Toast.LENGTH_SHORT).show();
+            pin=res.getString(1);
+           Toast.makeText(context, "Pin: "+pin, Toast.LENGTH_SHORT).show();
         }
-
+        res.close();
         return pin;
     }
 
@@ -105,10 +91,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor res = db.rawQuery("select * from " + TABLE_NAME+" where id="+id+";" , null);
-        if(res.getCount()==0)
+        if(res.getCount()==0) {
+            res.close();
             return false;
-        else
+        }
+        else {
+            res.close();
             return true;
+        }
 
     }
 

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#4FAEDD"
+    android:paddingBottom="30dp"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    android:paddingTop="30dp">
+
+    <Button
+        android:id="@+id/btReinitialize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:padding="15dp"
+        android:text="Reinitialize database"
+        android:textAllCaps="false"
+        android:textColor="#47525e"
+        android:textSize="13dp"
+        android:typeface="normal" />
+
+    <Button
+        android:id="@+id/btSendAndReceive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btReinitialize"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:padding="15dp"
+        android:text="Synchronize database now"
+        android:textAllCaps="false"
+        android:textColor="#47525e"
+        android:textSize="13dp"
+        android:typeface="normal" />
+
+    <TextView
+        android:id="@+id/footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btSendAndReceive"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:autoLink="web"
+        android:gravity="center"
+        android:text="© 2017 Optho Remedies \nAll Rights Reserved"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#ffffff"
+        android:textColorLink="#ffffff"
+        android:textSize="12dp" />
+
+</RelativeLayout>
