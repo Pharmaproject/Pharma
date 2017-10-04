@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import in.optho.opthoremedies.Models.Product;
+import in.optho.opthoremedies.Models.Employee;
 
 
 /**
@@ -17,24 +17,23 @@ import in.optho.opthoremedies.Models.Product;
  */
 
 
-public class ProductDatabaseHelper extends SQLiteOpenHelper {
+public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "OPTHO";
 
     public static final String DATABASE_NAME = "Optho.db";
     public static final String DATABASE_PATH = "xxxxxxxxxxxxxxxxxx";
-    public static final String TABLE_NAME = "product_table";
+    public static final String TABLE_NAME = "employee_table";
+
 
     private Context context;
     private SQLiteDatabase database;
 
-
-    public ProductDatabaseHelper(Context context) {
+    public EmployeeDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
         this.context = context;
 
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -47,8 +46,6 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         Log.i(TAG, "onCreate: onUpgrade");
 
     }
-
-
 
     public void openDatabase(){
         String dbPath = context.getDatabasePath(DATABASE_PATH).getPath();
@@ -65,12 +62,10 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public ArrayList<Employee> getEmployeeList(){
 
-
-    public ArrayList<Product> getProductList(){
-
-        Product product = null;
-        ArrayList<Product> prodList = new ArrayList<>();
+        Employee employee = null;
+        ArrayList<Employee> employeeList = new ArrayList<>();
         openDatabase();
 
         Cursor cursor = database.rawQuery("select * from " + TABLE_NAME+";" , null);
@@ -79,15 +74,14 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "data not availabel", Toast.LENGTH_SHORT).show();
         }
         while (cursor.moveToNext()){
-            product=new Product(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3));
-            prodList.add(product);
+            employee=new Employee(cursor.getString(0),cursor.getString(1));
+            employeeList.add(employee);
         }
         cursor.close();
         closeDatabase();
 
-        return prodList;
+        return employeeList;
     }
-
 
 }
 

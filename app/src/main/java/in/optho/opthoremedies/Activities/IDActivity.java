@@ -1,8 +1,6 @@
 package in.optho.opthoremedies.Activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -11,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import in.optho.opthoremedies.Database.DatabaseHelper;
+import in.optho.opthoremedies.Database.EmployeeDatabaseHelper;
 import in.optho.opthoremedies.SessionHelper.SQLiteHandler;
 import in.optho.opthoremedies.SessionHelper.SessionManager;
 import in.optho.opthoremedies.R;
@@ -21,7 +19,7 @@ public class IDActivity extends AppCompatActivity {
     private Button nextBtn;
     private EditText idET;
 
-    DatabaseHelper db;
+    EmployeeDatabaseHelper db;
 
     private SessionManager session;
     private SQLiteHandler iddb;
@@ -38,7 +36,7 @@ public class IDActivity extends AppCompatActivity {
 
 
 
-        db = new DatabaseHelper(getApplicationContext());
+        db = new EmployeeDatabaseHelper(getApplicationContext());
 
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {

@@ -1,7 +1,5 @@
 package in.optho.opthoremedies.Activities;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -26,8 +24,6 @@ public class MainListActivity extends AppCompatActivity {
 
     ArrayList<String> productList=new ArrayList<>();
 
-
-    private SharedPreferences sharedpreferences;
     private boolean isGridView=false;
 
     MyGridLayoutAdapter adapter;
@@ -36,7 +32,6 @@ public class MainListActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         linearLayoutManager = new LinearLayoutManager(MainListActivity.this);
 //        linearLayoutManager=new GridLayoutManager(MainListActivity.this,2);
-        sharedpreferences = getSharedPreferences("PRODUCT_ID", Context.MODE_PRIVATE);
 
 
     }
@@ -72,8 +67,6 @@ public class MainListActivity extends AppCompatActivity {
                 recyclerView.setLayoutManager(linearLayoutManager);
                 MyGridLayoutAdapter adapter = new MyGridLayoutAdapter(MainListActivity.this, productList);
                 recyclerView.setAdapter(adapter);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putBoolean("isGridView", false);
                 isGridView = false;
                 item.setIcon(R.drawable.grid_icon);
 
@@ -85,8 +78,6 @@ public class MainListActivity extends AppCompatActivity {
                 recyclerView.setLayoutManager(linearLayoutManager);
                 MyGridLayoutAdapter adapter = new MyGridLayoutAdapter(MainListActivity.this, productList);
                 recyclerView.setAdapter(adapter);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putBoolean("isGridView", true);
                 isGridView = true;
                 item.setIcon(R.drawable.list_icon);
 
@@ -120,10 +111,7 @@ public class MainListActivity extends AppCompatActivity {
 
 
         //checking if product data is already saved or not
-        boolean isDataSaved=sharedpreferences.getBoolean("isDataSaved", false);
-        if(isDataSaved){
-//            insertData();
-        }else
+
             insertData();
 
 
@@ -153,10 +141,6 @@ public class MainListActivity extends AppCompatActivity {
         db.insertData("Bhuvan");
         db.insertData("Ankit");
         db.insertData("Madhav");
-
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putBoolean("isDataSaved", true);
-        editor.commit();
 
     }
 }
