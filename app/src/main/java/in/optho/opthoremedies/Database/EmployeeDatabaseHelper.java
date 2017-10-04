@@ -187,7 +187,7 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(myContext, "data not availabel", Toast.LENGTH_SHORT).show();
         }
         while (cursor.moveToNext()){
-            pin=cursor.getString(1);
+            pin=cursor.getString(0);
 
         }
         cursor.close();
