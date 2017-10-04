@@ -22,7 +22,7 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
     public static final String TAG = "OPTHO";
 
     public static final String DATABASE_NAME = "Optho.db";
-    private static final String DATABASE_PATH = "xxxxxxxxxxxxxxxxxx";
+    public static final String DATABASE_PATH = "xxxxxxxxxxxxxxxxxx";
     public static final String TABLE_NAME = "employee_table";
 
 

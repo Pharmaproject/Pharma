@@ -22,10 +22,10 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
     public static final String TAG = "OPTHO";
 
     public static final String DATABASE_NAME = "Optho.db";
-    private static final String DATABASE_PATH = "xxxxxxxxxxxxxxxxxx";
+    public static final String DATABASE_PATH = "xxxxxxxxxxxxxxxxxx";
     public static final String TABLE_NAME = "product_table";
 
-    Context context;
+    private Context context;
     private SQLiteDatabase database;
 
 
@@ -72,8 +72,6 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         Product product = null;
         ArrayList<Product> prodList = new ArrayList<>();
         openDatabase();
-
-//        SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = database.rawQuery("select * from " + TABLE_NAME+";" , null);
 
