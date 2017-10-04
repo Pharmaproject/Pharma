@@ -25,15 +25,15 @@ import in.optho.opthoremedies.Models.Employee;
 public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "OPTHO";
+    private final Context myContext;
 
     //The Android's default system path of your application database.
-    private static String DB_PATH = "/data/data/YOUR_PACKAGE/databases/";
+    private static String DB_PATH = "/data/data/in.optho.opthoremedies/databases/";
     private static String DB_NAME = "Optho.db";
     public static final String TABLE_NAME = "employee_table";
 
     private SQLiteDatabase myDataBase;
 
-    private final Context myContext;
 
     /**
      * Constructor
@@ -44,6 +44,8 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
 
         super(context, DB_NAME, null, 1);
         this.myContext = context;
+        DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
+
     }
 
     /**

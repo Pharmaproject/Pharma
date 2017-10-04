@@ -25,7 +25,7 @@ import in.optho.opthoremedies.Models.Product;
 public class ProductDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "OPTHO";
-    private static String DB_PATH = "/data/data/YOUR_PACKAGE/databases/";
+    private static String DB_PATH = "/data/data/in.optho.opthoremedies/databases/";
     private static String DB_NAME = "Optho.db";
     public static final String TABLE_NAME = "product_table";
 
@@ -41,6 +41,8 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
 
         super(context, DB_NAME, null, 1);
         this.myContext = context;
+        DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
+
     }
 
     /**
