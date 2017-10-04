@@ -13,12 +13,10 @@ import com.andrognito.pinlockview.IndicatorDots;
 import com.andrognito.pinlockview.PinLockListener;
 import com.andrognito.pinlockview.PinLockView;
 
-import java.util.HashMap;
-
-import in.optho.opthoremedies.Database.DatabaseHelper;
+import in.optho.opthoremedies.Database.EmployeeDatabaseHelper;
+import in.optho.opthoremedies.R;
 import in.optho.opthoremedies.SessionHelper.SQLiteHandler;
 import in.optho.opthoremedies.SessionHelper.SessionManager;
-import in.optho.opthoremedies.R;
 import mehdi.sakout.fancybuttons.FancyButton;
 
 public class LoginActivity extends AppCompatActivity {
@@ -33,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     IndicatorDots mIndicatorDots;
 
     private Button loginBtn;
-    private DatabaseHelper db;
+    private EmployeeDatabaseHelper db;
     private SessionManager session;
     private SQLiteHandler iddb;
 
@@ -54,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
         loginBtn = (Button) findViewById(R.id.loginBtn);
 
-        db = new DatabaseHelper(this);
+        db = new EmployeeDatabaseHelper(this);
 
 
 
