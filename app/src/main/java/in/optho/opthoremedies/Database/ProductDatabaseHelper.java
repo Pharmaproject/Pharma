@@ -26,7 +26,7 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "OPTHO";
     private static String DB_PATH = "/data/data/in.optho.opthoremedies/databases/";
-    private static String DB_NAME = "Optho.db";
+    private static String DB_NAME = "optho.db";
     public static final String TABLE_NAME = "product_table";
 
     private SQLiteDatabase myDataBase;

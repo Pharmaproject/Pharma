@@ -2,7 +2,6 @@ package in.optho.opthoremedies.Database;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -31,7 +30,7 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
 
     //The Android's default system path of your application database.
     private static String DB_PATH;
-    private static String DB_NAME = "Optho.db";
+    private static String DB_NAME = "optho.db";
     public static final String TABLE_NAME = "employee";
 
     private SQLiteDatabase myDataBase;
@@ -70,7 +69,7 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
 
             } catch (IOException e) {
 
-                throw new Error("Error copying database");
+                throw new Error("Error copying database "+e);
 
             }
         }
@@ -112,7 +111,7 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
     private void copyDataBase() throws IOException{
 
         //Open your local db as the input stream
-        InputStream myInput = myContext.getAssets().open(DB_NAME);
+        InputStream myInput = myContext.getAssets().open("databases/"+DB_NAME);
 
         // Path to the just created empty db
         String outFileName = DB_PATH + DB_NAME;
@@ -136,15 +135,15 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
 
     public void openDataBase() throws SQLException {
 
-
         try
         {
             createDataBase();
         }
         catch (IOException ex)
         {
-            Toast.makeText(myContext, "data not available", Toast.LENGTH_SHORT).show();
+            Toast.makeText(myContext, "data not available"+ex, Toast.LENGTH_SHORT).show();
         }
+
         //Open the database
         String myPath = DB_PATH + DB_NAME;
         myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
