@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.R;
 
 /**
@@ -18,10 +19,10 @@ import in.optho.opthoremedies.R;
 
 public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapter.MyViewHolder> {
 
-    ArrayList<String> productList=new ArrayList<>();
+    ArrayList<Product> productList=new ArrayList<>();
     Context context;
 
-    public MyGridLayoutAdapter(Context context, ArrayList<String> productList) {
+    public MyGridLayoutAdapter(Context context, ArrayList<Product> productList) {
         this.productList = productList;
         this.context = context;
     }
@@ -38,7 +39,7 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        holder.itemTV.setText(productList.get(position));
+        holder.itemTV.setText(productList.get(position).getName());
 //        holder.imageView.
 
     }
