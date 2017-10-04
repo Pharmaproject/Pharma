@@ -14,6 +14,7 @@ import java.util.Collections;
 
 import in.optho.opthoremedies.Adapters.MyGridLayoutAdapter;
 import in.optho.opthoremedies.Database.ProductDatabaseHelper;
+import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.R;
 
 public class MainListActivity extends AppCompatActivity {
@@ -23,6 +24,7 @@ public class MainListActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
 
     ArrayList<String> productList=new ArrayList<>();
+    ArrayList<Product> productdb=new ArrayList<>();
 
     private boolean isGridView=false;
 
@@ -111,12 +113,17 @@ public class MainListActivity extends AppCompatActivity {
 
 
 
-
-
-
         //fetching the data from the database in ArrayList
         ProductDatabaseHelper db = new ProductDatabaseHelper(this);
-        productList=db.getProductList();
+        productdb=db.getProductList();
+        for (Product name : productdb){
+            productList.add(Product.name); // <-- add it to your List<Item>.
+        }
+
+
+
+
+
 
 
 //        recyclerView.setHasFixedSize(true);
