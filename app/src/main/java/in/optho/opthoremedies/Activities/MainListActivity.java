@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import in.optho.opthoremedies.Adapters.MyGridLayoutAdapter;
 import in.optho.opthoremedies.Database.ProductDatabaseHelper;
@@ -29,14 +28,15 @@ public class MainListActivity extends AppCompatActivity {
 
     ArrayList<Product> productdb=new ArrayList<>();
 
-    private boolean isGridView=false;
 
-    MyGridLayoutAdapter adapter;
+    private MyGridLayoutAdapter adapter;
+
+    ArrayList<Product> productList=new ArrayList<>();
+    private boolean isGridView=false;
 
     private void initialise() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         linearLayoutManager = new LinearLayoutManager(MainListActivity.this);
-//        linearLayoutManager=new GridLayoutManager(MainListActivity.this,2);
 
 
     }
@@ -48,14 +48,7 @@ public class MainListActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main_read_activity, menu);
 
-        //for favourite Button
         MenuItem item = menu.findItem(R.id.layoutButton);
-//        return true;
-/*
-        if(sharedpreferences.getBoolean("isGridView", false)){
-            item.setIcon(R.drawable.list_icon);
-            isGridView = true;
-        }*/
         return super.onCreateOptionsMenu(menu);
     }
 
