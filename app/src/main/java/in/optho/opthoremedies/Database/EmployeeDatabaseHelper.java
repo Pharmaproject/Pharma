@@ -162,25 +162,25 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
     // to you to create adapters for your views.
 
 
-    public ArrayList<Employee> getEmployeeList(){
+    public String getPin(String id){
 
-        Employee employee = null;
+        String pin = null;
         ArrayList<Employee> employeeList = new ArrayList<>();
         openDataBase();
 
-        Cursor cursor = myDataBase.rawQuery("select * from " + TABLE_NAME+";" , null);
+        Cursor cursor = myDataBase.rawQuery("select pin from " + TABLE_NAME+" where id="+ id+";" , null);
 
         if(cursor.getCount()==0){
             Toast.makeText(myContext, "data not availabel", Toast.LENGTH_SHORT).show();
         }
         while (cursor.moveToNext()){
-            employee=new Employee(cursor.getString(0),cursor.getString(1));
-            employeeList.add(employee);
+            pin=cursor.getString(1);
+
         }
         cursor.close();
         close();
 
-        return employeeList;
+        return pin;
     }
 
 }

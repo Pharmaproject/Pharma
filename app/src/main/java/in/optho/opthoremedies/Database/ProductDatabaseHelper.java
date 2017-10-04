@@ -24,6 +24,7 @@ import in.optho.opthoremedies.Models.Product;
 
 public class ProductDatabaseHelper extends SQLiteOpenHelper {
 
+    public static final String TAG = "OPTHO";
     private static String DB_PATH = "/data/data/in.optho.opthoremedies/databases/";
     private static String DB_NAME = "Optho.db";
     public static final String TABLE_NAME = "product_table";
@@ -175,13 +176,17 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(myContext, "data not availabel", Toast.LENGTH_SHORT).show();
         }
         while (cursor.moveToNext()){
-            product=new Product(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getString(6),cursor.getString(7),cursor.getString(8),cursor.getString(9),cursor.getString(10),cursor.getString(11),cursor.getString(12),cursor.getString(13));
+            product=new Product(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),
+                    cursor.getString(4),cursor.getString(5),cursor.getString(6),cursor.getString(7),
+                    cursor.getString(8),cursor.getString(9),cursor.getString(10),cursor.getString(11),
+                    cursor.getString(12),cursor.getString(13));
+
             prodList.add(product);
         }
         cursor.close();
         close();
 
-        //
+        //z
         return prodList;
     }
 

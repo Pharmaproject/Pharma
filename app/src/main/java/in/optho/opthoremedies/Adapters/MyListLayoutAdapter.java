@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.R;
 
 /**
@@ -17,10 +18,10 @@ import in.optho.opthoremedies.R;
 
 public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapter.MyViewHolder> {
 
-    ArrayList<String> productList=new ArrayList<>();
+    ArrayList<Product> productList=new ArrayList<>();
     Context context;
 
-    public MyListLayoutAdapter(Context context, ArrayList<String> productList) {
+    public MyListLayoutAdapter(Context context, ArrayList<Product> productList) {
         this.productList = productList;
         this.context = context;
     }
@@ -37,12 +38,13 @@ public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        holder.itemTV.setText(productList.get(position));
+        holder.itemTV.setText(productList.get(position).getName());
 
     }
 
     @Override
     public int getItemCount() {
+
         return productList.size();
     }
 

@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
-import in.optho.opthoremedies.Database.EmployeeDatabaseHelper;
-
 public class SplashActivity extends AppCompatActivity {
 
 
@@ -16,8 +14,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        //insertData();
-        //remove
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -35,18 +31,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 1000);
 
-
     }
 
-    private void insertData() {
-        EmployeeDatabaseHelper db = new EmployeeDatabaseHelper(SplashActivity.this);
-
-        db.insertData("12", "1232");
-        db.insertData("13", "1233");
-        db.insertData("14", "1234");
-        db.insertData("15", "1235");
-        db.insertData("16", "1236");
-
-
-    }
 }

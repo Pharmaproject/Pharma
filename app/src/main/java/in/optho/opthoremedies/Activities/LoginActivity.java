@@ -89,9 +89,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
-
-
     }
 
     private PinLockListener mPinLockListener = new PinLockListener() {
