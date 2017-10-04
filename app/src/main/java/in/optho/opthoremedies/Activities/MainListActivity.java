@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -20,7 +21,7 @@ import in.optho.opthoremedies.R;
 
 public class MainListActivity extends AppCompatActivity {
 
-
+    Toolbar toolbar;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private GridLayoutManager gridLayoutManager;
@@ -107,6 +108,11 @@ public class MainListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid_view);
 
+        toolbar=(Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setTitle(null);
+        }
         //Initialise all variables here
         initialise();
 
