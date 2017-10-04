@@ -2,10 +2,12 @@ package in.optho.opthoremedies.Database;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.FileOutputStream;
@@ -28,9 +30,9 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
     private final Context myContext;
 
     //The Android's default system path of your application database.
-    private static String DB_PATH = "/data/data/in.optho.opthoremedies/databases/";
+    private static String DB_PATH;
     private static String DB_NAME = "Optho.db";
-    public static final String TABLE_NAME = "employee_table";
+    public static final String TABLE_NAME = "employee";
 
     private SQLiteDatabase myDataBase;
 
@@ -41,6 +43,8 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, 1);
         this.myContext = context;
         DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
+
+
 
     }
 
@@ -60,7 +64,8 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
             this.getReadableDatabase();
 
             try {
-
+                Log.i("Database",
+                        "New database is being copied to device!");
                 copyDataBase();
 
             } catch (IOException e) {
@@ -131,9 +136,18 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
 
     public void openDataBase() throws SQLException {
 
+
+        try
+        {
+            createDataBase();
+        }
+        catch (IOException ex)
+        {
+            Toast.makeText(myContext, "data not available", Toast.LENGTH_SHORT).show();
+        }
         //Open the database
         String myPath = DB_PATH + DB_NAME;
-        myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+        myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
 
     }
 
@@ -181,6 +195,25 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
         close();
 
         return pin;
+    }
+
+    public Boolean checkID(String id){
+
+        Boolean emp = null;
+        openDataBase();
+
+        Cursor cursor = myDataBase.rawQuery("select * from " + TABLE_NAME+" where id="+ id+";" , null);
+
+        if(cursor.getCount()==0){
+            Toast.makeText(myContext, "ID doesn't exist", Toast.LENGTH_SHORT).show();
+            emp= false;
+        }
+        else {
+            emp=true;
+        }
+        cursor.close();
+        close();
+        return emp;
     }
 
 }

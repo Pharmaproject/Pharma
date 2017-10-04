@@ -37,7 +37,6 @@ public class IDActivity extends AppCompatActivity {
 
 
         db = new EmployeeDatabaseHelper(getApplicationContext());
-
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
@@ -69,7 +68,7 @@ public class IDActivity extends AppCompatActivity {
                     idET.requestFocus();
                     return;
                 }
-                else if(db.checkId(ID)){
+                else if(db.checkID(ID)){
                     Toast.makeText(IDActivity.this, " Valid UD", Toast.LENGTH_SHORT).show();
 
                     iddb.addUser(ID);

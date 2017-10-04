@@ -10,8 +10,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import in.optho.opthoremedies.Adapters.MyGridLayoutAdapter;
+import in.optho.opthoremedies.Adapters.MyListLayoutAdapter;
 import in.optho.opthoremedies.Database.ProductDatabaseHelper;
 import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.R;
@@ -21,6 +23,7 @@ public class MainListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
+    private GridLayoutManager gridLayoutManager;
 
     ArrayList<String> productname=new ArrayList<>();
     ArrayList<String> productcategory=new ArrayList<>();
@@ -63,7 +66,7 @@ public class MainListActivity extends AppCompatActivity {
                 Toast.makeText(this, "List Enabled", Toast.LENGTH_SHORT).show();
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainListActivity.this);
                 recyclerView.setLayoutManager(linearLayoutManager);
-                MyGridLayoutAdapter adapter = new MyGridLayoutAdapter(MainListActivity.this, productname);
+                MyListLayoutAdapter adapter = new MyListLayoutAdapter(MainListActivity.this, productdb);
                 recyclerView.setAdapter(adapter);
                 isGridView = false;
                 item.setIcon(R.drawable.grid_icon);
@@ -71,10 +74,10 @@ public class MainListActivity extends AppCompatActivity {
 
             }else{
                 Toast.makeText(this, "Grid enabled", Toast.LENGTH_SHORT).show();
-                linearLayoutManager =new GridLayoutManager(MainListActivity.this,2);
 
-                recyclerView.setLayoutManager(linearLayoutManager);
-                MyGridLayoutAdapter adapter = new MyGridLayoutAdapter(MainListActivity.this, productname);
+                gridLayoutManager =new GridLayoutManager(MainListActivity.this,2);
+                recyclerView.setLayoutManager(gridLayoutManager);
+                MyGridLayoutAdapter adapter = new MyGridLayoutAdapter(MainListActivity.this, productdb);
                 recyclerView.setAdapter(adapter);
                 isGridView = true;
                 item.setIcon(R.drawable.list_icon);
@@ -85,7 +88,7 @@ public class MainListActivity extends AppCompatActivity {
         }
         if(id==R.id.menuSortAlphabet){
 //            Toast.makeText(this, "sort clicked", Toast.LENGTH_SHORT).show();
-            Collections.sort(productname);
+  //          Collections.sort(adapter.toString());
             adapter.notifyDataSetChanged();
             recyclerView.setAdapter(adapter);
             Toast.makeText(this, "sorted Alphabetically", Toast.LENGTH_LONG).show();
@@ -129,7 +132,7 @@ public class MainListActivity extends AppCompatActivity {
 //        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new MyGridLayoutAdapter(MainListActivity.this, productdefault);
+        adapter = new MyGridLayoutAdapter(MainListActivity.this, productdb);
         recyclerView.setAdapter(adapter);
 
 
