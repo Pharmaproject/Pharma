@@ -180,6 +180,7 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         close();
 
+        //
         return prodList;
     }
 
