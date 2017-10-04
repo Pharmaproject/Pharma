@@ -35,6 +35,7 @@ public class Product {
         this.description = description;
         this.closepunch = closepunch;
         this.customicon = customicon;
+        //
     }
 
     public String getId() {
