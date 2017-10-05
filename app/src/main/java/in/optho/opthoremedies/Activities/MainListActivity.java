@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import in.optho.opthoremedies.Adapters.MyGridLayoutAdapter;
 import in.optho.opthoremedies.Adapters.MyListLayoutAdapter;
@@ -32,7 +31,7 @@ public class MainListActivity extends AppCompatActivity {
 
     private MyGridLayoutAdapter adapter;
 
-    private boolean isGridView=false;
+    private boolean isGridView=true;
 
     private void initialise() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -124,7 +123,7 @@ public class MainListActivity extends AppCompatActivity {
 
 
 //        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(gridLayoutManager);
 
         adapter = new MyGridLayoutAdapter(MainListActivity.this, productdb);
         recyclerView.setAdapter(adapter);

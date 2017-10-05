@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/layoutButton"
-        android:icon="@drawable/grid_icon"
+        android:icon="@drawable/list_icon"
         app:showAsAction="always"
         android:title="favourite"/>
     <item
