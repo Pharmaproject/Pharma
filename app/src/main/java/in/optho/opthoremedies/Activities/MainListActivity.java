@@ -1,7 +1,9 @@
 package in.optho.opthoremedies.Activities;
 
 import android.animation.Animator;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -15,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewAnimationUtils;
@@ -44,6 +47,7 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
     Animator animator;
     private MyGridLayoutAdapter gridAdapter;
     private MyListLayoutAdapter listAdapter;
+    private int column;
 
     private static long back_pressed;
 
@@ -53,9 +57,10 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
 
     private void initialise() {
 
+        column =calculateNoOfColumns(MainListActivity.this);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         linearLayoutManager = new LinearLayoutManager(MainListActivity.this);
-        gridLayoutManager =new GridLayoutManager(MainListActivity.this,2);
+        gridLayoutManager =new GridLayoutManager(MainListActivity.this,column);
 
 
     }
@@ -113,7 +118,6 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
                 recyclerView.setAdapter(listAdapter);
                 isGridView = false;
                 item.setIcon(R.drawable.grid_icon);
-                recyclerView.setBackgroundColor(getResources().getColor(R.color.transparent));
                 Snackbar.make(getWindow().getDecorView(), "List View enabled", Snackbar.LENGTH_SHORT).show();
 
 
@@ -125,7 +129,6 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
                 recyclerView.setAdapter(gridAdapter);
                 isGridView = true;
                 item.setIcon(R.drawable.list_icon);
-                recyclerView.setBackground(getResources().getDrawable(R.drawable.wallbg));
                 Snackbar.make(getWindow().getDecorView(), "Shelves View enabled", Snackbar.LENGTH_SHORT).show();
 
 
@@ -257,7 +260,29 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
     }
 
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
 
+        int orientation = newConfig.orientation;
+
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            column =calculateNoOfColumns(MainListActivity.this);
+            recyclerView.setLayoutManager(new GridLayoutManager(MainListActivity.this, column));
+        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            column =calculateNoOfColumns(MainListActivity.this);
+            recyclerView.setLayoutManager(new GridLayoutManager(MainListActivity.this, column));
+        }
+    }
+
+
+    public static int calculateNoOfColumns(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        int scalingFactor = 180;
+        int noOfColumns = (int) (dpWidth / scalingFactor);
+        return noOfColumns;
+    }
 
 
 }

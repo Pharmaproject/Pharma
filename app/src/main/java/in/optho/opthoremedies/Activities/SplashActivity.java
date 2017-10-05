@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+import in.optho.opthoremedies.R;
+
 public class SplashActivity extends AppCompatActivity {
 
 
@@ -21,6 +23,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
 
                         startActivity(new Intent(SplashActivity.this, IDActivity.class));
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
                     finish();
 
