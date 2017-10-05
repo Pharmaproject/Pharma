@@ -31,6 +31,7 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase myDataBase;
     private final Context myContext;
+    static int dbVersion = 2;
 
     /**
      * Constructor
@@ -39,7 +40,7 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
      */
     public ProductDatabaseHelper(Context context) {
 
-        super(context, DB_NAME, null, 1);
+        super(context, DB_NAME, null, dbVersion);
         this.myContext = context;
         DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
 
@@ -159,10 +160,15 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
+        openDataBase();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " +TABLE_NAME );
+
+        onCreate(db);
+
 
     }
 

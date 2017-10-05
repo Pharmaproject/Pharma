@@ -37,7 +37,7 @@ public class MainListActivity extends AppCompatActivity {
     private void initialise() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         linearLayoutManager = new LinearLayoutManager(MainListActivity.this);
-
+        gridLayoutManager =new GridLayoutManager(MainListActivity.this,2);
 
     }
 
@@ -129,6 +129,7 @@ public class MainListActivity extends AppCompatActivity {
         adapter = new MyGridLayoutAdapter(MainListActivity.this, productdb);
         recyclerView.setAdapter(adapter);
 
+        isGridView = true;
 
     }
 
