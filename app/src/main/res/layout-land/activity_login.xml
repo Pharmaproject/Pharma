@@ -12,7 +12,11 @@
         android:layout_width="84dp"
         android:layout_height="84dp"
         android:src="@drawable/logocrop"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginLeft="194dp"
+        android:layout_marginTop="52dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/imageView3"
+        android:layout_marginStart="66dp" />
 
 
     <LinearLayout
@@ -25,24 +29,6 @@
         android:layout_marginTop="70dp"
         android:id="@+id/linearLayout">
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:tint="@color/colorWhiteHigh"
-            app:srcCompat="@drawable/ic_lock_outline_black_24dp" />
-
-        <TextView
-            android:id="@+id/profile_name"
-            android:layout_width="256dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-thin"
-            android:maxLines="1"
-            android:text="Enter 4 Digit PIN"
-            android:textColor="@color/white"
-            android:textSize="34sp" />
-
     </LinearLayout>
 
 
@@ -51,9 +37,9 @@
         android:id="@+id/indicator_dots"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignTop="@+id/profile_image"
+        android:layout_alignStart="@+id/pin_lock_view"
+        android:layout_marginStart="37dp" />
 
     <com.andrognito.pinlockview.PinLockView
         android:id="@+id/pin_lock_view"
@@ -63,9 +49,9 @@
         app:keypadShowDeleteButton="true"
         app:keypadTextColor="@color/white"
         app:keypadTextSize="18dp"
-        android:layout_below="@+id/indicator_dots"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="59dp" />
+        android:layout_marginStart="57dp"
+        android:layout_below="@+id/profile_image"
+        android:layout_toEndOf="@+id/linearLayout" />
 
     <Button
         android:id="@+id/loginBtn"
@@ -75,5 +61,29 @@
         android:text="Login using different ID"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/profile_name"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-thin"
+        android:maxLines="1"
+        android:text="Enter 4 Digit PIN"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        android:layout_alignTop="@+id/linearLayout"
+        android:layout_toStartOf="@+id/linearLayout"
+        android:layout_marginEnd="22dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="194dp"
+        android:tint="@color/colorWhiteHigh"
+        app:srcCompat="@drawable/ic_lock_outline_black_24dp"
+        android:layout_alignTop="@+id/profile_name"
+        android:layout_toStartOf="@+id/profile_name" />
 
 </RelativeLayout>
