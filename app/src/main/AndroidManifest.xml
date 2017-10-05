@@ -24,9 +24,8 @@
         <activity
             android:name=".Activities.IDActivity"
             android:windowSoftInputMode="stateVisible|adjustPan" />
-        <activity android:name=".Activities.MainListActivity">
-
-        </activity>
+        <activity android:name=".Activities.MainListActivity"></activity>
+        <activity android:name=".ProductActivity"></activity>
     </application>
 
 </manifest>

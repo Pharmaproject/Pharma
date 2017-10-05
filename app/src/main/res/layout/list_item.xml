@@ -27,7 +27,7 @@
             android:id="@+id/itemTV"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight="6"
+            android:layout_weight="12"
             android:layout_gravity="left"
             android:gravity="center_vertical"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"

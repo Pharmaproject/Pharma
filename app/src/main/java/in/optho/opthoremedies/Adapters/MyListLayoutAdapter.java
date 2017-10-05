@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,7 +18,7 @@ import in.optho.opthoremedies.R;
 
 public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapter.MyViewHolder> {
 
-    ArrayList<Product> productList=new ArrayList<>();
+    public ArrayList<Product> productList=new ArrayList<>();
     Context context;
 
     public MyListLayoutAdapter(Context context, ArrayList<Product> productList) {
@@ -28,13 +27,13 @@ public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapte
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,null);
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "Clicked "+viewType, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -49,6 +48,8 @@ public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapte
         holder.snoTV.setText(productList.get(position).getId());
 
 
+
+
     }
 
     @Override
@@ -57,16 +58,27 @@ public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapte
         return productList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView itemTV;
         TextView snoTV;
 
 
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(final View itemView) {
             super(itemView);
 
             itemTV = (TextView) itemView.findViewById(R.id.itemTV);
             snoTV = (TextView) itemView.findViewById(R.id.snoTV);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Product product = productList.get(getAdapterPosition());
+//                    Toast.makeText(view.getContext(), "Clicked : "+product.getName(), Toast.LENGTH_SHORT).show();
+
+
+                }
+            });
 
         }
     }
