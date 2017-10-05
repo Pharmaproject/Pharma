@@ -1,10 +1,12 @@
 package in.optho.opthoremedies.Activities;
 
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,12 +22,13 @@ import in.optho.opthoremedies.Database.ProductDatabaseHelper;
 import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.R;
 
-public class MainListActivity extends AppCompatActivity {
+public class MainListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     Toolbar toolbar;
     private RecyclerView recyclerView;
-    private LinearLayoutManager linearLayoutManager;
-    private GridLayoutManager gridLayoutManager;
+    private RecyclerView.LayoutManager linearLayoutManager;
+//    private GridLayoutManager gridLayoutManager;
+    private RecyclerView.LayoutManager gridLayoutManager;
 
     private MyGridLayoutAdapter gridAdapter;
     private MyListLayoutAdapter listAdapter;
@@ -48,9 +51,35 @@ public class MainListActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main_read_activity, menu);
+        MenuItem item = menu.findItem(R.id.menuSearch);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(this);
 
-        MenuItem item = menu.findItem(R.id.layoutButton);
-        return super.onCreateOptionsMenu(menu);
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+
+        newText = newText.toLowerCase();
+        ArrayList<Product> newList = new ArrayList<>();
+        for (Product product : productdb) {
+            String name = product.getName().toLowerCase();
+            if (name.contains(newText)) {
+                newList.add(product);
+            }
+            gridAdapter.setFilter(newList);
+            listAdapter.setFilter(newList);
+        }
+
+        return false;
     }
 
 
@@ -61,7 +90,6 @@ public class MainListActivity extends AppCompatActivity {
 
         if (id == R.id.layoutButton) {
             if(isGridView){
-                Toast.makeText(this, "List Enabled", Toast.LENGTH_SHORT).show();
                 recyclerView.setLayoutManager(linearLayoutManager);
 //                MyListLayoutAdapter gridAdapter = new MyListLayoutAdapter(MainListActivity.this, productdb);
                 recyclerView.setAdapter(listAdapter);
@@ -71,7 +99,6 @@ public class MainListActivity extends AppCompatActivity {
 
 
             }else{
-                Toast.makeText(this, "Grid enabled", Toast.LENGTH_SHORT).show();
                 recyclerView.setLayoutManager(gridLayoutManager);
                 //MyGridLayoutAdapter gridAdapter = new MyGridLayoutAdapter(MainListActivity.this, productdb);
                 recyclerView.setAdapter(gridAdapter);
@@ -84,8 +111,6 @@ public class MainListActivity extends AppCompatActivity {
 
         }
         if(id==R.id.sortAlphabet){
-//            Toast.makeText(this, "sort clicked", Toast.LENGTH_SHORT).show();
-       //     Collections.sort(gridAdapter);
 
             Collections.sort(productdb, new Comparator<Product>() {
                 @Override
@@ -95,13 +120,10 @@ public class MainListActivity extends AppCompatActivity {
             });
             gridAdapter.notifyDataSetChanged();
             listAdapter.notifyDataSetChanged();
-//            recyclerView.setAdapter(gridAdapter);
             Toast.makeText(this, "sorted Alphabetically", Toast.LENGTH_LONG).show();
             return true;
         }
         if(id==R.id.sortDefault){
-//            Toast.makeText(this, "sort clicked", Toast.LENGTH_SHORT).show();
-            //     Collections.sort(gridAdapter);
 
             Collections.sort(productdb, new Comparator<Product>() {
                 @Override
@@ -112,12 +134,10 @@ public class MainListActivity extends AppCompatActivity {
             gridAdapter.notifyDataSetChanged();
             listAdapter.notifyDataSetChanged();
 
-            Toast.makeText(this, "sorted Alphabetically", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "sorted by Default", Toast.LENGTH_LONG).show();
             return true;
         }
         if(id==R.id.sortCategory){
-//            Toast.makeText(this, "sort clicked", Toast.LENGTH_SHORT).show();
-            //     Collections.sort(gridAdapter);
 
             Collections.sort(productdb, new Comparator<Product>() {
                 @Override
@@ -126,7 +146,7 @@ public class MainListActivity extends AppCompatActivity {
                 }
             });
             gridAdapter.notifyDataSetChanged();
-            Toast.makeText(this, "sorted Alphabetically", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "sorted by Category", Toast.LENGTH_LONG).show();
             return true;
         }
         if(id==R.id.sortMostFreqUsed){
@@ -160,18 +180,13 @@ public class MainListActivity extends AppCompatActivity {
         ProductDatabaseHelper db = new ProductDatabaseHelper(this);
         productdb=db.getProductList();
 
-
-
-
-
-
-
-//        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         gridAdapter = new MyGridLayoutAdapter(MainListActivity.this, productdb);
         listAdapter = new MyListLayoutAdapter(MainListActivity.this, productdb);
+
         recyclerView.setAdapter(gridAdapter);
+        recyclerView.setHasFixedSize(true);
 
         isGridView = true;
 

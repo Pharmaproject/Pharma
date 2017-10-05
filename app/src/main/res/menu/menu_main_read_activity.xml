@@ -3,6 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.krishna.optionmenusample.MainActivity">
 
+
+    <item
+        android:id="@+id/menuSearch"
+        android:title="Search"
+        android:icon="@android:drawable/ic_menu_search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
     <item
         android:id="@+id/layoutButton"
         android:icon="@drawable/list_icon"

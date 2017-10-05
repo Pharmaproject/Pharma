@@ -1,6 +1,5 @@
 package in.optho.opthoremedies.Adapters;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -65,6 +64,13 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
     public void sort(Comparator comparator) {
         Collections.sort(productList, comparator);
         notifyItemRangeChanged(0, getItemCount());
+    }
+
+    public void setFilter(ArrayList<Product> newList){
+
+        productList = new ArrayList<>();
+        productList.addAll(newList);
+        notifyDataSetChanged();
     }
 
 

@@ -24,7 +24,9 @@
         <activity
             android:name=".Activities.IDActivity"
             android:windowSoftInputMode="stateVisible|adjustPan" />
-        <activity android:name=".Activities.MainListActivity"></activity>
+        <activity android:name=".Activities.MainListActivity">
+
+        </activity>
         <activity
             android:name=".Activities.ProductActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
