@@ -188,6 +188,7 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
         recyclerView.setAdapter(gridAdapter);
         recyclerView.setHasFixedSize(true);
 
+
         isGridView = true;
 
     }

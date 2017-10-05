@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,12 @@ public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapte
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,null);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         return new MyViewHolder(v);
@@ -39,6 +46,8 @@ public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapte
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         holder.itemTV.setText(productList.get(position).getName());
+        holder.snoTV.setText(productList.get(position).getId());
+
 
     }
 
@@ -50,11 +59,14 @@ public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapte
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView itemTV;
+        TextView snoTV;
+
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             itemTV = (TextView) itemView.findViewById(R.id.itemTV);
+            snoTV = (TextView) itemView.findViewById(R.id.snoTV);
 
         }
     }
