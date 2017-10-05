@@ -1,6 +1,7 @@
 package in.optho.opthoremedies.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import in.optho.opthoremedies.Models.Product;
+import in.optho.opthoremedies.ProductActivity;
 import in.optho.opthoremedies.R;
 
 /**
@@ -58,14 +60,31 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
         return productList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView itemTV;
         ImageView imageView;
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(final View itemView) {
             super(itemView);
 
             itemTV = (TextView) itemView.findViewById(R.id.itemTV);
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Product product = productList.get(getAdapterPosition());
+//                    Toast.makeText(view.getContext(), "Clicked : "+product.getName(), Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(itemView.getContext(), ProductActivity.class);
+                    intent.putExtra("PRODUCT", product);
+                    itemView.getContext().startActivity(intent);
+
+                }
+            });
+
+
         }
     }
     public void sort(Comparator comparator) {

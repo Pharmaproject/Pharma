@@ -14,6 +14,8 @@ public class ProductActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
+
+
         Fragment fragment = new Design1();
         fragment.setArguments(extras);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
