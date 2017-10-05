@@ -20,6 +20,7 @@ android {
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
@@ -53,4 +54,5 @@ dependencies {
         testCompile 'junit:junit:4.12'
         compile project(':json-20090211')
     }
+    compile 'com.android.support:support-v4:25.3.1'
 }

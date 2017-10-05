@@ -67,6 +67,7 @@ public class MainListActivity extends AppCompatActivity {
                 recyclerView.setAdapter(listAdapter);
                 isGridView = false;
                 item.setIcon(R.drawable.grid_icon);
+                recyclerView.setBackgroundColor(getResources().getColor(R.color.transparent));
 
 
             }else{
@@ -76,6 +77,7 @@ public class MainListActivity extends AppCompatActivity {
                 recyclerView.setAdapter(gridAdapter);
                 isGridView = true;
                 item.setIcon(R.drawable.list_icon);
+                recyclerView.setBackground(getResources().getDrawable(R.drawable.wallbg));
 
             }
             return true;
