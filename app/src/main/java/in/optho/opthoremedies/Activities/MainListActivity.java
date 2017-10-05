@@ -1,6 +1,9 @@
 package in.optho.opthoremedies.Activities;
 
+import android.animation.Animator;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,6 +13,9 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,12 +30,14 @@ import in.optho.opthoremedies.R;
 
 public class MainListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
+    int cx,cy,dx,dy;
+    float finalRadius;
     Toolbar toolbar;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager linearLayoutManager;
 //    private GridLayoutManager gridLayoutManager;
     private RecyclerView.LayoutManager gridLayoutManager;
-
+    Animator animator;
     private MyGridLayoutAdapter gridAdapter;
     private MyListLayoutAdapter listAdapter;
 
@@ -38,6 +46,7 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
     private boolean isGridView=true;
 
     private void initialise() {
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         linearLayoutManager = new LinearLayoutManager(MainListActivity.this);
         gridLayoutManager =new GridLayoutManager(MainListActivity.this,2);
@@ -90,21 +99,29 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
 
         if (id == R.id.layoutButton) {
             if(isGridView){
+
+                animateframe();
+
                 recyclerView.setLayoutManager(linearLayoutManager);
 //                MyListLayoutAdapter gridAdapter = new MyListLayoutAdapter(MainListActivity.this, productdb);
                 recyclerView.setAdapter(listAdapter);
                 isGridView = false;
                 item.setIcon(R.drawable.grid_icon);
                 recyclerView.setBackgroundColor(getResources().getColor(R.color.transparent));
+                Snackbar.make(getWindow().getDecorView(), "List View enabled", Snackbar.LENGTH_SHORT).show();
+
 
 
             }else{
+                animateframe();
                 recyclerView.setLayoutManager(gridLayoutManager);
                 //MyGridLayoutAdapter gridAdapter = new MyGridLayoutAdapter(MainListActivity.this, productdb);
                 recyclerView.setAdapter(gridAdapter);
                 isGridView = true;
                 item.setIcon(R.drawable.list_icon);
                 recyclerView.setBackground(getResources().getDrawable(R.drawable.wallbg));
+                Snackbar.make(getWindow().getDecorView(), "Shelves View enabled", Snackbar.LENGTH_SHORT).show();
+
 
             }
             return true;
@@ -191,6 +208,35 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
 
         isGridView = true;
 
+
     }
+
+
+    public void animateframe(){
+
+         cx = (recyclerView.getLeft() + recyclerView.getRight()) / 2;
+         cy = (recyclerView.getTop() + recyclerView.getBottom()) / 2;
+
+        // get the final radius for the clipping circle
+         dx = Math.max(cx, recyclerView.getWidth() - cx);
+         dy = Math.max(cy, recyclerView.getHeight() - cy);
+        finalRadius = (float) Math.hypot(dx, dy);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            animator = ViewAnimationUtils.createCircularReveal(recyclerView, cx, cy, 0, finalRadius);
+            animator.setInterpolator(new AccelerateDecelerateInterpolator());
+            animator.setDuration(1000);
+            animator.start();
+        }else{
+            animator.setInterpolator(new AccelerateDecelerateInterpolator());
+            animator.setDuration(1000);
+            animator.start();
+        }
+    }
+
+
+
+
 
 }
