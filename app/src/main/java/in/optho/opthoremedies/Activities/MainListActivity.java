@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 import in.optho.opthoremedies.Adapters.MyGridLayoutAdapter;
 import in.optho.opthoremedies.Adapters.MyListLayoutAdapter;
@@ -26,18 +27,18 @@ public class MainListActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private GridLayoutManager gridLayoutManager;
 
+    private MyGridLayoutAdapter gridAdapter;
+    private MyListLayoutAdapter listAdapter;
 
     ArrayList<Product> productdb=new ArrayList<>();
 
-
-    private MyGridLayoutAdapter adapter;
-
-    private boolean isGridView=false;
+    private boolean isGridView=true;
 
     private void initialise() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         linearLayoutManager = new LinearLayoutManager(MainListActivity.this);
         gridLayoutManager =new GridLayoutManager(MainListActivity.this,2);
+
 
     }
 
@@ -61,20 +62,18 @@ public class MainListActivity extends AppCompatActivity {
         if (id == R.id.layoutButton) {
             if(isGridView){
                 Toast.makeText(this, "List Enabled", Toast.LENGTH_SHORT).show();
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainListActivity.this);
                 recyclerView.setLayoutManager(linearLayoutManager);
-                MyListLayoutAdapter adapter = new MyListLayoutAdapter(MainListActivity.this, productdb);
-                recyclerView.setAdapter(adapter);
+//                MyListLayoutAdapter gridAdapter = new MyListLayoutAdapter(MainListActivity.this, productdb);
+                recyclerView.setAdapter(listAdapter);
                 isGridView = false;
                 item.setIcon(R.drawable.grid_icon);
 
 
             }else{
                 Toast.makeText(this, "Grid enabled", Toast.LENGTH_SHORT).show();
-                gridLayoutManager =new GridLayoutManager(MainListActivity.this,2);
                 recyclerView.setLayoutManager(gridLayoutManager);
-                MyGridLayoutAdapter adapter = new MyGridLayoutAdapter(MainListActivity.this, productdb);
-                recyclerView.setAdapter(adapter);
+                //MyGridLayoutAdapter gridAdapter = new MyGridLayoutAdapter(MainListActivity.this, productdb);
+                recyclerView.setAdapter(gridAdapter);
                 isGridView = true;
                 item.setIcon(R.drawable.list_icon);
 
@@ -82,16 +81,58 @@ public class MainListActivity extends AppCompatActivity {
             return true;
 
         }
-        if(id==R.id.menuSortAlphabet){
+        if(id==R.id.sortAlphabet){
 //            Toast.makeText(this, "sort clicked", Toast.LENGTH_SHORT).show();
-       //     Collections.sort(adapter);
-            adapter.notifyDataSetChanged();
-            recyclerView.setAdapter(adapter);
+       //     Collections.sort(gridAdapter);
+
+            Collections.sort(productdb, new Comparator<Product>() {
+                @Override
+                public int compare(Product product, Product t1) {
+                    return product.getName().compareTo(t1.getName());
+                }
+            });
+            gridAdapter.notifyDataSetChanged();
+            listAdapter.notifyDataSetChanged();
+//            recyclerView.setAdapter(gridAdapter);
             Toast.makeText(this, "sorted Alphabetically", Toast.LENGTH_LONG).show();
-
-
             return true;
         }
+        if(id==R.id.sortDefault){
+//            Toast.makeText(this, "sort clicked", Toast.LENGTH_SHORT).show();
+            //     Collections.sort(gridAdapter);
+
+            Collections.sort(productdb, new Comparator<Product>() {
+                @Override
+                public int compare(Product product, Product t1) {
+                    return product.getpDefault().compareTo(t1.getpDefault());
+                }
+            });
+            gridAdapter.notifyDataSetChanged();
+            listAdapter.notifyDataSetChanged();
+
+            Toast.makeText(this, "sorted Alphabetically", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        if(id==R.id.sortCategory){
+//            Toast.makeText(this, "sort clicked", Toast.LENGTH_SHORT).show();
+            //     Collections.sort(gridAdapter);
+
+            Collections.sort(productdb, new Comparator<Product>() {
+                @Override
+                public int compare(Product product, Product t1) {
+                    return product.getCategory().compareTo(t1.getCategory());
+                }
+            });
+            gridAdapter.notifyDataSetChanged();
+            Toast.makeText(this, "sorted Alphabetically", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        if(id==R.id.sortMostFreqUsed){
+            Toast.makeText(this, "feature not availabe", Toast.LENGTH_SHORT).show();
+        }
+
+
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -124,10 +165,11 @@ public class MainListActivity extends AppCompatActivity {
 
 
 //        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(gridLayoutManager);
 
-        adapter = new MyGridLayoutAdapter(MainListActivity.this, productdb);
-        recyclerView.setAdapter(adapter);
+        gridAdapter = new MyGridLayoutAdapter(MainListActivity.this, productdb);
+        listAdapter = new MyListLayoutAdapter(MainListActivity.this, productdb);
+        recyclerView.setAdapter(gridAdapter);
 
         isGridView = true;
 
