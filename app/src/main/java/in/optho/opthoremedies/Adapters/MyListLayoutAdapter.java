@@ -1,6 +1,7 @@
 package in.optho.opthoremedies.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import in.optho.opthoremedies.Models.Product;
+import in.optho.opthoremedies.ProductActivity;
 import in.optho.opthoremedies.R;
 
 /**
@@ -74,7 +76,11 @@ public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapte
                 public void onClick(View view) {
 
                     Product product = productList.get(getAdapterPosition());
-//                    Toast.makeText(view.getContext(), "Clicked : "+product.getName(), Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(itemView.getContext(), ProductActivity.class);
+                    intent.putExtra("PRODUCT", product);
+                    itemView.getContext().startActivity(intent);
+
 
 
                 }

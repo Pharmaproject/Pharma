@@ -1,10 +1,12 @@
 package in.optho.opthoremedies.Models;
 
+import java.io.Serializable;
+
 /**
  * Created by krishna on 4/10/17.
  */
 
-public class Product {
+public class Product implements Serializable {
     private String id;
     private String code;
     private String pDefault;

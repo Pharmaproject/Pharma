@@ -6,58 +6,58 @@
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
-        android:id="@+id/opl1"
+        android:id="@+id/opl2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/blue_gray"
         android:layout_margin="5dp"/>
 
     <ImageView
-        android:id="@+id/brand1"
+        android:id="@+id/brand2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/blue_gray"
-        android:layout_below="@+id/opl1"
+        android:layout_below="@+id/opl2"
         android:layout_margin="5dp"/>
 
     <ImageView
-        android:id="@+id/Science1"
+        android:id="@+id/Science2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/blue_gray"
-        android:layout_below="@+id/brand1"
+        android:layout_below="@+id/brand2"
         android:layout_margin="5dp"/>
 
     <ImageView
-        android:id="@+id/cartoon1"
+        android:id="@+id/cartoon2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/blue_gray"
-        android:layout_below="@+id/Science1"
+        android:layout_below="@+id/Science2"
         android:layout_margin="5dp"/>
 
     <ImageView
-        android:id="@+id/graphics1"
+        android:id="@+id/graphics2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/blue_gray"
-        android:layout_below="@+id/cartoon1"
+        android:layout_below="@+id/cartoon2"
         android:layout_margin="5dp"/>
 
     <ImageView
-        android:id="@+id/indication1"
+        android:id="@+id/indication2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/blue_gray"
-        android:layout_below="@+id/graphics1"
+        android:layout_below="@+id/graphics2"
         android:layout_margin="5dp"/>
 
     <ImageView
-        android:id="@+id/cpl1"
+        android:id="@+id/cpl2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/blue_gray"
-        android:layout_below="@+id/indication1"
+        android:layout_below="@+id/indication2"
         android:layout_margin="5dp"/>
 
 
