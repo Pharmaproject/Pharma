@@ -9,14 +9,14 @@
 
     <ImageView
         android:id="@+id/profile_image"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
-        android:src="@drawable/logocrop"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginLeft="194dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/logocrop"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/imageView3"
-        android:layout_marginStart="66dp" />
+        android:layout_toEndOf="@+id/imageView3" />
 
 
     <LinearLayout
@@ -32,35 +32,40 @@
     </LinearLayout>
 
 
-
-    <com.andrognito.pinlockview.IndicatorDots
-        android:id="@+id/indicator_dots"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/profile_image"
-        android:layout_alignStart="@+id/pin_lock_view"
-        android:layout_marginStart="37dp" />
+        android:layout_centerVertical="true"
+        android:layout_marginStart="41dp"
+        android:layout_toEndOf="@+id/profile_name"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout2">
 
-    <com.andrognito.pinlockview.PinLockView
-        android:id="@+id/pin_lock_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:keypadButtonSize="72dp"
-        app:keypadShowDeleteButton="true"
-        app:keypadTextColor="@color/white"
-        app:keypadTextSize="18dp"
-        android:layout_marginStart="57dp"
-        android:layout_below="@+id/profile_image"
-        android:layout_toEndOf="@+id/linearLayout" />
+        <com.andrognito.pinlockview.IndicatorDots
+            android:id="@+id/indicator_dots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+        <com.andrognito.pinlockview.PinLockView
+            android:id="@+id/pin_lock_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:keypadButtonSize="72dp"
+            app:keypadShowDeleteButton="true"
+            app:keypadTextColor="@color/white"
+            app:keypadTextSize="18dp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/loginBtn"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login using different ID"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/profile_name"
@@ -71,9 +76,8 @@
         android:text="Enter 4 Digit PIN"
         android:textColor="@color/white"
         android:textSize="34sp"
-        android:layout_alignTop="@+id/linearLayout"
-        android:layout_toStartOf="@+id/linearLayout"
-        android:layout_marginEnd="22dp" />
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/linearLayout" />
 
     <ImageView
         android:id="@+id/imageView3"

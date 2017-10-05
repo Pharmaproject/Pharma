@@ -63,9 +63,9 @@
         app:keypadShowDeleteButton="true"
         app:keypadTextColor="@color/white"
         app:keypadTextSize="18dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/indicator_dots"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="59dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/loginBtn"
