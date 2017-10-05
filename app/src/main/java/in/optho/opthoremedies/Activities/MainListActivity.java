@@ -1,10 +1,14 @@
 package in.optho.opthoremedies.Activities;
 
 import android.animation.Animator;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,6 +44,8 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
     Animator animator;
     private MyGridLayoutAdapter gridAdapter;
     private MyListLayoutAdapter listAdapter;
+
+    private static long back_pressed;
 
     ArrayList<Product> productdb=new ArrayList<>();
 
@@ -210,6 +216,21 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
 
 
     }
+    @Override
+    public void onBackPressed() {
+
+                if (back_pressed + 2000 > System.currentTimeMillis()) {
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                    System.exit(0);
+                } else {
+                    Toast.makeText(getBaseContext(), "Press once again to exit", Toast.LENGTH_SHORT).show();
+                    back_pressed = System.currentTimeMillis();
+                }
+            }
 
 
     public void animateframe(){
