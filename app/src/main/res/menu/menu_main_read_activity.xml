@@ -15,20 +15,17 @@
         android:icon="@drawable/icon_sort">
         <menu>
             <item
-                android:id="@+id/menuSortAlphabet"
+                android:id="@+id/sortAlphabet"
                 android:title="Alphabetic Sorting" />
             <item
-                android:id="@+id/menuSortCreator"
+                android:id="@+id/sortDefault"
                 android:title="Default Sorting" />
             <item
-                android:id="@+id/menuSortCountry"
+                android:id="@+id/sortCategory"
                 android:title="Category Sorting" />
             <item
-                android:id="@+id/menuSortLocation"
-                android:title="Sort by Priority" />
-            <item
-                android:id="@+id/menuSortType"
-                android:title="Most Accessed" />
+                android:id="@+id/sortMostFreqUsed"
+                android:title="Most frequently used" />
         </menu>
     </item>
 
