@@ -28,6 +28,7 @@ import in.optho.opthoremedies.R;
 public class IDActivity extends AppCompatActivity {
 
     private PinView  idET;
+    private static long back_pressed;
 
     EmployeeDatabaseHelper db;
 
@@ -128,6 +129,22 @@ public class IDActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (back_pressed + 2000 > System.currentTimeMillis()) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+            System.exit(0);
+        } else {
+            Toast.makeText(getBaseContext(), "Press once again to exit", Toast.LENGTH_SHORT).show();
+            back_pressed = System.currentTimeMillis();
+        }
     }
 
 }

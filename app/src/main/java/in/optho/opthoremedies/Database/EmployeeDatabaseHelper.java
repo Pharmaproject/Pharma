@@ -1,5 +1,6 @@
 package in.optho.opthoremedies.Database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import in.optho.opthoremedies.Models.Employee;
 
@@ -191,7 +193,7 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = myDataBase.rawQuery("select pin from " + TABLE_NAME+" where id="+ id+";" , null);
 
         if(cursor.getCount()==0){
-            Toast.makeText(myContext, "data not availabel", Toast.LENGTH_SHORT).show();
+            Toast.makeText(myContext, "Data not available", Toast.LENGTH_SHORT).show();
         }
         while (cursor.moveToNext()){
             pin=cursor.getString(0);
@@ -222,6 +224,45 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
         close();
         return emp;
     }
+
+    /**
+     * Inserts User into SQLite DB
+     * @param queryValues
+     */
+    public void insertUser(HashMap<String, String> queryValues) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("id", queryValues.get("id"));
+        values.put("pin", queryValues.get("pin"));
+        database.insert("users", null, values);
+        database.close();
+    }
+
+    /**
+     * Get list of Users from SQLite DB as Array List
+     * @return
+     */
+    public ArrayList<HashMap<String, String>> getAllUsers() {
+        ArrayList<HashMap<String, String>>employeeList;
+        employeeList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM "+TABLE_NAME +";";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("id", cursor.getString(0));
+                map.put("pin", cursor.getString(1));
+                employeeList.add(map);
+            } while (cursor.moveToNext());
+        }
+        database.close();
+        return employeeList;
+    }
+
+
+
+
 
 }
 

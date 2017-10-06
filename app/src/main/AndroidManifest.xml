@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="in.optho.opthoremedies">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,6 +30,22 @@
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity android:name=".Activities.MainListActivity"></activity>
         <activity android:name=".ProductActivity"></activity>
+
+
+        <!-- Register MyService -->
+        <service
+            android:name=".Service.MyService"
+            android:enabled="true" />
+        <!--  Register BroadCase Receiver -->
+        <receiver
+            android:name=".Service.SampleBC"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
