@@ -1,5 +1,6 @@
 package in.optho.opthoremedies.Activities;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
@@ -7,8 +8,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -22,6 +24,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
@@ -32,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import cz.msebera.android.httpclient.Header;
 import in.optho.opthoremedies.Database.EmployeeDatabaseHelper;
 import in.optho.opthoremedies.R;
 import in.optho.opthoremedies.Service.SampleBC;
@@ -41,41 +45,17 @@ public class SplashActivity extends AppCompatActivity {
 // DB Class to perform DB related operations
     // Progress Dialog Object
     ProgressDialog prgDialog;
-    SharedPreferences pref;
+    SharedPreferences storeddata;
+    SharedPreferences.Editor edit;
     HashMap<String, String> queryValues;
     EmployeeDatabaseHelper controller;
-    int count =0;
-    int days=10;
+    int remain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         controller = new EmployeeDatabaseHelper(this);
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-
-
-
-
-            }
-        }, 1000);
-
-
-
-
-
-        // Get User records from SQLite DB
-        ArrayList<HashMap<String, String>> userList = controller.getAllUsers();
-        // If users exists in SQLite DB
-        if (userList.size() != 0) {
-            // Set the User Array list in ListView
-
-
-        }
         // Initialize Progress Dialog properties
         prgDialog = new ProgressDialog(this);
         prgDialog.setMessage("Transferring Data from Remote MySQL DB and Syncing SQLite. Please wait...");
@@ -90,27 +70,22 @@ public class SplashActivity extends AppCompatActivity {
         // Remote MySQL DB
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis() + 5000, 10 * 1000, pendingIntent);
 
-        alarmManager.cancel(pendingIntent); // cancel any existing alarms
-        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY, AlarmManager.INTERVAL_DAY, pendingIntent);
+       // alarmManager.cancel(pendingIntent); // cancel any existing alarms
+       // alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY, AlarmManager.INTERVAL_DAY, pendingIntent);
 
-        pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+        storeddata = getSharedPreferences("myPrefs", MODE_PRIVATE);
+        edit = storeddata.edit();
 
-        count = pref.getInt("count_key",count);
-
-        days=10-count;
+        final Boolean updateEmp = storeddata.getBoolean("updateEmp", false);
+        final Boolean updatePro = storeddata.getBoolean("updatePro", false);
+        int Days = storeddata.getInt("update",0);
+        remain=11-Days;
         final Dialog syncDialog = new Dialog(this,R.style.NewDialog);
         syncDialog.setContentView(R.layout.syncdialog);
         final Button okBtn = (Button) syncDialog.findViewById(R.id.Sync);
         final Button cancelBtn = (Button) syncDialog.findViewById(R.id.Skip);
 
 
-        cancelBtn.setText("Skip ("+days+" Days Remaining)");
-
-        if(days<1){
-            cancelBtn.setEnabled(false);
-        }
-
-        syncDialog.create();
 
         Window window = syncDialog.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
@@ -119,26 +94,45 @@ public class SplashActivity extends AppCompatActivity {
         wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         window.setAttributes(wlp);
 
+        if(remain<11) {
+            cancelBtn.setText("Skip (" + remain + " Days Remaining)");
+        }
+        if(remain<1){
+            cancelBtn.setEnabled(false);
+        }
 
-                syncDialog.show();
-                okBtn.setOnClickListener(new View.OnClickListener() {
+        okBtn.setOnClickListener(new View.OnClickListener() {
 
-                    @Override
-                    public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
+                if(updateEmp) {
+                    syncSQLiteEmployee();
+                }
+                //                       else syncSQLiteProduct();
+        //        syncSQLiteEmployee();
+                syncDialog.dismiss();
+            }
+        });
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
 
-                        syncSQLiteMySQLDB();
-                        syncDialog.dismiss();
-                    }
-                });
-                cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    @Override
-                    public void onClick(View v) {
+                NextActivity();
+                syncDialog.dismiss();
+            }
+        });
 
-                        NextActivity();
-                        syncDialog.dismiss();
-                    }
-                });
+        syncDialog.create();
+
+
+        if(updateEmp|updatePro) {
+            syncDialog.show();
+
+        }
+        else{
+           NextActivity();
+        }
 
 
 
@@ -146,27 +140,50 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     // Method to Sync MySQL to SQLite DB
-    public void syncSQLiteMySQLDB() {
+    public void syncSQLiteEmployee() {
         // Create AsycHttpClient object
+        System.out.println("request for updates");
+
+        prgDialog.show();
+        String json = storeddata.getString("dateEmp", "");
         AsyncHttpClient client = new AsyncHttpClient();
         // Http Request Params Object
         RequestParams params = new RequestParams();
         // Show ProgressBar
-        prgDialog.show();
-        // Make Http call to getusers.php
-        client.post("http://192.168.2.4:9000/mysqlsqlitesync/getusers.php", params, new AsyncHttpResponseHandler() {
+        params.put("dateEmp", json);
+        // Make Http call to getemployee.php
+        client.post("http://obligo.in/optho/getemployee.php", params, new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(String response) {
-                // Hide ProgressBar
-                prgDialog.hide();
-                // Update SQLite DB with response sent by getusers.php
-                updateSQLite(response);
+            public void onStart() {
+                System.out.println("Checking for updates");
             }
-            // When error occured
+
             @Override
-            public void onFailure(int statusCode, Throwable error, String content) {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                // If the response is JSONObject instead of expected JSONArray
+                prgDialog.hide();
+                try {
+                    JSONArray jarr = response.getJSONArray("value");
+                    updateSQLiteEmployee(jarr);
+                }catch (JSONException e){
+                    e.printStackTrace();
+
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+
+                    prgDialog.hide();
+                    // Update SQLite DB with response sent by getusers.php
+                    updateSQLiteEmployee(timeline);
+                }
+
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                 // TODO Auto-generated method stub
-                // Hide ProgressBar
                 prgDialog.hide();
                 if (statusCode == 404) {
                     Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
@@ -177,50 +194,71 @@ public class SplashActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
 
-                if(days>0){
+                if (remain > 0) {
                     NextActivity();
                 }
             }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+                System.out.println("Sync was retried");
+
+            }
+            @Override
+            public void onFinish() {
+                System.out.println("Sync Finished");
+
+            }
+            @Override
+            public void onProgress(long bytesWritten, long totalSize) {
+                // Progress notification
+                int progress= (int)(bytesWritten/totalSize);
+                prgDialog.setProgress(progress);
+            }
+
+
         });
     }
 
-    public void updateSQLite(String response){
-        ArrayList<HashMap<String, String>> usersynclist;
-        usersynclist = new ArrayList<HashMap<String, String>>();
-        // Create GSON object
-        Gson gson = new GsonBuilder().create();
+    public void updateSQLiteEmployee(JSONArray response){
+
+
         try {
             // Extract JSON array from the response
-            JSONArray arr = new JSONArray(response);
-            System.out.println(arr.length());
+            System.out.println(response.length());
             // If no of array elements is not zero
-            if(arr.length() != 0){
+            if(response.length() != 0){
                 // Loop through each array element, get JSON object which has userid and username
-                for (int i = 0; i < arr.length(); i++) {
+                for (int i = 0; i < response.length(); i++) {
                     // Get JSON object
-                    JSONObject obj = (JSONObject) arr.get(i);
+                    JSONObject obj = (JSONObject) response.get(i);
                     System.out.println(obj.get("id"));
                     System.out.println(obj.get("pin"));
                     // DB QueryValues Object to insert into SQLite
                     queryValues = new HashMap<String, String>();
-                    // Add userID extracted from Object
+                    // Add ID extracted from Object
                     queryValues.put("id", obj.get("id").toString());
-                    // Add userName extracted from Object
                     queryValues.put("pin", obj.get("pin").toString());
+                    queryValues.put("lock", obj.get("lock").toString());
+
                     // Insert User into SQLite DB
-                    controller.insertUser(queryValues);
-                    HashMap<String, String> map = new HashMap<String, String>();
-                    // Add status for each User in Hashmap
-                    map.put("id", obj.get("id").toString());
-                    map.put("status", "1");
-                    usersynclist.add(map);
+                    controller.insertUpdateUser(queryValues);
+
                 }
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putInt("count_key", 0);
-                editor.commit();
-                // Inform Remote MySQL DB about the completion of Sync activity by passing Sync status of Users
-                updateMySQLSyncSts(gson.toJson(usersynclist));
-                // Reload the Main Activity
+                String DateEmpServer=storeddata.getString("DateEmpServer","");
+                edit.putString("dateEmp",DateEmpServer);
+                edit.putBoolean("updateEmp", false);
+
+/*              After Product Sync
+                String DateProServer=storeddata.getString("DateProServer","");
+                edit.putString("datePro",DateProServer);
+                edit.putBoolean("updatePro", false);
+*/
+
+                edit.commit();
+
+                // load the Main Activity
                 NextActivity();
             }
         } catch (JSONException e) {
@@ -229,30 +267,19 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-    // Method to inform remote MySQL DB about completion of Sync activity
-    public void updateMySQLSyncSts(String json) {
-        System.out.println(json);
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        params.put("syncsts", json);
-        // Make Http call to updatesyncsts.php with JSON parameter which has Sync statuses of Users
-        client.post("http://192.168.2.4:9000/mysqlsqlitesync/updatesyncsts.php", params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(String response) {
-                Toast.makeText(getApplicationContext(),	"MySQL DB has been informed about Sync activity", Toast.LENGTH_LONG).show();
-            }
 
-            @Override
-            public void onFailure(int statusCode, Throwable error, String content) {
-                Toast.makeText(getApplicationContext(), "Error Occured", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
 
     // Reload MainActivity
     public void NextActivity() {
         startActivity(new Intent(SplashActivity.this, IDActivity.class));
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
+
+    public boolean isConnected(){
+            ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+                return networkInfo != null && networkInfo.isConnected();
+            }
 
 }

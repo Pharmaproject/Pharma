@@ -211,7 +211,7 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
         Boolean emp = null;
         openDataBase();
 
-        Cursor cursor = myDataBase.rawQuery("select * from " +TABLE_NAME+" where id="+ id +";" , null);
+        Cursor cursor = myDataBase.rawQuery("select * from " +TABLE_NAME+" where id="+ id +" and lock=0;" , null);
 
         if(cursor.getCount()==0){
             Toast.makeText(myContext, "ID doesn't exist", Toast.LENGTH_SHORT).show();
@@ -229,13 +229,25 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
      * Inserts User into SQLite DB
      * @param queryValues
      */
-    public void insertUser(HashMap<String, String> queryValues) {
-        SQLiteDatabase database = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("id", queryValues.get("id"));
-        values.put("pin", queryValues.get("pin"));
-        database.insert("users", null, values);
-        database.close();
+    public void insertUpdateUser(HashMap<String, String> queryValues) {
+        openDataBase();
+
+        Cursor cursor = myDataBase.rawQuery("select * from " +TABLE_NAME+" where id="+ queryValues.get("id") +";" , null);
+
+        if(cursor.getCount()==0){
+            ContentValues values = new ContentValues();
+            values.put("id", queryValues.get("id"));
+            values.put("pin", queryValues.get("pin"));
+            values.put("lock", queryValues.get("lock"));
+            myDataBase.insert("users", null, values);
+            myDataBase.close();
+        }
+        else {
+            // To do: Update record
+
+        }
+
+
     }
 
     /**
