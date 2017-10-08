@@ -36,20 +36,13 @@
         android:layout_below="@+id/Science1"
         android:layout_margin="5dp"/>
 
-    <ImageView
-        android:id="@+id/graphics1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/blue_gray"
-        android:layout_below="@+id/cartoon1"
-        android:layout_margin="5dp"/>
 
     <ImageView
         android:id="@+id/indication1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/blue_gray"
-        android:layout_below="@+id/graphics1"
+        android:layout_below="@+id/cartoon1"
         android:layout_margin="5dp"/>
 
     <ImageView

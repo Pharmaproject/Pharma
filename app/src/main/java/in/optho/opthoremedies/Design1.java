@@ -23,6 +23,7 @@ public class Design1 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+/*
         Bundle bundle = getArguments();
         for (String key : bundle.keySet()) {
             System.out.println("bundle keys= " + key);
@@ -30,6 +31,7 @@ public class Design1 extends Fragment {
         }
         name = bundle.getString("title");
         brand = bundle.getString("data");
+*/
 
 
     }
@@ -39,7 +41,7 @@ public class Design1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_design1, container, false);
+        View view = inflater.inflate(R.layout.fragment_design2, container, false);
 
 
 
