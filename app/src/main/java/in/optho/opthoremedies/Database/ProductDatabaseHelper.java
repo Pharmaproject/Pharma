@@ -1,5 +1,6 @@
 package in.optho.opthoremedies.Database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import in.optho.opthoremedies.Models.Product;
 
@@ -203,6 +205,65 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         //z
         return prodList;
     }
+
+    public void insertUpdateProduct(HashMap<String, String> queryValues) {
+        openDataBase();
+
+        Cursor cursor = myDataBase.rawQuery("select * from " +TABLE_NAME+" where id="+ queryValues.get("id") +";" , null);
+
+        if(cursor.getCount()==0){
+            ContentValues values = new ContentValues();
+            values.put("id", queryValues.get("id"));
+            values.put("datetime", queryValues.get("datetime"));
+            values.put("code", queryValues.get("code"));
+            values.put("name", queryValues.get("name"));
+            values.put("default", queryValues.get("default"));
+            values.put("category", queryValues.get("category"));
+            values.put("design", queryValues.get("design"));
+            values.put("brand", queryValues.get("brand"));
+            values.put("openpunch", queryValues.get("openpunch"));
+            values.put("graphic", queryValues.get("graphic"));
+            values.put("carton", queryValues.get("carton"));
+            values.put("indication", queryValues.get("indication"));
+            values.put("description", queryValues.get("description"));
+            values.put("closepunch", queryValues.get("closepunch"));
+            values.put("customicon", queryValues.get("customicon"));
+
+            myDataBase.insert("product", null, values);
+            myDataBase.close();
+        }
+        else {
+            // To do: Update record
+
+        }
+
+
+    }
+
+    /**
+     * Get list of Users from SQLite DB as Array List
+     * @return
+     */
+    public ArrayList<HashMap<String, String>> getAllUsers() {
+        ArrayList<HashMap<String, String>>employeeList;
+        employeeList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM "+TABLE_NAME +";";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("id", cursor.getString(0));
+                map.put("pin", cursor.getString(1));
+                employeeList.add(map);
+            } while (cursor.moveToNext());
+        }
+        database.close();
+        return employeeList;
+    }
+
+
+
 
 
 }

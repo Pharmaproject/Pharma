@@ -34,7 +34,6 @@ public class SampleBC extends BroadcastReceiver {
 	public void onReceive(final Context context, Intent intent) {
 		// TODO Auto-generated method stub
         storeddata = context.getSharedPreferences("myPrefs", MODE_PRIVATE);
-        edit = storeddata.edit();
         noOfTimes++;
 		Toast.makeText(context, "Update Check number " + noOfTimes + " times", Toast.LENGTH_SHORT).show();
 		AsyncHttpClient client = new AsyncHttpClient();
@@ -115,6 +114,7 @@ public class SampleBC extends BroadcastReceiver {
             updatePro= CompareDates(DateProLocal,DateProServer);
 
 
+            edit = storeddata.edit();
 
             if(updateEmp|updatePro){
                 edit.putString("DateEmpServer",DateEmpServer);
@@ -122,10 +122,11 @@ public class SampleBC extends BroadcastReceiver {
 
                 edit.putBoolean("updateEmp", updateEmp);
                 edit.putBoolean("updatePro", updatePro);
-                edit.commit();
                 int Days = storeddata.getInt("update",0);
-                System.out.println("Days Remaining to Update  " + (10-Days));
-                String notification = (10-Days)+ " Days Remaining to Update ";
+                edit.putInt("update",++Days);
+                edit.commit();
+                System.out.println("Days Remaining to Update  " + (11-Days));
+                String notification = (11-Days)+ " Days Remaining to Update ";
                 Toast.makeText(context,notification, Toast.LENGTH_LONG).show();
 
                 final Intent intnt = new Intent(context, MyService.class);

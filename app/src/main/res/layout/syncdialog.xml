@@ -13,10 +13,10 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
         android:background="@color/transparent"
+        android:fontFamily="sans-serif-condensed"
         android:text="New Update Available !"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="18sp" />
 
@@ -30,10 +30,10 @@
         android:layout_below="@+id/Skip"
         android:layout_centerVertical="true"
         android:padding="15dp"
-        android:text="Synchronize database now"
+        android:text="Synchronize Database Now"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
-        android:textSize="13dp"
+        android:textSize="16dp"
         android:typeface="normal" />
 
     <Button
@@ -47,7 +47,7 @@
         android:text="Skip"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
-        android:textSize="13dp"
+        android:textSize="16dp"
         android:typeface="normal" />
 
 </LinearLayout>

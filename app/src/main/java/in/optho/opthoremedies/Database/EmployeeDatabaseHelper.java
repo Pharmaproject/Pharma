@@ -239,7 +239,8 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
             values.put("id", queryValues.get("id"));
             values.put("pin", queryValues.get("pin"));
             values.put("lock", queryValues.get("lock"));
-            myDataBase.insert("users", null, values);
+            values.put("datetime", queryValues.get("datetime"));
+            myDataBase.insert("employee", null, values);
             myDataBase.close();
         }
         else {
