@@ -45,7 +45,8 @@ public class MyService extends Service {
 		mNotifyBuilder = new NotificationCompat.Builder(this)
 				.setContentTitle("Optho Database update required")
 				.setContentText("A new database is available from Optho Remedies.")
-				.setSmallIcon(R.drawable.logocrop);
+				.setSmallIcon(R.drawable.logocrop)
+                .setTicker("New Database update from Obligo");
 		// Set pending intent
 		mNotifyBuilder.setContentIntent(resultPendingIntent);
 		// Set Vibrate, Sound and Light

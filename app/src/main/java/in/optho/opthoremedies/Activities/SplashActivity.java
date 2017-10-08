@@ -72,7 +72,7 @@ public class SplashActivity extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         // Alarm Manager calls BroadCast for every Ten seconds (10 * 1000), BroadCase further calls service to check if new records are inserted in
         // Remote MySQL DB
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis() + 5000, 1000 * 1000, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis() + 5000, 1000 * 60 * 60 * 4, pendingIntent);
 
        // alarmManager.cancel(pendingIntent); // cancel any existing alarms
        // alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY, AlarmManager.INTERVAL_DAY, pendingIntent);
@@ -165,7 +165,7 @@ public class SplashActivity extends AppCompatActivity {
         // Http Request Params Object
         RequestParams params = new RequestParams();
         // Show ProgressBar
-        System.out.println("Get us records earlier than "+json);
+        System.out.println("Fetch new Employee records earlier than "+json);
         params.put("dateEmp", json);
         // Make Http call to getemployee.php
         client.post("http://obligo.in/optho/getemployee.php", params, new JsonHttpResponseHandler() {
@@ -316,6 +316,8 @@ public class SplashActivity extends AppCompatActivity {
                 // load the Main Activity
                 NextActivity();
             }
+            else  Toast.makeText(getApplicationContext(), "Requested Data not received", Toast.LENGTH_LONG).show();
+
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -327,7 +329,7 @@ public class SplashActivity extends AppCompatActivity {
     // TODO : Method to Sync MySQL to PRODUCT DATABASE
     public void syncSQLiteProduct() {
         // Create AsycHttpClient object
-        System.out.println("request for sync products");
+        System.out.println("Fetch request for sync products");
 
         prgDialog.show();
         String json = storeddata.getString("datePro", "2017-10-06 00:00:00");
@@ -335,7 +337,7 @@ public class SplashActivity extends AppCompatActivity {
         // Http Request Params Object
         RequestParams params = new RequestParams();
         // Show ProgressBar
-        System.out.println("Get us records earlier than "+json);
+        System.out.println("New Products earlier than "+json);
         params.put("datePro", json);
         // Make Http call to get employee.php
         client.post("http://obligo.in/optho/getproduct.php", params, new JsonHttpResponseHandler() {
@@ -497,7 +499,8 @@ public class SplashActivity extends AppCompatActivity {
 
                 // load the Main Activity
                 NextActivity();
-            }
+            }  else  Toast.makeText(getApplicationContext(), "Requested Data not received", Toast.LENGTH_LONG).show();
+
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

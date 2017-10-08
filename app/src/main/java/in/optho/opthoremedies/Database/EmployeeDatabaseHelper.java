@@ -244,7 +244,7 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
             myDataBase.close();
         }
         else {
-            // To do: Update record
+            // TODO  SQL Update record
 
         }
 

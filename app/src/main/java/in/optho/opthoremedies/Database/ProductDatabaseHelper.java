@@ -233,7 +233,7 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
             myDataBase.close();
         }
         else {
-            // To do: Update record
+            // TODO  SQL Update record
 
         }
 
