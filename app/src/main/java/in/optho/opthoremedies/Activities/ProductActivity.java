@@ -6,6 +6,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import in.optho.opthoremedies.Fragments.Design1;
+import in.optho.opthoremedies.Fragments.Design2;
+import in.optho.opthoremedies.Fragments.Design3;
+import in.optho.opthoremedies.Fragments.Design4;
+import in.optho.opthoremedies.Fragments.Design5;
+import in.optho.opthoremedies.Fragments.Design6;
+import in.optho.opthoremedies.Fragments.Design7;
+import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.R;
 
 public class ProductActivity extends AppCompatActivity {
@@ -17,29 +24,29 @@ public class ProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product);
 
         Bundle extras = getIntent().getExtras();
-//        Product product = (Product) extras.getSerializable("PRODUCT");
+        Product product = (Product) extras.getSerializable("PRODUCT");
 
-        int category=product.getCategory();
+        String category=product.getCategory();
         switch (category){
-            case 1:
+            case "1":
                 fragment = new Design1();
                 break;
-            case 2:
+            case "2":
                 fragment = new Design2();
                 break;
-            case 3:
+            case "3":
                 fragment = new Design3();
                 break;
-            case 4:
+            case "4":
                 fragment = new Design4();
                 break;
-            case 5:
+            case "5":
                 fragment = new Design5();
                 break;
-            case 6:
+            case "6":
                 fragment = new Design6();
                 break;
-            case 7:
+            case "7":
                 fragment = new Design7();
                 break;
 

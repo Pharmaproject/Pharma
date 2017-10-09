@@ -11,7 +11,7 @@ public class Product implements Serializable {
     private String code;
     private String pDefault;
     private String name;
-    private int category;
+    private String category;
     private String design;
     private String brand;
     private String openpunch;
@@ -32,7 +32,7 @@ public class Product implements Serializable {
         this.datetime = datetime;
     }
 
-    public Product(String id, String code, String pDefault,String name, int category, String design,
+    public Product(String id, String code, String pDefault,String name, String category, String design,
                    String brand, String openpunch, String graphic,String carton, String indication,
                    String description,String closepunch, String customicon, String datetime,int counter) {
         this.id = id;
@@ -85,11 +85,11 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public int getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
