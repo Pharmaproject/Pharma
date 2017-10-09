@@ -252,7 +252,7 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
             cv.put("lock",queryValues.get("lock"));
             cv.put("datetime",queryValues.get("datetime"));
 
-            myDataBase.update("employee", cv, "_id="+queryValues.get("id"), null);
+            myDataBase.update("employee", cv, "id="+queryValues.get("id"), null);
 
 
         }
