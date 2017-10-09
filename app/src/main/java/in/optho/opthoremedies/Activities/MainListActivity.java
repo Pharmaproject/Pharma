@@ -164,7 +164,7 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
             Collections.sort(productdb, new Comparator<Product>() {
                 @Override
                 public int compare(Product product, Product t1) {
-                    return product.getCategory().compareTo(t1.getCategory());
+                    return String.valueOf(product.getCategory()).compareTo(String.valueOf(t1.getCategory()));
                 }
             });
             gridAdapter.notifyDataSetChanged();
@@ -173,10 +173,16 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
         }
         if(id==R.id.sortMostFreqUsed){
 
-
-
-
-            Toast.makeText(this, "feature not availabe", Toast.LENGTH_SHORT).show();
+            Collections.sort(productdb, new Comparator<Product>() {
+                @Override
+                public int compare(Product product, Product t1) {
+                    return String.valueOf(product.getCounter()).compareTo(String.valueOf(t1.getCounter()));
+                }
+            });
+            gridAdapter.notifyDataSetChanged();
+            Toast.makeText(this, "sorted by Category", Toast.LENGTH_LONG).show();
+            return true;
+//            Toast.makeText(this, "feature not availabe", Toast.LENGTH_SHORT).show();
         }
 
 
