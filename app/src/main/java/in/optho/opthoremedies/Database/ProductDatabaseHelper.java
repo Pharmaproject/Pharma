@@ -18,6 +18,8 @@ import java.util.HashMap;
 
 import in.optho.opthoremedies.Models.Product;
 
+import static android.net.Uri.decode;
+
 
 /**
  * Created by krishna on 1/10/17.
@@ -226,14 +228,15 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         values.put("closepunch", decode(queryValues.get("closepunch")));
         values.put("customicon", decode(queryValues.get("customicon")));
 
-            myDataBase.insert("product", null, values);
-            myDataBase.close();
+          if((cursor.getCount()==0)){
+              myDataBase.insert("product", null, values);
         }
         else {
             // TODO  SQL Update record
             myDataBase.update("product", values, "id=" + queryValues.get("id"), null);
 
         }
+        myDataBase.close();
 
 
     }

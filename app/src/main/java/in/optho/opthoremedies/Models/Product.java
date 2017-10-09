@@ -32,7 +32,7 @@ public class Product implements Serializable {
 
     private String datetime;
 
-    public Product(String id, String code, String pDefault, String name, int category, String design, String brand, String openpunch, String graphic, String carton, String indication, String description, String closepunch, String customicon, String datetime) {
+    public Product(String id, String code, String pDefault, String name, String category, String design, byte[] brand, byte[] openpunch, byte[] graphic, byte[] carton, byte[] indication, byte[] description, byte[] closepunch, byte[] customicon, String datetime) {
         this.id = id;
         this.code = code;
         this.pDefault = pDefault;
