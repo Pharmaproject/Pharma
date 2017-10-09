@@ -180,7 +180,7 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
                 }
             });
             gridAdapter.notifyDataSetChanged();
-            Toast.makeText(this, "sorted by Category", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "sorted by Most frequently used", Toast.LENGTH_LONG).show();
             return true;
 //            Toast.makeText(this, "feature not availabe", Toast.LENGTH_SHORT).show();
         }

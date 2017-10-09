@@ -49,6 +49,8 @@ public class ProductActivity extends AppCompatActivity {
             case "7":
                 fragment = new Design7();
                 break;
+            default:
+                fragment = new Design1();
 
         }
 
