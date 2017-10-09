@@ -245,10 +245,7 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
         }
         else {
             // TODO  SQL Update record
-
             myDataBase.update("employee", values, "id="+queryValues.get("id"), null);
-
-
         }
 
 

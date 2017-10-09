@@ -210,9 +210,9 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         openDataBase();
 
         Cursor cursor = myDataBase.rawQuery("select * from " +TABLE_NAME+" where id="+ queryValues.get("id") +";" , null);
+        ContentValues values = new ContentValues();
 
         if(cursor.getCount()==0){
-            ContentValues values = new ContentValues();
             values.put("id", queryValues.get("id"));
             values.put("datetime", queryValues.get("datetime"));
             values.put("code", queryValues.get("code"));
@@ -234,6 +234,7 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         }
         else {
             // TODO  SQL Update record
+            myDataBase.update("product", values, "id=" + queryValues.get("id"), null);
 
         }
 
