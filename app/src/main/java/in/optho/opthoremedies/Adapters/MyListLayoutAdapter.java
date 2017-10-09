@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import in.optho.opthoremedies.Models.Product;
-import in.optho.opthoremedies.ProductActivity;
+import in.optho.opthoremedies.Activities.ProductActivity;
 import in.optho.opthoremedies.R;
 
 /**

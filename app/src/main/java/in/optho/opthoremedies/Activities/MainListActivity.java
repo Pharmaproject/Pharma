@@ -7,10 +7,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -244,19 +240,19 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
         // get the final radius for the clipping circle
          dx = Math.max(cx, recyclerView.getWidth() - cx);
          dy = Math.max(cy, recyclerView.getHeight() - cy);
-        finalRadius = (float) Math.hypot(dx, dy);
-
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
             animator = ViewAnimationUtils.createCircularReveal(recyclerView, cx, cy, 0, finalRadius);
             animator.setInterpolator(new AccelerateDecelerateInterpolator());
             animator.setDuration(1000);
             animator.start();
-        }else{
+        }else{/*
             animator.setInterpolator(new AccelerateDecelerateInterpolator());
             animator.setDuration(1000);
-            animator.start();
+            animator.start();*/
         }
+        finalRadius = (float) Math.hypot(dx, dy);
+
     }
 
 

@@ -11,7 +11,7 @@ public class Product implements Serializable {
     private String code;
     private String pDefault;
     private String name;
-    private String category;
+    private int category;
     private String design;
     private String brand;
     private String openpunch;
@@ -22,7 +22,17 @@ public class Product implements Serializable {
     private String closepunch;
     private String customicon;
 
-    public Product(String id, String code, String pDefault, String name, String category, String design, String brand, String openpunch, String graphic, String carton, String indication, String description, String closepunch, String customicon) {
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
+
+    private String datetime;
+
+    public Product(String id, String code, String pDefault, String name, int category, String design, String brand, String openpunch, String graphic, String carton, String indication, String description, String closepunch, String customicon, String datetime) {
         this.id = id;
         this.code = code;
         this.pDefault = pDefault;
@@ -37,6 +47,7 @@ public class Product implements Serializable {
         this.description = description;
         this.closepunch = closepunch;
         this.customicon = customicon;
+        this.datetime = datetime;
         //
     }
 
@@ -72,11 +83,11 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 

@@ -2,14 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.optho.opthoremedies.Design1"
+    tools:context="in.optho.opthoremedies.Fragments.Design1"
     android:background="@drawable/graphics1">
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
         android:id="@+id/opl1"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
         android:src="@drawable/opl1"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -20,56 +20,56 @@
 
     <ImageView
         android:id="@+id/brand1"
-        android:layout_width="200dp"
-        android:layout_height="80dp"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:src="@drawable/brand1"
+        android:layout_marginEnd="30dp"
         android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/cpl1" />
+        android:layout_alignEnd="@+id/Science1" />
 
     <ImageView
         android:id="@+id/Science1"
-        android:layout_width="200dp"
+        android:layout_width="500dp"
         android:layout_height="200dp"
         android:src="@drawable/science1"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_centerVertical="true"
-        android:layout_alignEnd="@+id/brand1"
-        android:layout_marginEnd="22dp" />
+        android:layout_marginBottom="21dp"
+        android:layout_above="@+id/indication1"
+        android:layout_toEndOf="@+id/opl1" />
 
     <ImageView
         android:id="@+id/cartoon1"
-        android:layout_width="100dp"
+        android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:src="@drawable/cartoon1"
-        android:layout_below="@+id/brand1"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="58dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageView
         android:id="@+id/indication1"
-        android:layout_width="400dp"
-        android:layout_height="50dp"
+        android:layout_width="600dp"
+        android:layout_height="100dp"
         android:src="@drawable/indication1"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_alignBottom="@+id/cartoon1"
-        android:layout_alignStart="@+id/opl1" />
+        android:layout_above="@+id/cpl1"
+        android:layout_alignStart="@+id/opl1"
+        android:layout_marginBottom="16dp" />
 
     <ImageView
         android:id="@+id/cpl1"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="25dp"
         android:src="@drawable/cpl1"
-        android:layout_below="@+id/cpl1"
-        android:layout_margin="5dp"/>
-
-
-
-
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/cartoon1"
+        android:layout_marginEnd="84dp" />
 
 </RelativeLayout>

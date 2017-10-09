@@ -16,7 +16,11 @@
         <activity
             android:name=".Activities.SplashActivity"
             android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.LoginActivity"
@@ -25,12 +29,8 @@
             android:name=".Activities.IDActivity"
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity android:name=".Activities.MainListActivity"></activity>
-        <activity android:name=".ProductActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".Activities.ProductActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
 
