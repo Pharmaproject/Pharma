@@ -233,9 +233,9 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
         openDataBase();
 
         Cursor cursor = myDataBase.rawQuery("select * from " +TABLE_NAME+" where id="+ queryValues.get("id") +";" , null);
+        ContentValues values = new ContentValues();
 
         if(cursor.getCount()==0){
-            ContentValues values = new ContentValues();
             values.put("id", queryValues.get("id"));
             values.put("pin", queryValues.get("pin"));
             values.put("lock", queryValues.get("lock"));
@@ -246,13 +246,7 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
         else {
             // TODO  SQL Update record
 
-            ContentValues cv = new ContentValues();
-            //These Fields should be your String values of actual column names
-            cv.put("pin",queryValues.get("pin"));
-            cv.put("lock",queryValues.get("lock"));
-            cv.put("datetime",queryValues.get("datetime"));
-
-            myDataBase.update("employee", cv, "id="+queryValues.get("id"), null);
+            myDataBase.update("employee", values, "id="+queryValues.get("id"), null);
 
 
         }
