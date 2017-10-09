@@ -172,6 +172,10 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
             return true;
         }
         if(id==R.id.sortMostFreqUsed){
+
+
+
+
             Toast.makeText(this, "feature not availabe", Toast.LENGTH_SHORT).show();
         }
 

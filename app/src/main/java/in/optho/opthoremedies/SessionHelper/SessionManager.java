@@ -38,8 +38,18 @@ public class SessionManager {
         Log.d(TAG, "User login session modified!");
     }
 
-    public boolean isLoggedIn(){
+    public boolean isLoggedIn() {
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
+    }
+
+
+
+    //To manipulate the counter for each item
+    public void setCounter(String id,int counter){
+        editor.putInt(id, counter);
+    }
+    public int getCounter(String id){
+        return pref.getInt(id, 0);
     }
 }
 

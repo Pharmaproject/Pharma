@@ -21,6 +21,8 @@ public class Product implements Serializable {
     private String description;
     private String closepunch;
     private String customicon;
+    private String datetime;
+    private int counter;
 
     public String getDatetime() {
         return datetime;
@@ -30,9 +32,9 @@ public class Product implements Serializable {
         this.datetime = datetime;
     }
 
-    private String datetime;
-
-    public Product(String id, String code, String pDefault, String name, int category, String design, String brand, String openpunch, String graphic, String carton, String indication, String description, String closepunch, String customicon, String datetime) {
+    public Product(String id, String code, String pDefault,String name, int category, String design,
+                   String brand, String openpunch, String graphic,String carton, String indication,
+                   String description,String closepunch, String customicon, String datetime,int counter) {
         this.id = id;
         this.code = code;
         this.pDefault = pDefault;
@@ -48,7 +50,7 @@ public class Product implements Serializable {
         this.closepunch = closepunch;
         this.customicon = customicon;
         this.datetime = datetime;
-        //
+        this.counter = counter;
     }
 
     public String getId() {
@@ -174,5 +176,13 @@ public class Product implements Serializable {
         //descending order
         //return compareQuantity - this.quantity;
 
+    }
+
+    public int getCounter() {
+        return counter;
+    }
+
+    public void setCounter(int counter) {
+        this.counter = counter;
     }
 }

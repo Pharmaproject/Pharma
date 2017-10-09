@@ -17,6 +17,7 @@ import java.util.Comparator;
 import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.Activities.ProductActivity;
 import in.optho.opthoremedies.R;
+import in.optho.opthoremedies.SessionHelper.SessionManager;
 
 /**
  * Created by krishna on 3/10/17.
@@ -80,6 +81,11 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
                     Intent intent = new Intent(itemView.getContext(), ProductActivity.class);
                     intent.putExtra("PRODUCT", product);
                     itemView.getContext().startActivity(intent);
+
+                    //increase the counter by 1 on each click
+                    SessionManager sessionManager = new SessionManager(itemView.getContext());
+                    sessionManager.setCounter(product.getId(),sessionManager.getCounter(product.getId()));
+
 
                 }
             });
