@@ -2,6 +2,7 @@ package in.optho.opthoremedies.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +15,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.Activities.ProductActivity;
+import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.R;
-import in.optho.opthoremedies.SessionHelper.SessionManager;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by krishna on 3/10/17.
@@ -27,6 +29,7 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
 
     ArrayList<Product> productList=new ArrayList<>();
     Context context;
+
 
     public MyGridLayoutAdapter(Context context, ArrayList<Product> productList) {
         this.productList = productList;
@@ -83,9 +86,15 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
                     itemView.getContext().startActivity(intent);
 
                     //increase the counter by 1 on each click
-                    SessionManager sessionManager = new SessionManager(itemView.getContext());
-                    sessionManager.setCounter(product.getId(),sessionManager.getCounter(product.getId()));
 
+                    SharedPreferences storeddata;
+                    SharedPreferences.Editor edit;
+
+                    storeddata = context.getSharedPreferences("myPrefs", MODE_PRIVATE);
+                    edit = storeddata.edit();
+
+                    int temp = storeddata.getInt(product.getId(), 0);
+                    edit.putInt(product.getId(),temp+1);
 
                 }
             });

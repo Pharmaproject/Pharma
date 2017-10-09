@@ -22,6 +22,10 @@ public class Product implements Serializable {
     private byte[] closepunch;
     private byte[] customicon;
 
+    private String datetime;
+    private int counter;
+
+
     public String getDatetime() {
         return datetime;
     }
@@ -30,9 +34,9 @@ public class Product implements Serializable {
         this.datetime = datetime;
     }
 
-    private String datetime;
-
-    public Product(String id, String code, String pDefault, String name, String category, String design, byte[] brand, byte[] openpunch, byte[] graphic, byte[] carton, byte[] indication, byte[] description, byte[] closepunch, byte[] customicon, String datetime) {
+    public Product(String id, String code, String pDefault, String name, String category, String design,
+                   byte[] brand, byte[] openpunch, byte[] graphic, byte[] carton, byte[] indication,
+                   byte[] description, byte[] closepunch, byte[] customicon, String datetime, int counter) {
         this.id = id;
         this.code = code;
         this.pDefault = pDefault;
@@ -48,7 +52,9 @@ public class Product implements Serializable {
         this.closepunch = closepunch;
         this.customicon = customicon;
         this.datetime = datetime;
-        //
+
+        this.counter = counter;
+
     }
 
     public String getId() {

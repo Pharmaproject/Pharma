@@ -2,6 +2,7 @@ package in.optho.opthoremedies.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 
 import in.optho.opthoremedies.Models.Product;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.net.Uri.decode;
 
 
@@ -194,10 +196,14 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(myContext, "Empty Database", Toast.LENGTH_SHORT).show();
         }
         while (cursor.moveToNext()){
+
+            SharedPreferences storeddata = myContext.getSharedPreferences("myPrefs", MODE_PRIVATE);;
+            SharedPreferences.Editor edit = storeddata.edit();;
+
             product=new Product(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),
                     cursor.getString(4),cursor.getString(5),cursor.getBlob(6),cursor.getBlob(7),
                     cursor.getBlob(8),cursor.getBlob(9),cursor.getBlob(10),cursor.getBlob(11),
-                    cursor.getBlob(12),cursor.getBlob(13), cursor.getString(14));
+                    cursor.getBlob(12),cursor.getBlob(13), cursor.getString(14),storeddata.getInt(cursor.getString(0),0));
             prodList.add(product);
         }
         cursor.close();
