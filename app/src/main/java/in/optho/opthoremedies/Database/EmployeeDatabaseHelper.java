@@ -246,6 +246,13 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
         else {
             // TODO  SQL Update record
 
+            ContentValues cv = new ContentValues();
+            //These Fields should be your String values of actual column names
+            cv.put("pin",queryValues.get("pin"));
+            cv.put("lock",queryValues.get("lock"));
+            cv.put("datetime",queryValues.get("datetime"));
+
+            myDataBase.update("employee", cv, "_id="+queryValues.get("id"), null);
 
 
         }
