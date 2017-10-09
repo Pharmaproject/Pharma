@@ -7,8 +7,14 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.loopj.android.http.Base64;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -234,19 +240,18 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = myDataBase.rawQuery("select * from " +TABLE_NAME+" where id="+ queryValues.get("id") +";" , null);
         ContentValues values = new ContentValues();
-
+        values.put("id", queryValues.get("id"));
+        values.put("pin", queryValues.get("pin"));
+        values.put("lock", queryValues.get("lock"));
+        values.put("datetime", queryValues.get("datetime"));
         if(cursor.getCount()==0){
-            values.put("id", queryValues.get("id"));
-            values.put("pin", queryValues.get("pin"));
-            values.put("lock", queryValues.get("lock"));
-            values.put("datetime", queryValues.get("datetime"));
             myDataBase.insert("employee", null, values);
-            myDataBase.close();
         }
         else {
-            // TODO  SQL Update record
             myDataBase.update("employee", values, "id="+queryValues.get("id"), null);
         }
+
+        myDataBase.close();
 
 
     }
@@ -271,6 +276,25 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
         }
         database.close();
         return employeeList;
+    }
+
+    public static Bitmap decodeBase64Profile(String input) {
+        Bitmap bitmap = null;
+        if (input != null) {
+            byte[] decodedByte = Base64.decode(input, 0);
+            bitmap = BitmapFactory
+                    .decodeByteArray(decodedByte, 0, decodedByte.length);
+        }
+        return bitmap;
+    }
+
+    public static byte[] getBytesFromBitmap(Bitmap bitmap) {
+        if (bitmap!=null) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+            return stream.toByteArray();
+        }
+        return null;
     }
 
 

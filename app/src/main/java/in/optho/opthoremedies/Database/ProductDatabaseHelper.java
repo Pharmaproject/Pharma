@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import in.optho.opthoremedies.Models.Product;
-import in.optho.opthoremedies.SessionHelper.SessionManager;
 
 
 /**
@@ -193,27 +192,10 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(myContext, "Empty Database", Toast.LENGTH_SHORT).show();
         }
         while (cursor.moveToNext()){
-
-//            int tempCategory = Integer.parseInt(cursor.getString(4));
-//            int tempCategory = cursor.getString(4);
-            int tempCounter = new SessionManager(myContext).getCounter(cursor.getString(0));
-            product=new Product(cursor.getString(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getString(5),
-                    cursor.getString(6),
-                    cursor.getString(7),
-                    cursor.getString(8),
-                    cursor.getString(9),
-                    cursor.getString(10),
-                    cursor.getString(11),
-                    cursor.getString(12),
-                    cursor.getString(13),
-                    cursor.getString(14),
-                    tempCounter);
-
+            product=new Product(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),
+                    cursor.getString(4),cursor.getString(5),cursor.getBlob(6),cursor.getBlob(7),
+                    cursor.getBlob(8),cursor.getBlob(9),cursor.getBlob(10),cursor.getBlob(11),
+                    cursor.getBlob(12),cursor.getBlob(13), cursor.getString(14));
             prodList.add(product);
         }
         cursor.close();
@@ -228,23 +210,21 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = myDataBase.rawQuery("select * from " +TABLE_NAME+" where id="+ queryValues.get("id") +";" , null);
         ContentValues values = new ContentValues();
-
-        if(cursor.getCount()==0){
-            values.put("id", queryValues.get("id"));
-            values.put("datetime", queryValues.get("datetime"));
-            values.put("code", queryValues.get("code"));
-            values.put("name", queryValues.get("name"));
-            values.put("default", queryValues.get("default"));
-            values.put("category", queryValues.get("category"));
-            values.put("design", queryValues.get("design"));
-            values.put("brand", queryValues.get("brand"));
-            values.put("openpunch", queryValues.get("openpunch"));
-            values.put("graphic", queryValues.get("graphic"));
-            values.put("carton", queryValues.get("carton"));
-            values.put("indication", queryValues.get("indication"));
-            values.put("description", queryValues.get("description"));
-            values.put("closepunch", queryValues.get("closepunch"));
-            values.put("customicon", queryValues.get("customicon"));
+        values.put("id", queryValues.get("id"));
+        values.put("datetime", queryValues.get("datetime"));
+        values.put("code", queryValues.get("code"));
+        values.put("name", queryValues.get("name"));
+        values.put("default", queryValues.get("default"));
+        values.put("category", queryValues.get("category"));
+        values.put("design", queryValues.get("design"));
+        values.put("brand", decode(queryValues.get("brand")));
+        values.put("openpunch", decode(queryValues.get("openpunch")));
+        values.put("graphic", decode(queryValues.get("graphic")));
+        values.put("carton", decode(queryValues.get("carton")));
+        values.put("indication", decode(queryValues.get("indication")));
+        values.put("description", decode(queryValues.get("description")));
+        values.put("closepunch", decode(queryValues.get("closepunch")));
+        values.put("customicon", decode(queryValues.get("customicon")));
 
             myDataBase.insert("product", null, values);
             myDataBase.close();

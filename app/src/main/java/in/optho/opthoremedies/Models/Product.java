@@ -13,16 +13,14 @@ public class Product implements Serializable {
     private String name;
     private String category;
     private String design;
-    private String brand;
-    private String openpunch;
-    private String graphic;
-    private String carton;
-    private String indication;
-    private String description;
-    private String closepunch;
-    private String customicon;
-    private String datetime;
-    private int counter;
+    private byte[] brand;
+    private byte[] openpunch;
+    private byte[] graphic;
+    private byte[] carton;
+    private byte[] indication;
+    private byte[] description;
+    private byte[] closepunch;
+    private byte[] customicon;
 
     public String getDatetime() {
         return datetime;
@@ -32,9 +30,9 @@ public class Product implements Serializable {
         this.datetime = datetime;
     }
 
-    public Product(String id, String code, String pDefault,String name, String category, String design,
-                   String brand, String openpunch, String graphic,String carton, String indication,
-                   String description,String closepunch, String customicon, String datetime,int counter) {
+    private String datetime;
+
+    public Product(String id, String code, String pDefault, String name, int category, String design, String brand, String openpunch, String graphic, String carton, String indication, String description, String closepunch, String customicon, String datetime) {
         this.id = id;
         this.code = code;
         this.pDefault = pDefault;
@@ -50,7 +48,7 @@ public class Product implements Serializable {
         this.closepunch = closepunch;
         this.customicon = customicon;
         this.datetime = datetime;
-        this.counter = counter;
+        //
     }
 
     public String getId() {
@@ -101,67 +99,67 @@ public class Product implements Serializable {
         this.design = design;
     }
 
-    public String getBrand() {
+    public byte[] getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public void setBrand(byte[] brand) {
         this.brand = brand;
     }
 
-    public String getOpenpunch() {
+    public byte[] getOpenpunch() {
         return openpunch;
     }
 
-    public void setOpenpunch(String openpunch) {
+    public void setOpenpunch(byte[] openpunch) {
         this.openpunch = openpunch;
     }
 
-    public String getGraphic() {
+    public byte[] getGraphic() {
         return graphic;
     }
 
-    public void setGraphic(String graphic) {
+    public void setGraphic(byte[] graphic) {
         this.graphic = graphic;
     }
 
-    public String getCarton() {
+    public byte[] getCarton() {
         return carton;
     }
 
-    public void setCarton(String carton) {
+    public void setCarton(byte[] carton) {
         this.carton = carton;
     }
 
-    public String getIndication() {
+    public byte[] getIndication() {
         return indication;
     }
 
-    public void setIndication(String indication) {
+    public void setIndication(byte[] indication) {
         this.indication = indication;
     }
 
-    public String getDescription() {
+    public byte[] getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(byte[] description) {
         this.description = description;
     }
 
-    public String getClosepunch() {
+    public byte[] getClosepunch() {
         return closepunch;
     }
 
-    public void setClosepunch(String closepunch) {
+    public void setClosepunch(byte[] closepunch) {
         this.closepunch = closepunch;
     }
 
-    public String getCustomicon() {
+    public byte[] getCustomicon() {
         return customicon;
     }
 
-    public void setCustomicon(String customicon) {
+    public void setCustomicon(byte[] customicon) {
         this.customicon = customicon;
     }
 

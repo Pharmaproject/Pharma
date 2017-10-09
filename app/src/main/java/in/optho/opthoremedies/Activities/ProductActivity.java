@@ -6,13 +6,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import in.optho.opthoremedies.Fragments.Design1;
-import in.optho.opthoremedies.Fragments.Design2;
-import in.optho.opthoremedies.Fragments.Design3;
-import in.optho.opthoremedies.Fragments.Design4;
-import in.optho.opthoremedies.Fragments.Design5;
-import in.optho.opthoremedies.Fragments.Design6;
-import in.optho.opthoremedies.Fragments.Design7;
-import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.R;
 
 public class ProductActivity extends AppCompatActivity {
