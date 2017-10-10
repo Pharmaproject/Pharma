@@ -9,14 +9,15 @@
         android:id="@+id/opl1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/blue_gray"
-        android:layout_margin="5dp"/>
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/brand1" />
 
     <ImageView
         android:id="@+id/brand1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/blue_gray"
         android:layout_below="@+id/opl1"
         android:layout_margin="5dp"/>
 
@@ -24,7 +25,6 @@
         android:id="@+id/Science1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/blue_gray"
         android:layout_below="@+id/brand1"
         android:layout_margin="5dp"/>
 
@@ -32,7 +32,6 @@
         android:id="@+id/cartoon1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/blue_gray"
         android:layout_below="@+id/Science1"
         android:layout_margin="5dp"/>
 
@@ -41,7 +40,6 @@
         android:id="@+id/indication1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/blue_gray"
         android:layout_below="@+id/cartoon1"
         android:layout_margin="5dp"/>
 
@@ -49,12 +47,8 @@
         android:id="@+id/cpl1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/blue_gray"
         android:layout_below="@+id/indication1"
-        android:layout_margin="5dp"/>
-
-
-
+        android:layout_alignLeft="@+id/indication1" />
 
 
 </RelativeLayout>

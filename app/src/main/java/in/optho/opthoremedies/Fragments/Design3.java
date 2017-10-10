@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import in.optho.opthoremedies.Database.ProductDatabaseHelper;
 import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.R;
 
@@ -25,7 +26,16 @@ public class Design3 extends Fragment {
     private ImageView indication1;
     private ImageView cpl1;
 
+    ProductDatabaseHelper db;
 
+    private byte[] brand;
+    private byte[] openpunch;
+    private byte[] graphic;
+    private byte[] carton;
+    private byte[] indication;
+    private byte[] description;
+    private byte[] closepunch;
+    private byte[] customicon;
 
 
     Product product;
@@ -38,14 +48,15 @@ public class Design3 extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         product = (Product) bundle.getSerializable("PRODUCT");
-
-        /*for (String key : bundle.keySet()) {
-            System.out.println("bundle keys= " + key);
-
-        }
-        name = bundle.getString("title");
-        brand = bundle.getString("data");
-*/
+        int id = product.getId();
+        brand =db.getBrand(id);
+        openpunch = db.getOpenpunch(id);
+        graphic = db.getGraphic(id);
+        carton = db.getCarton(id);
+        indication = db.getIndication(id);
+        description= db.getDesc(id);
+        closepunch= db.getClosepunch(id);
+        customicon  = db.getCustomicon(id);
 
     }
 

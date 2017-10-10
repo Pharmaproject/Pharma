@@ -80,6 +80,7 @@ public class SplashActivity extends AppCompatActivity {
 
         storeddata = getSharedPreferences("myPrefs", MODE_PRIVATE);
         edit = storeddata.edit();
+        int noOfTimes = storeddata.getInt("Nonet", 0);
 
         final Boolean updateEmp = storeddata.getBoolean("updateEmp", false);
         final Boolean updatePro = storeddata.getBoolean("updatePro", false);
@@ -93,7 +94,7 @@ public class SplashActivity extends AppCompatActivity {
         String DateProLocal = storeddata.getString("datePro", "2017-10-06 00:00:00");
 
         System.out.println("Local Emp Date: "+ DateEmpLocal);
-        System.out.println("Local Pr0duct Date: "+ DateProLocal);
+        System.out.println("Local Product Date: "+ DateProLocal);
 
         edit.putInt("update",0);
 
@@ -107,7 +108,7 @@ public class SplashActivity extends AppCompatActivity {
         if(remain<11) {
             cancelBtn.setText("Skip (" + remain + " Days Remaining)");
         }
-        if(remain<1){
+        if(remain<1||noOfTimes>30){
             okBtn.setTextSize(20);
             cancelBtn.setEnabled(false);
             cancelBtn.setText("App Locked");
@@ -305,6 +306,7 @@ public class SplashActivity extends AppCompatActivity {
                 }
                 String DateEmpServer=storeddata.getString("DateEmpServer","");
                 edit =storeddata.edit();
+                System.out.println("Updating Local Emp Date: "+DateEmpServer);
                 edit.putString("dateEmp",DateEmpServer);
                 edit.putBoolean("updateEmp", false);
                 edit.putInt("update",0);
@@ -366,7 +368,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
                 // Update SQLite DB with response sent by getusers.php
-                updateSQLiteEmployee(timeline);
+                updateSQLiteProduct(timeline);
             }
 
 
@@ -471,7 +473,7 @@ public class SplashActivity extends AppCompatActivity {
                     queryValues.put("datetime", obj.get("datetime").toString());
                     queryValues.put("name", obj.get("name").toString());
                     queryValues.put("code", obj.get("code").toString());
-                    queryValues.put("default", obj.get("default").toString());
+                    queryValues.put("priority", obj.get("priority").toString());
                     queryValues.put("category", obj.get("category").toString());
                     queryValues.put("design", obj.get("design").toString());
                     queryValues.put("brand", obj.get("brand").toString());
@@ -487,8 +489,9 @@ public class SplashActivity extends AppCompatActivity {
                     controller2.insertUpdateProduct(queryValues);
 
                 }
-                String DateProServer=storeddata.getString("DateEmpServer","");
+                String DateProServer=storeddata.getString("DateProServer","");
                 edit =storeddata.edit();
+                System.out.println("Updating Local Product Date: "+DateProServer);
                 edit.putString("datePro",DateProServer);
                 edit.putBoolean("updatePro", false);
                 edit.putInt("update",0);
@@ -521,11 +524,6 @@ public class SplashActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-    public boolean isConnected(){
-            ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
-                return networkInfo != null && networkInfo.isConnected();
-            }
 
 }

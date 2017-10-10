@@ -4,10 +4,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -34,9 +37,22 @@ public class SampleBC extends BroadcastReceiver {
 	public void onReceive(final Context context, Intent intent) {
 		// TODO Auto-generated method stub
         storeddata = context.getSharedPreferences("myPrefs", MODE_PRIVATE);
-        noOfTimes++;
-		Toast.makeText(context, "Update Check number " + noOfTimes + " times", Toast.LENGTH_SHORT).show();
-		AsyncHttpClient client = new AsyncHttpClient();
+        edit = storeddata.edit();
+        noOfTimes = storeddata.getInt("Nonet", 0);
+        if(!isConnected(context)){
+            noOfTimes++;
+            Toast.makeText(context, "Warning: No Internet for checking updates. "+noOfTimes + " out of 30 days allowed", Toast.LENGTH_SHORT).show();
+            if(noOfTimes>30){
+                edit.putInt("Nonet",0);
+            }
+        }
+        else {
+            noOfTimes=0;
+            edit.putInt("Nonet",noOfTimes);
+        }
+        edit.commit();
+
+        AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         // Checks if new records are inserted in Remote MySQL DB to proceed with Sync operation
         client.post("http://obligo.in/optho/getdbstatus.php",params ,new JsonHttpResponseHandler() {
@@ -135,7 +151,7 @@ public class SampleBC extends BroadcastReceiver {
                 // Call MyService
                 context.startService(intnt);
             }else{
-                Toast.makeText(context, "Sync not needed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "No updates from Optho today!", Toast.LENGTH_SHORT).show();
             }
         } catch (JSONException e) {
             // TODO Auto-generated catch block
@@ -170,5 +186,12 @@ public class SampleBC extends BroadcastReceiver {
 
             return update;
 
+    }
+
+    public boolean isConnected(Context c){
+        ConnectivityManager connMgr = (ConnectivityManager) c.getSystemService(Activity.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        return networkInfo != null && networkInfo.isConnected();
     }
 }

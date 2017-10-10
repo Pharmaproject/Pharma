@@ -39,6 +39,16 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
     private final Context myContext;
     static int dbVersion = 2;
 
+    private int id;
+    private String code;
+    private int priority;
+    private String name;
+    private int category;
+    private int design;
+
+    private String datetime;
+    private int counter;
+
     /**
      * Constructor
      * Takes and keeps a reference of the passed context in order to access to the application assets and resources.
@@ -149,7 +159,7 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         }
         //Open the database
         String myPath = DB_PATH + DB_NAME;
-        myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+        myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
 
     }
 
@@ -190,22 +200,29 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Product> prodList = new ArrayList<>();
         openDataBase();
 
-        Cursor cursor = myDataBase.rawQuery("select * from " + TABLE_NAME+";" , null);
+        Cursor cursor = myDataBase.rawQuery("select datetime,id,code,priority,name,category,design from " + TABLE_NAME+";" , null);
+        SharedPreferences storeddata = myContext.getSharedPreferences("myPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor edit = storeddata.edit();
 
         if(cursor.getCount()==0){
             Toast.makeText(myContext, "Empty Database", Toast.LENGTH_SHORT).show();
+
+            return prodList;
         }
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
+            datetime = cursor.getString(0);
+            id = cursor.getInt(1);
+            code = cursor.getString(2);
+            priority = cursor.getInt(3);
+            name = cursor.getString(4);
+            category = cursor.getInt(5);
+            design = cursor.getInt(6);
 
-            SharedPreferences storeddata = myContext.getSharedPreferences("myPrefs", MODE_PRIVATE);;
-            SharedPreferences.Editor edit = storeddata.edit();;
-
-            product=new Product(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),
-                    cursor.getString(4),cursor.getString(5),cursor.getBlob(6),cursor.getBlob(7),
-                    cursor.getBlob(8),cursor.getBlob(9),cursor.getBlob(10),cursor.getBlob(11),
-                    cursor.getBlob(12),cursor.getBlob(13), cursor.getString(14),storeddata.getInt(cursor.getString(0),0));
+            product=new Product(datetime,id,code,priority,name ,category,design,storeddata.getInt(String.valueOf(id),0));
             prodList.add(product);
         }
+
+
         cursor.close();
         close();
 
@@ -218,11 +235,10 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = myDataBase.rawQuery("select * from " +TABLE_NAME+" where id="+ queryValues.get("id") +";" , null);
         ContentValues values = new ContentValues();
-        values.put("id", queryValues.get("id"));
         values.put("datetime", queryValues.get("datetime"));
         values.put("code", queryValues.get("code"));
         values.put("name", queryValues.get("name"));
-        values.put("default", queryValues.get("default"));
+        values.put("priority", queryValues.get("priority"));
         values.put("category", queryValues.get("category"));
         values.put("design", queryValues.get("design"));
         values.put("brand", decode(queryValues.get("brand")));
@@ -235,6 +251,7 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         values.put("customicon", decode(queryValues.get("customicon")));
 
           if((cursor.getCount()==0)){
+              values.put("id", queryValues.get("id"));
               myDataBase.insert("product", null, values);
         }
         else {
@@ -267,6 +284,143 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         }
         database.close();
         return employeeList;
+    }
+
+
+    public byte[] getBrand(int id){
+        byte[] brand=null;
+        openDataBase();
+        Cursor cursor = myDataBase.rawQuery("select brand from " + TABLE_NAME+" where id = "+id+" ;" , null);
+        if(cursor.getCount()==0){
+            brand=null;
+        }
+        else {
+            while (cursor.moveToNext()) {
+                brand = cursor.getBlob(0);
+            }
+        }
+        cursor.close();
+        close();
+        return brand;
+    }
+
+    public byte[] getOpenpunch(int id){
+        byte[] opl=null;
+        openDataBase();
+        Cursor cursor = myDataBase.rawQuery("select openpunch from " + TABLE_NAME+" where id = "+id+" ;" , null);
+        if(cursor.getCount()==0){
+            opl=null;
+        }
+        else {
+            while (cursor.moveToNext()) {
+                opl = cursor.getBlob(0);
+            }
+        }
+        cursor.close();
+        close();
+        return opl;
+    }
+
+    public byte[] getGraphic(int id){
+        byte[] a=null;
+        openDataBase();
+        Cursor cursor = myDataBase.rawQuery("select graphic from " + TABLE_NAME+" where id = "+id+" ;" , null);
+        if(cursor.getCount()==0){
+            a=null;
+        }
+        else {
+            while (cursor.moveToNext()) {
+                a = cursor.getBlob(0);
+            }
+        }
+        cursor.close();
+        close();
+        return a;
+    }
+
+    public byte[] getCarton(int id){
+        byte[] a=null;
+        openDataBase();
+        Cursor cursor = myDataBase.rawQuery("select carton from " + TABLE_NAME+" where id = "+id+" ;" , null);
+        if(cursor.getCount()==0){
+            a=null;
+        }
+        else {
+            while (cursor.moveToNext()) {
+                a = cursor.getBlob(0);
+            }
+        }
+        cursor.close();
+        close();
+        return a;
+    }
+
+    public byte[] getIndication(int id){
+        byte[] a=null;
+        openDataBase();
+        Cursor cursor = myDataBase.rawQuery("select indication from " + TABLE_NAME+" where id = "+id+" ;" , null);
+        if(cursor.getCount()==0){
+            a=null;
+        }
+        else {
+            while (cursor.moveToNext()) {
+                a = cursor.getBlob(0);
+            }
+        }
+        cursor.close();
+        close();
+        return a;
+    }
+
+    public byte[] getDesc(int id){
+        byte[] a=null;
+        openDataBase();
+        Cursor cursor = myDataBase.rawQuery("select description from " + TABLE_NAME+" where id = "+id+" ;" , null);
+        if(cursor.getCount()==0){
+            a=null;
+        }
+        else {
+            while (cursor.moveToNext()) {
+                a = cursor.getBlob(0);
+            }
+        }
+        cursor.close();
+        close();
+        return a;
+    }
+
+    public byte[] getClosepunch(int id){
+        byte[] a=null;
+        openDataBase();
+        Cursor cursor = myDataBase.rawQuery("select closepunch from " + TABLE_NAME+" where id = "+id+" ;" , null);
+        if(cursor.getCount()==0){
+            a=null;
+        }
+        else {
+            while (cursor.moveToNext()) {
+                a = cursor.getBlob(0);
+            }
+        }
+        cursor.close();
+        close();
+        return a;
+    }
+
+    public byte[] getCustomicon(int id){
+        byte[] a=null;
+        openDataBase();
+        Cursor cursor = myDataBase.rawQuery("select customicon from " + TABLE_NAME+" where id = "+id+" ;" , null);
+        if(cursor.getCount()==0){
+            a=null;
+        }
+        else {
+            while (cursor.moveToNext()) {
+                a = cursor.getBlob(0);
+            }
+        }
+        cursor.close();
+        close();
+        return a;
     }
 
 

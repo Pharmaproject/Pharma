@@ -142,7 +142,7 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
             });
             gridAdapter.notifyDataSetChanged();
             listAdapter.notifyDataSetChanged();
-            Toast.makeText(this, "sorted Alphabetically", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Sorted Alphabetically", Toast.LENGTH_LONG).show();
             return true;
         }
         if(id==R.id.sortDefault){
@@ -150,13 +150,13 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
             Collections.sort(productdb, new Comparator<Product>() {
                 @Override
                 public int compare(Product product, Product t1) {
-                    return product.getpDefault().compareTo(t1.getpDefault());
+                    return String.valueOf(product.getPriority()).compareTo(String.valueOf((t1.getPriority())));
                 }
             });
             gridAdapter.notifyDataSetChanged();
             listAdapter.notifyDataSetChanged();
 
-            Toast.makeText(this, "sorted by Default", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Sorted by Default", Toast.LENGTH_LONG).show();
             return true;
         }
         if(id==R.id.sortCategory){

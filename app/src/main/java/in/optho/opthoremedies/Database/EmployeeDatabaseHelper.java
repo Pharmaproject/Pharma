@@ -240,11 +240,11 @@ public class EmployeeDatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = myDataBase.rawQuery("select * from " +TABLE_NAME+" where id="+ queryValues.get("id") +";" , null);
         ContentValues values = new ContentValues();
-        values.put("id", queryValues.get("id"));
         values.put("pin", queryValues.get("pin"));
         values.put("lock", queryValues.get("lock"));
         values.put("datetime", queryValues.get("datetime"));
         if(cursor.getCount()==0){
+            values.put("id", queryValues.get("id"));
             myDataBase.insert("employee", null, values);
         }
         else {

@@ -3,6 +3,7 @@ package in.optho.opthoremedies.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,9 +81,8 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
 
                     Product product = productList.get(getAdapterPosition());
 //                    Toast.makeText(view.getContext(), "Clicked : "+product.getName(), Toast.LENGTH_SHORT).show();
-
                     Intent intent = new Intent(itemView.getContext(), ProductActivity.class);
-                    intent.putExtra("PRODUCT", product);
+                    intent.putExtra("PRODUCT",product);
                     itemView.getContext().startActivity(intent);
 
                     //increase the counter by 1 on each click
@@ -93,8 +93,10 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
                     storeddata = context.getSharedPreferences("myPrefs", MODE_PRIVATE);
                     edit = storeddata.edit();
 
-                    int temp = storeddata.getInt(product.getId(), 0);
-                    edit.putInt(product.getId(),temp+1);
+                    int temp = storeddata.getInt(String.valueOf(product.getId()), 0);
+                    edit.putInt(String.valueOf(product.getId()),++temp);
+
+
 
                 }
             });

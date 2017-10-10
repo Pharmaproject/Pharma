@@ -1,26 +1,16 @@
 package in.optho.opthoremedies.Models;
 
-import java.io.Serializable;
 
-/**
- * Created by krishna on 4/10/17.
- */
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Product implements Serializable {
-    private String id;
+public class Product implements Parcelable {
+    private int id;
     private String code;
-    private String pDefault;
+    private int priority;
     private String name;
-    private String category;
-    private String design;
-    private byte[] brand;
-    private byte[] openpunch;
-    private byte[] graphic;
-    private byte[] carton;
-    private byte[] indication;
-    private byte[] description;
-    private byte[] closepunch;
-    private byte[] customicon;
+    private int category;
+    private int design;
 
     private String datetime;
     private int counter;
@@ -34,34 +24,25 @@ public class Product implements Serializable {
         this.datetime = datetime;
     }
 
-    public Product(String id, String code, String pDefault, String name, String category, String design,
-                   byte[] brand, byte[] openpunch, byte[] graphic, byte[] carton, byte[] indication,
-                   byte[] description, byte[] closepunch, byte[] customicon, String datetime, int counter) {
+    public Product(String datetime, int id, String code, int priority, String name, int category, int design, int counter) {
         this.id = id;
         this.code = code;
-        this.pDefault = pDefault;
+        this.priority = priority;
         this.name = name;
         this.category = category;
         this.design = design;
-        this.brand = brand;
-        this.openpunch = openpunch;
-        this.graphic = graphic;
-        this.carton = carton;
-        this.indication = indication;
-        this.description = description;
-        this.closepunch = closepunch;
-        this.customicon = customicon;
+
         this.datetime = datetime;
 
         this.counter = counter;
 
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -73,12 +54,12 @@ public class Product implements Serializable {
         this.code = code;
     }
 
-    public String getpDefault() {
-        return pDefault;
+    public int getPriority() {
+        return priority;
     }
 
-    public void setpDefault(String pDefault) {
-        this.pDefault = pDefault;
+    public void setPriority(int pDefault) {
+        this.priority = pDefault;
     }
 
     public String getName() {
@@ -89,93 +70,31 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 
-    public String getDesign() {
+    public int getDesign() {
         return design;
     }
 
-    public void setDesign(String design) {
+    public void setDesign(int design) {
         this.design = design;
     }
 
-    public byte[] getBrand() {
-        return brand;
-    }
-
-    public void setBrand(byte[] brand) {
-        this.brand = brand;
-    }
-
-    public byte[] getOpenpunch() {
-        return openpunch;
-    }
-
-    public void setOpenpunch(byte[] openpunch) {
-        this.openpunch = openpunch;
-    }
-
-    public byte[] getGraphic() {
-        return graphic;
-    }
-
-    public void setGraphic(byte[] graphic) {
-        this.graphic = graphic;
-    }
-
-    public byte[] getCarton() {
-        return carton;
-    }
-
-    public void setCarton(byte[] carton) {
-        this.carton = carton;
-    }
-
-    public byte[] getIndication() {
-        return indication;
-    }
-
-    public void setIndication(byte[] indication) {
-        this.indication = indication;
-    }
-
-    public byte[] getDescription() {
-        return description;
-    }
-
-    public void setDescription(byte[] description) {
-        this.description = description;
-    }
-
-    public byte[] getClosepunch() {
-        return closepunch;
-    }
-
-    public void setClosepunch(byte[] closepunch) {
-        this.closepunch = closepunch;
-    }
-
-    public byte[] getCustomicon() {
-        return customicon;
-    }
-
-    public void setCustomicon(byte[] customicon) {
-        this.customicon = customicon;
-    }
+  
 
 
     public int compareTo(Product compareProduct) {
 
-        int compareQuantity = Integer.parseInt( compareProduct.getId());
+        int compareQuantity =  compareProduct.getId();
 
         //ascending order
-        return Integer.parseInt(this.id) - compareQuantity;
+        return this.id - compareQuantity;
 
         //descending order
         //return compareQuantity - this.quantity;
@@ -189,4 +108,44 @@ public class Product implements Serializable {
     public void setCounter(int counter) {
         this.counter = counter;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.code);
+        dest.writeInt(this.priority);
+        dest.writeString(this.name);
+        dest.writeInt(this.category);
+        dest.writeInt(this.design);
+        dest.writeString(this.datetime);
+        dest.writeInt(this.counter);
+    }
+
+    protected Product(Parcel in) {
+        this.id = in.readInt();
+        this.code = in.readString();
+        this.priority = in.readInt();
+        this.name = in.readString();
+        this.category = in.readInt();
+        this.design = in.readInt();
+        this.datetime = in.readString();
+        this.counter = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel source) {
+            return new Product(source);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
 }

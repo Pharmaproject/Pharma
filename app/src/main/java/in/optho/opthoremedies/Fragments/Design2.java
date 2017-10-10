@@ -1,4 +1,4 @@
-package in.optho.opthoremedies;
+package in.optho.opthoremedies.Fragments;
 
 
 import android.os.Bundle;
@@ -8,13 +8,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import in.optho.opthoremedies.Database.ProductDatabaseHelper;
+import in.optho.opthoremedies.Models.Product;
+import in.optho.opthoremedies.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Design2 extends Fragment {
-    String name;
-    String brand;
+
+    Product product;
+
+    ProductDatabaseHelper db;
+
+    private byte[] brand;
+    private byte[] openpunch;
+    private byte[] graphic;
+    private byte[] carton;
+    private byte[] indication;
+    private byte[] description;
+    private byte[] closepunch;
+    private byte[] customicon;
 
     public Design2() {
         // Required empty public constructor
@@ -23,16 +38,17 @@ public class Design2 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-/*
         Bundle bundle = getArguments();
-        for (String key : bundle.keySet()) {
-            System.out.println("bundle keys= " + key);
-
-        }
-        name = bundle.getString("title");
-        brand = bundle.getString("data");
-*/
-
+        product = (Product) bundle.getSerializable("PRODUCT");
+        int id = product.getId();
+        brand =db.getBrand(id);
+        openpunch = db.getOpenpunch(id);
+        graphic = db.getGraphic(id);
+        carton = db.getCarton(id);
+        indication = db.getIndication(id);
+        description= db.getDesc(id);
+        closepunch= db.getClosepunch(id);
+        customicon  = db.getCustomicon(id);
 
     }
 
@@ -56,7 +72,7 @@ public class Design2 extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
-        getActivity().setTitle(brand);
+        getActivity().setTitle(product.getName());
     }
 
 }

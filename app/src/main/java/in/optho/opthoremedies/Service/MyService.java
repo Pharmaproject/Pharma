@@ -55,12 +55,15 @@ public class MyService extends Service {
 		defaults = defaults | Notification.DEFAULT_VIBRATE;
 		defaults = defaults | Notification.DEFAULT_SOUND;
 		mNotifyBuilder.setDefaults(defaults);
-		// Set the content for Notification 
-		mNotifyBuilder.setContentText(intent.getStringExtra("intntdata"));
-		// Set autocancel
-		mNotifyBuilder.setAutoCancel(true);
-		// Post a notification
-		mNotificationManager.notify(notifyID, mNotifyBuilder.build());
+		// Set the content for Notification
+		if(intent!=null) {
+			mNotifyBuilder.setContentText(intent.getStringExtra("intntdata"));
+            // Set autocancel
+            mNotifyBuilder.setAutoCancel(true);
+            // Post a notification
+            mNotificationManager.notify(notifyID, mNotifyBuilder.build());
+		}
+
 	}
 
 	@Override
