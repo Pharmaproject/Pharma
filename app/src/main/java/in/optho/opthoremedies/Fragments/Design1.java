@@ -3,6 +3,9 @@ package in.optho.opthoremedies.Fragments;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,13 +13,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 
-import in.optho.opthoremedies.Bitmapview;
+import in.optho.opthoremedies.ImageSetter;
 import in.optho.opthoremedies.Database.ProductDatabaseHelper;
 import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.R;
@@ -43,7 +51,7 @@ public class Design1 extends Fragment {
     private byte[] description;
     private byte[] closepunch;
     private byte[] customicon;
-    Bitmapview bit;
+    ImageSetter bit;
 
     Product product;
     public Design1() {
@@ -54,7 +62,7 @@ public class Design1 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new ProductDatabaseHelper(getActivity());
-        bit = new Bitmapview();
+        bit = new ImageSetter();
         Bundle bundle = getArguments();
         product = bundle.getParcelable("PRODUCT");
         int id = product.getId();
@@ -77,6 +85,7 @@ public class Design1 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_design1, container, false);
         Context c= getActivity().getApplicationContext();
 
+        final RelativeLayout layout =(RelativeLayout) view.findViewById(R.id.background);
 
         opl1 = (ImageView) view.findViewById(R.id.opl1);
         brand1 = (ImageView) view.findViewById(R.id.brand1);
@@ -85,36 +94,20 @@ public class Design1 extends Fragment {
         indication1 = (ImageView) view.findViewById(R.id.indication1);
         cpl1 = (ImageView) view.findViewById(R.id.cpl1);
 
+        BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), BitmapFactory.decodeByteArray(graphic, 0, graphic.length));
+        layout.setBackground(bitmapDrawable);
 
-        RequestOptions ro = new RequestOptions()
-                .fitCenter()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_backspace)
-                //           .override(256, 140)
-                .encodeFormat(Bitmap.CompressFormat.PNG)
-                .format(DecodeFormat.PREFER_ARGB_8888)
-                .dontAnimate()
-                .fitCenter();
-
-        Glide.with(this)
-                .load(brand)
-                .apply(ro)
-
-                .into(brand1);
-
-     /*   bit.Bitmapview(brand1,brand,c);
-        bit.Bitmapview(opl1,brand,c);
-        bit.Bitmapview(Science1,brand,c);
-        bit.Bitmapview(cartoon1,brand,c);
-        bit.Bitmapview(indication1,brand,c);
-        bit.Bitmapview(cpl1,brand,c);
-        bit.Bitmapview(brand1,brand,c);
-
-*/
+        bit.SetImage(brand1,brand,c);
+        bit.SetImage(opl1,openpunch,c);
+        bit.SetImage(Science1,description,c);
+        bit.SetImage(cartoon1,carton,c);
+        bit.SetImage(indication1,indication,c);
+        bit.SetImage(cpl1,closepunch,c);
 
 
         return view;
     }
+
 
 
 

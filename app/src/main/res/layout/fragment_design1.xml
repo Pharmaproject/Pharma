@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="in.optho.opthoremedies.Fragments.Design1">
@@ -9,31 +10,31 @@
         android:id="@+id/opl1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/brand1" />
+        android:layout_alignStart="@+id/brand1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" />
 
     <ImageView
         android:id="@+id/brand1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/opl1"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp" />
 
     <ImageView
         android:id="@+id/Science1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/brand1"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp" />
 
     <ImageView
         android:id="@+id/cartoon1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/Science1"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp" />
 
 
     <ImageView
@@ -41,14 +42,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/cartoon1"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp" />
 
     <ImageView
         android:id="@+id/cpl1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/indication1"
-        android:layout_alignLeft="@+id/indication1" />
+        android:layout_alignLeft="@+id/indication1"
+        android:layout_below="@+id/indication1" />
 
 
 </RelativeLayout>

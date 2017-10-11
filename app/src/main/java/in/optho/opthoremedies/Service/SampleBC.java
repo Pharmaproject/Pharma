@@ -11,6 +11,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
+import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -18,6 +21,14 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import java.io.BufferedInputStream;
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,20 +39,20 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class SampleBC extends BroadcastReceiver {
 	static int noOfTimes = 0;
-    boolean updateEmp=false;
-    boolean updatePro=false;
+    boolean updateEmp;
+    boolean updatePro;
     SharedPreferences storeddata;
     SharedPreferences.Editor edit;
     // Method gets called when Broad Case is issued from MainActivity for every 10 seconds
 	@Override
 	public void onReceive(final Context context, Intent intent) {
 		// TODO Auto-generated method stub
-        storeddata = context.getSharedPreferences("myPrefs", MODE_PRIVATE);
+        storeddata = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         edit = storeddata.edit();
         noOfTimes = storeddata.getInt("Nonet", 0);
         if(!isConnected(context)){
-            noOfTimes++;
             Toast.makeText(context, "Warning: No Internet for checking updates. "+noOfTimes + " out of 30 days allowed", Toast.LENGTH_SHORT).show();
+            edit.putInt("Nonet",++noOfTimes);
             if(noOfTimes>30){
                 edit.putInt("Nonet",0);
             }
@@ -50,7 +61,8 @@ public class SampleBC extends BroadcastReceiver {
             noOfTimes=0;
             edit.putInt("Nonet",noOfTimes);
         }
-        edit.commit();
+   //     String url = "http://obligo.in/optho/apk";
+  //      new ApkUpdateAsyncTask().execute(url);
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -122,25 +134,24 @@ public class SampleBC extends BroadcastReceiver {
 
             System.out.println("Emp Server Date: "+DateEmpServer);
             System.out.println("Pro Server Date: "+DateProServer);
-
+            storeddata = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
             String DateEmpLocal = storeddata.getString("dateEmp", "2017-10-06 00:00:00");
             String DateProLocal = storeddata.getString("datePro", "2017-10-06 00:00:00");
+            System.out.println(storeddata.getAll());
+            System.out.println("Emp Local Date: "+DateEmpLocal);
+            System.out.println("Pro Local Date: "+DateProLocal);
 
             updateEmp= CompareDates(DateEmpLocal,DateEmpServer);
             updatePro= CompareDates(DateProLocal,DateProServer);
 
-
-            edit = storeddata.edit();
-
             if(updateEmp|updatePro){
+                int Days = storeddata.getInt("update",0);
+                edit = storeddata.edit();
                 edit.putString("DateEmpServer",DateEmpServer);
                 edit.putString("DateProServer",DateProServer);
-
                 edit.putBoolean("updateEmp", updateEmp);
                 edit.putBoolean("updatePro", updatePro);
-                int Days = storeddata.getInt("update",0);
                 edit.putInt("update",++Days);
-                edit.commit();
                 System.out.println("Days Remaining to Update  " + (11-Days));
                 String notification = (11-Days)+ " Days Remaining to Update ";
                 Toast.makeText(context,notification, Toast.LENGTH_LONG).show();
@@ -153,6 +164,7 @@ public class SampleBC extends BroadcastReceiver {
             }else{
                 Toast.makeText(context, "No updates from Optho today!", Toast.LENGTH_SHORT).show();
             }
+            edit.commit();
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
@@ -194,4 +206,6 @@ public class SampleBC extends BroadcastReceiver {
 
         return networkInfo != null && networkInfo.isConnected();
     }
+
+
 }

@@ -13,6 +13,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -52,18 +53,26 @@ public class SplashActivity extends AppCompatActivity {
     HashMap<String, String> queryValues;
     EmployeeDatabaseHelper controller;
     ProductDatabaseHelper controller2;
-
+    Dialog syncDialog;
     int remain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
 
         controller = new EmployeeDatabaseHelper(this);
         controller2 = new ProductDatabaseHelper(this);
 
         // Initialize Progress Dialog properties
         prgDialog = new ProgressDialog(this);
-        prgDialog.setMessage("Transferring Data from Remote MySQL DB and Syncing SQLite. Please wait...");
+        prgDialog.setMessage("Transferring Data from Remote Server and Syncing Local Database. Please wait...");
         prgDialog.setCancelable(false);
         // BroadCase Receiver Intent Object
         Intent alarmIntent = new Intent(getApplicationContext(), SampleBC.class);
@@ -73,20 +82,20 @@ public class SplashActivity extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         // Alarm Manager calls BroadCast for every Ten seconds (10 * 1000), BroadCase further calls service to check if new records are inserted in
         // Remote MySQL DB
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis() + 5000, 1000 * 60 * 60 * 4, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis() + 5000, 1000 * 60 * 60 * 400, pendingIntent);
 
        // alarmManager.cancel(pendingIntent); // cancel any existing alarms
 //        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY, AlarmManager.INTERVAL_DAY, pendingIntent);
 
-        storeddata = getSharedPreferences("myPrefs", MODE_PRIVATE);
-        edit = storeddata.edit();
+        storeddata = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int noOfTimes = storeddata.getInt("Nonet", 0);
+        System.out.println(storeddata.getAll());
 
         final Boolean updateEmp = storeddata.getBoolean("updateEmp", false);
         final Boolean updatePro = storeddata.getBoolean("updatePro", false);
         int Days = storeddata.getInt("update",0);
         remain=11-Days;
-        final Dialog syncDialog = new Dialog(this,R.style.NewDialog);
+        syncDialog = new Dialog(this,R.style.NewDialog);
         syncDialog.setContentView(R.layout.syncdialog);
         final Button okBtn = (Button) syncDialog.findViewById(R.id.Sync);
         final Button cancelBtn = (Button) syncDialog.findViewById(R.id.Skip);
@@ -95,8 +104,6 @@ public class SplashActivity extends AppCompatActivity {
 
         System.out.println("Local Emp Date: "+ DateEmpLocal);
         System.out.println("Local Product Date: "+ DateProLocal);
-
-        edit.putInt("update",0);
 
         Window window = syncDialog.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
@@ -305,17 +312,12 @@ public class SplashActivity extends AppCompatActivity {
 
                 }
                 String DateEmpServer=storeddata.getString("DateEmpServer","");
-                edit =storeddata.edit();
                 System.out.println("Updating Local Emp Date: "+DateEmpServer);
+                edit = storeddata.edit();
                 edit.putString("dateEmp",DateEmpServer);
                 edit.putBoolean("updateEmp", false);
                 edit.putInt("update",0);
-/*              After Product Sync
-                String DateProServer=storeddata.getString("DateProServer","");
-                edit.putString("datePro",DateProServer);
-                edit.putBoolean("updatePro", false);
-*/
-
+                edit.apply();
                 edit.commit();
 
                 // load the Main Activity
@@ -490,17 +492,11 @@ public class SplashActivity extends AppCompatActivity {
 
                 }
                 String DateProServer=storeddata.getString("DateProServer","");
-                edit =storeddata.edit();
                 System.out.println("Updating Local Product Date: "+DateProServer);
+                edit = storeddata.edit();
                 edit.putString("datePro",DateProServer);
                 edit.putBoolean("updatePro", false);
                 edit.putInt("update",0);
-/*              After Product Sync
-                String DateProServer=storeddata.getString("DateProServer","");
-                edit.putString("datePro",DateProServer);
-                edit.putBoolean("updatePro", false);
-*/
-
                 edit.commit();
 
                 // load the Main Activity
@@ -520,6 +516,7 @@ public class SplashActivity extends AppCompatActivity {
 
     // Reload MainActivity
     public void NextActivity() {
+        syncDialog.dismiss();
         startActivity(new Intent(SplashActivity.this, IDActivity.class));
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }

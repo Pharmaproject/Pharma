@@ -10,6 +10,8 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
+import com.loopj.android.http.Base64;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -241,14 +243,14 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         values.put("priority", queryValues.get("priority"));
         values.put("category", queryValues.get("category"));
         values.put("design", queryValues.get("design"));
-        values.put("brand", decode(queryValues.get("brand")));
-        values.put("openpunch", decode(queryValues.get("openpunch")));
-        values.put("graphic", decode(queryValues.get("graphic")));
-        values.put("carton", decode(queryValues.get("carton")));
-        values.put("indication", decode(queryValues.get("indication")));
-        values.put("description", decode(queryValues.get("description")));
-        values.put("closepunch", decode(queryValues.get("closepunch")));
-        values.put("customicon", decode(queryValues.get("customicon")));
+        values.put("brand", Base64.decode(queryValues.get("brand"), Base64.DEFAULT));
+        values.put("openpunch", Base64.decode(queryValues.get("openpunch"), Base64.DEFAULT));
+        values.put("graphic", Base64.decode(queryValues.get("graphic"), Base64.DEFAULT));
+        values.put("carton", Base64.decode(queryValues.get("carton"), Base64.DEFAULT));
+        values.put("indication", Base64.decode(queryValues.get("indication"), Base64.DEFAULT));
+        values.put("description", Base64.decode(queryValues.get("description"), Base64.DEFAULT));
+        values.put("closepunch", Base64.decode(queryValues.get("closepunch"), Base64.DEFAULT));
+        values.put("customicon", Base64.decode(queryValues.get("customicon"), Base64.DEFAULT));
 
           if((cursor.getCount()==0)){
               values.put("id", queryValues.get("id"));
@@ -301,6 +303,7 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         close();
+
         return brand;
     }
 

@@ -1,9 +1,12 @@
 package in.optho.opthoremedies.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Toast;
 
 import in.optho.opthoremedies.Fragments.Design1;
 import in.optho.opthoremedies.Fragments.Design2;
@@ -28,6 +31,7 @@ public class ProductActivity extends AppCompatActivity {
         Product product = getIntent().getParcelableExtra("PRODUCT"); // Parcelable
         extras.putParcelable("PRODUCT", product);
  //       Product product = (Product) extras.getSerializable("PRODUCT");
+
 
         String category=String.valueOf(product.getCategory());
         switch (category){
@@ -63,6 +67,13 @@ public class ProductActivity extends AppCompatActivity {
         ft.replace(R.id.content_frame, fragment);
         ft.addToBackStack(null);
         ft.commit();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        startActivity(new Intent(ProductActivity.this,MainListActivity.class));
 
     }
 }
