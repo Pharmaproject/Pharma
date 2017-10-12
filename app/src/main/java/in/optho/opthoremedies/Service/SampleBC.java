@@ -1,9 +1,5 @@
 package in.optho.opthoremedies.Service;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,31 +7,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import java.io.BufferedInputStream;
-import java.io.DataOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 import cz.msebera.android.httpclient.Header;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class SampleBC extends BroadcastReceiver {
 	static int noOfTimes = 0;
@@ -47,6 +33,7 @@ public class SampleBC extends BroadcastReceiver {
 	@Override
 	public void onReceive(final Context context, Intent intent) {
 		// TODO Auto-generated method stub
+        Toast.makeText(context, "onRecieve", Toast.LENGTH_SHORT).show();
         storeddata = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         edit = storeddata.edit();
         noOfTimes = storeddata.getInt("Nonet", 0);
@@ -69,7 +56,7 @@ public class SampleBC extends BroadcastReceiver {
         // Checks if new records are inserted in Remote MySQL DB to proceed with Sync operation
         client.post("http://obligo.in/optho/getdbstatus.php",params ,new JsonHttpResponseHandler() {
             @Override
-            public void onStart() {
+            public void onStart(){
                 System.out.println("Checking for updates");
             }
             @Override

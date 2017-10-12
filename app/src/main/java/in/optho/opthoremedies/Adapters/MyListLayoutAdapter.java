@@ -11,10 +11,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.Activities.ProductActivity;
+import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.R;
-import in.optho.opthoremedies.SessionHelper.SessionManager;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -51,7 +50,7 @@ public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapte
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         holder.itemTV.setText(productList.get(position).getName());
-        holder.snoTV.setText(productList.get(position).getId());
+//        holder.snoTV.setText(productList.get(position).getId());
 
 
 
