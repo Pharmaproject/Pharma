@@ -3,7 +3,6 @@ package in.optho.opthoremedies.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import in.optho.opthoremedies.Activities.ProductActivity;
+import in.optho.opthoremedies.Activities.ProductPagerActivity;
 import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.R;
 
@@ -81,7 +80,9 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
 
                     Product product = productList.get(getAdapterPosition());
 //                    Toast.makeText(view.getContext(), "Clicked : "+product.getName(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(itemView.getContext(), ProductActivity.class);
+                    Intent intent = new Intent(itemView.getContext(), ProductPagerActivity.class);
+
+
                     intent.putExtra("PRODUCT",product);
                     itemView.getContext().startActivity(intent);
 

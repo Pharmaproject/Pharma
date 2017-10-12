@@ -33,6 +33,16 @@ import in.optho.opthoremedies.R;
 
 public class MainListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
+
+    //
+    public static ArrayList<Product> tempList=new ArrayList<>();
+
+
+
+
+
+
+
     int cx,cy,dx,dy;
     float finalRadius;
     Toolbar toolbar;
@@ -142,6 +152,7 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
             });
             gridAdapter.notifyDataSetChanged();
             listAdapter.notifyDataSetChanged();
+            tempList = productdb;
             Toast.makeText(this, "Sorted Alphabetically", Toast.LENGTH_LONG).show();
             return true;
         }
@@ -156,6 +167,13 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
             gridAdapter.notifyDataSetChanged();
             listAdapter.notifyDataSetChanged();
 
+
+
+            tempList = productdb;
+
+
+
+
             Toast.makeText(this, "Sorted by Default", Toast.LENGTH_LONG).show();
             return true;
         }
@@ -168,6 +186,9 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
                 }
             });
             gridAdapter.notifyDataSetChanged();
+
+            tempList = productdb;
+
             Toast.makeText(this, "sorted by Category", Toast.LENGTH_LONG).show();
             return true;
         }
@@ -180,6 +201,11 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
                 }
             });
             gridAdapter.notifyDataSetChanged();
+
+
+            tempList = productdb;
+
+
             Toast.makeText(this, "sorted by Most frequently used", Toast.LENGTH_LONG).show();
             return true;
 //            Toast.makeText(this, "feature not availabe", Toast.LENGTH_SHORT).show();
@@ -211,6 +237,19 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
         //fetching the data from the database in ArrayList
         ProductDatabaseHelper db = new ProductDatabaseHelper(this);
         productdb=db.getProductList();
+
+
+
+        tempList = productdb;
+
+
+
+
+
+
+
+
+
 
         recyclerView.setLayoutManager(gridLayoutManager);
 

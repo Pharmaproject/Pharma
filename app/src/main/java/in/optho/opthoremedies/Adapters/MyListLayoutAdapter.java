@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -38,7 +39,7 @@ public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapte
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(context, "Clicked "+viewType, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Clicked "+viewType, Toast.LENGTH_SHORT).show();
             }
         });
 
