@@ -11,6 +11,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -24,7 +25,6 @@ import com.bumptech.glide.request.RequestOptions;
 public class ImageSetter extends AppGlideModule {
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void SetImage(final ImageView view, byte[] data, final Context context) {
 
 
@@ -36,8 +36,15 @@ public class ImageSetter extends AppGlideModule {
                         .format(DecodeFormat.PREFER_ARGB_8888)
                         .encodeFormat(Bitmap.CompressFormat.PNG))
                 .into(view);
-//        view.setElevation(5);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            view.setElevation(20);
+        }
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                }
+            });
 
  /*       Glide.with(context.getApplicationContext())
                 .load(data)

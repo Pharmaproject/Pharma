@@ -51,7 +51,7 @@ public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapte
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         holder.itemTV.setText(productList.get(position).getName());
-//        holder.snoTV.setText(productList.get(position).getId());
+        holder.snoTV.setText(Integer.toString(productList.get(position).getId()));
 
 
 

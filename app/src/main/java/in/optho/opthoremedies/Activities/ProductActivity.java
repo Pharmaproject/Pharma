@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import in.optho.opthoremedies.Fragments.Design1;
 import in.optho.opthoremedies.Fragments.Design2;
@@ -15,18 +15,22 @@ import in.optho.opthoremedies.Fragments.Design4;
 import in.optho.opthoremedies.Fragments.Design5;
 import in.optho.opthoremedies.Fragments.Design6;
 import in.optho.opthoremedies.Fragments.Design7;
+import in.optho.opthoremedies.Fragments.SidePaneFragment;
 import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.R;
 
-public class ProductActivity extends AppCompatActivity {
+public class ProductActivity extends AppCompatActivity  {
 
     Fragment fragment;
+    SlidingPaneLayout pane;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+        pane = (SlidingPaneLayout) findViewById(R.id.slidingpane);
+        pane.setPanelSlideListener(new PaneListener());
         Bundle extras = new Bundle();
         Product product = getIntent().getParcelableExtra("PRODUCT"); // Parcelable
         extras.putParcelable("PRODUCT", product);
@@ -68,12 +72,43 @@ public class ProductActivity extends AppCompatActivity {
         ft.addToBackStack(null);
         ft.commit();
 
+
+        fragment = new SidePaneFragment();
+        FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
+        ft1.setCustomAnimations(R.anim.nothing, R.anim.slide_down);
+        ft1.replace(R.id.leftpane, fragment);
+        ft1.addToBackStack(null);
+        ft1.commit();
+
+    }
+
+    private class PaneListener implements SlidingPaneLayout.PanelSlideListener {
+
+        @Override
+        public void onPanelClosed(View view) {
+            System.out.println("Panel closed");
+        }
+
+        @Override
+        public void onPanelOpened(View view) {
+            System.out.println("Panel opened");
+        }
+
+        @Override
+        public void onPanelSlide(View view, float arg1) {
+            System.out.println("Panel sliding");
+        }
+
     }
 
     @Override
     public void onBackPressed() {
 
-        startActivity(new Intent(ProductActivity.this,MainListActivity.class));
+        if (pane.isOpen()){
+            pane.closePane();
+        }
+        else startActivity(new Intent(ProductActivity.this,MainListActivity.class));
 
     }
+
 }

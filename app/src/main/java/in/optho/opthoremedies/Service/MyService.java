@@ -43,7 +43,7 @@ public class MyService extends Service {
 		// Sets an ID for the notification, so it can be updated
 		int notifyID = 9001;
 		mNotifyBuilder = new NotificationCompat.Builder(this)
-				.setContentTitle("Optho Database update required")
+				.setContentTitle("Optho Remedies update required")
 				.setContentText("A new database is available from Optho Remedies.")
 				.setSmallIcon(R.drawable.logocrop)
                 .setTicker("New Database update from Obligo");
@@ -57,12 +57,29 @@ public class MyService extends Service {
 		mNotifyBuilder.setDefaults(defaults);
 		// Set the content for Notification
 		if(intent!=null) {
-			mNotifyBuilder.setContentText(intent.getStringExtra("intntdata"));
-            // Set autocancel
-            mNotifyBuilder.setAutoCancel(true);
-            // Post a notification
-            mNotificationManager.notify(notifyID, mNotifyBuilder.build());
+            if(intent.getStringExtra("intntdata")!=null) {
+                mNotifyBuilder.setContentText(intent.getStringExtra("intntdata"));
+                // Set autocancel
+                mNotifyBuilder.setAutoCancel(true);
+                // Post a notification
+                mNotificationManager.notify(notifyID, mNotifyBuilder.build());
+            }
+            if(intent.getStringExtra("appupdate")!=null){
+                Intent yesReceive = new Intent(getApplicationContext(), SampleBC.class);
+                yesReceive.setAction("AppUpdate");
+                PendingIntent pendingIntentYes = PendingIntent.getBroadcast(this,1 , yesReceive, PendingIntent.FLAG_UPDATE_CURRENT);
+                mNotifyBuilder.setContentText("New app update Available");
+                // Set autocancel
+                mNotifyBuilder.setAutoCancel(false);
+                mNotifyBuilder.setContentIntent(PendingIntent.getActivity(this, 3, new Intent(), 0));
+                mNotifyBuilder.addAction(R.drawable.pin_code_round_full,"Download Now",pendingIntentYes);
+                // Post a notification
+                mNotificationManager.notify(9002, mNotifyBuilder.build());
+
+            }
+
 		}
+
 
 	}
 

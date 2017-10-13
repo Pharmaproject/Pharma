@@ -309,8 +309,8 @@ public class SplashActivity extends AppCompatActivity {
                 edit.putString("dateEmp",DateEmpServer);
                 edit.putBoolean("updateEmp", false);
                 edit.putInt("update",0);
-                edit.apply();
                 edit.commit();
+                System.out.println(storeddata.getAll());
 
                 // load the Main Activity
                 NextActivity();
@@ -490,6 +490,7 @@ public class SplashActivity extends AppCompatActivity {
                 edit.putBoolean("updatePro", false);
                 edit.putInt("update",0);
                 edit.commit();
+                System.out.println(storeddata.getAll());
 
                 // load the Main Activity
                 NextActivity();

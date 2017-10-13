@@ -18,7 +18,8 @@
         <activity
             android:name=".Activities.SplashActivity"
             android:noHistory="true"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,13 +28,16 @@
         </activity>
         <activity
             android:name=".Activities.LoginActivity"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="sensorLandscape"/>
         <activity
             android:name=".Activities.IDActivity"
             android:noHistory="true"
             android:windowSoftInputMode="stateVisible|adjustPan" />
-        <activity android:name=".Activities.MainListActivity" />
-        <activity android:name=".Activities.ProductActivity" />
+        <activity android:name=".Activities.MainListActivity"
+            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".Activities.ProductActivity"
+            android:screenOrientation="sensorLandscape"/>
 
         <!-- Register MyService -->
         <service
@@ -50,7 +54,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Activities.ProductPagerActivity"></activity>
+        <activity android:name=".Activities.ProductPagerActivity"
+            android:screenOrientation="sensorLandscape"/>
     </application>
 
 </manifest>

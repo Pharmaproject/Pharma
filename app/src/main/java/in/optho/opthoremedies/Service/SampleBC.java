@@ -1,16 +1,20 @@
 package in.optho.opthoremedies.Service;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import android.util.Xml;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -18,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,27 +37,99 @@ public class SampleBC extends BroadcastReceiver {
     // Method gets called when Broad Case is issued from MainActivity for every 10 seconds
 	@Override
 	public void onReceive(final Context context, Intent intent) {
-		// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
         Toast.makeText(context, "onRecieve", Toast.LENGTH_SHORT).show();
+        String action = intent.getAction();
+        if ("AppUpdate".equals(action)) {
+            NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.cancel(9002);
+            String url = "http://obligo.in/optho/app-release.apk";
+            new ApkUpdateAsyncTask().execute(url);
+        }
+
+
         storeddata = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         edit = storeddata.edit();
         noOfTimes = storeddata.getInt("Nonet", 0);
         if(!isConnected(context)){
             Toast.makeText(context, "Warning: No Internet for checking updates. "+noOfTimes + " out of 30 days allowed", Toast.LENGTH_SHORT).show();
             edit.putInt("Nonet",++noOfTimes);
-            if(noOfTimes>30){
-                edit.putInt("Nonet",0);
-            }
+
         }
         else {
-            noOfTimes=0;
-            edit.putInt("Nonet",noOfTimes);
+            edit.putInt("Nonet",0);
         }
-   //     String url = "http://obligo.in/optho/apk";
-  //      new ApkUpdateAsyncTask().execute(url);
+
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
+
+        client.get("http://obligo.in/optho/checkapk.php", new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                System.out.println("Checking for App updates");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                int serverVersion = 0;
+                int localVersion= 0;
+                if(!responseBody.equals(null)) {
+                    try {
+                        String str = new String(responseBody, "UTF-8");
+
+            //            serverVersion = Integer.parseInt(str);
+
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        localVersion = context.getPackageManager()
+                                .getPackageInfo(context.getPackageName(), 0).versionCode;
+                    } catch (PackageManager.NameNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+             if(serverVersion>localVersion) {
+                        final Intent intnt = new Intent(context, MyService.class);
+                        // Set unsynced count in intent data
+                        intnt.putExtra("appupdate", "New App Update");
+                        // Call MyService
+                        context.startService(intnt);
+                    }
+
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable
+                    error)
+            {   // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                // TODO Auto-generated method stub
+                if(statusCode == 404){
+                    Toast.makeText(context, "Optho App update: Error 404", Toast.LENGTH_SHORT).show();
+                }else if(statusCode == 500){
+                    Toast.makeText(context, "Optho App update: Error 500", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(context, "Optho App update: Error "+statusCode, Toast.LENGTH_SHORT).show();
+                }            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                System.out.println("Request for App update was retried "+retryNo);
+            }
+
+            @Override
+            public void onProgress(long bytesWritten, long totalSize) {
+                // Progress notification
+            }
+
+            @Override
+            public void onFinish() {
+                System.out.println("Checked for App updates");
+            }
+        });
+
         // Checks if new records are inserted in Remote MySQL DB to proceed with Sync operation
         client.post("http://obligo.in/optho/getdbstatus.php",params ,new JsonHttpResponseHandler() {
             @Override
@@ -115,12 +192,12 @@ public class SampleBC extends BroadcastReceiver {
 	public void processResponse(JSONObject response,Context context){
 
         try {
-            // Create JSON object out of the response sent by getdbrowcount.php
             String DateEmpServer= response.getString("dateEmp");
             String DateProServer= response.getString("datePro");
 
             System.out.println("Emp Server Date: "+DateEmpServer);
             System.out.println("Pro Server Date: "+DateProServer);
+
             storeddata = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
             String DateEmpLocal = storeddata.getString("dateEmp", "2017-10-06 00:00:00");
             String DateProLocal = storeddata.getString("datePro", "2017-10-06 00:00:00");
