@@ -31,10 +31,9 @@
         android:id="@+id/Science1"
         android:layout_width="500dp"
         android:layout_height="200dp"
-        android:layout_above="@+id/indication1"
-        android:layout_marginBottom="21dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/opl1" />
 
     <ImageView
@@ -49,7 +48,7 @@
     <ImageView
         android:id="@+id/indication1"
         android:layout_width="600dp"
-        android:layout_height="100dp"
+        android:layout_height="170dp"
         android:layout_above="@+id/cpl1"
         android:layout_alignStart="@+id/opl1"
         android:layout_marginBottom="16dp"

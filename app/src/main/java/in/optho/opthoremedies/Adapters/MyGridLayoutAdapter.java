@@ -84,6 +84,7 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
 
 
                     intent.putExtra("PRODUCT",product);
+                    intent.putExtra("POSITION",getPosition());
                     itemView.getContext().startActivity(intent);
 
                     //increase the counter by 1 on each click

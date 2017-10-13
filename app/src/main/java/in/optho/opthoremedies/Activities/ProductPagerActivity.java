@@ -1,9 +1,6 @@
 package in.optho.opthoremedies.Activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,14 +8,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
-import in.optho.opthoremedies.Database.ProductDatabaseHelper;
-import in.optho.opthoremedies.ImageSetter;
+import in.optho.opthoremedies.Fragments.Design1;
+import in.optho.opthoremedies.Fragments.Design2;
 import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.R;
 
@@ -42,37 +34,12 @@ public class ProductPagerActivity extends AppCompatActivity {
         Product product = getIntent().getParcelableExtra("PRODUCT"); // Parcelable
 
 
-        int pos = product.getId();
+        int pos = getIntent().getIntExtra("POSITION",0);
 
 
 
         String category=String.valueOf(product.getCategory());
-        switch (category){
-            /*case "1":
-                fragment = new Design1();
-                break;
-            case "2":
-                fragment = new Design2();
-                break;
-            case "3":
-                fragment = new Design3();
-                break;
-            case "4":
-                fragment = new Design4();
-                break;
-            case "5":
-                fragment = new Design5();
-                break;
-            case "6":
-                fragment = new Design6();
-                break;
-            case "7":
-                fragment = new Design7();
-                break;
-            default:
-                fragment = new Design1();
-*/
-        }
+
 
 
         // Create the adapter that will return a fragment for each of the list of
@@ -91,15 +58,15 @@ public class ProductPagerActivity extends AppCompatActivity {
     }
 
 
-
-    /**
+/*
+    *//**
      * A placeholder fragment containing a simple view.
-     */
+     *//*
     public static class PlaceholderFragment extends Fragment {
-        /**
+        *//**
          * The fragment argument representing the section number for this
          * fragment.
-         */
+         *//*
         private static final String ARG_SECTION_NUMBER = "section_number";
 //        private Parcelable product;
 
@@ -136,10 +103,10 @@ public class ProductPagerActivity extends AppCompatActivity {
         }
 
 
-        /**
+        *//**
          * Returns a new instance of this fragment for the given section
          * number.
-         */
+         *//*
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -156,6 +123,7 @@ public class ProductPagerActivity extends AppCompatActivity {
 
             Context c= getActivity().getApplicationContext();
 
+            Toast.makeText(c, "Pager Fragment", Toast.LENGTH_SHORT).show();
 
 
             db = new ProductDatabaseHelper(getActivity());
@@ -202,18 +170,7 @@ public class ProductPagerActivity extends AppCompatActivity {
         }
 
 
-/*
-        @Override
-        public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
-            //you can set the title for your toolbar here for different fragments different titles
-            getActivity().setTitle(product.getName());
-
-
-        }
-*/
-
-    }
+    }*/
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -226,7 +183,35 @@ public class ProductPagerActivity extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 //            return PlaceholderFragment.newInstance(position + 1);
-            return PlaceholderFragment.newInstance(position);
+            int design=MainListActivity.tempList.get(position).getDesign();
+
+            switch (design){
+                case 1:
+                    return Design1.newInstance(position);
+                case 2:
+                    return Design2.newInstance(position);
+                    //break;
+/*
+                case 3:
+                    return Design3.newInstance(position);
+                    //break;
+                case 4:
+                    return Design4.newInstance(position);
+                case 5:
+                    return Design5.newInstance(position);
+                case 6:
+                    return Design6.newInstance(position);
+                case 7:
+                    return Design7.newInstance(position);
+*/
+                default:
+                    return Design1.newInstance(position);
+
+            }
+
+
+
+//            return PlaceholderFragment.newInstance(position);
         }
 
         @Override
@@ -234,6 +219,7 @@ public class ProductPagerActivity extends AppCompatActivity {
             // Show 3 total pages.
 //            return MainActivity.list.size();
             return MainListActivity.tempList.size();
+//            return 3;
         }
 
         @Override
