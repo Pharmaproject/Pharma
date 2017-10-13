@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import in.optho.opthoremedies.Fragments.Design1;
 import in.optho.opthoremedies.Fragments.Design2;
@@ -23,6 +25,8 @@ public class ProductActivity extends AppCompatActivity  {
 
     Fragment fragment;
     SlidingPaneLayout pane;
+    ImageView next;
+    ImageView prev;
 
 
     @Override
@@ -32,12 +36,67 @@ public class ProductActivity extends AppCompatActivity  {
         pane = (SlidingPaneLayout) findViewById(R.id.slidingpane);
         pane.setPanelSlideListener(new PaneListener());
         Bundle extras = new Bundle();
-        Product product = getIntent().getParcelableExtra("PRODUCT"); // Parcelable
+        final Product product = getIntent().getParcelableExtra("PRODUCT"); // Parcelable
         extras.putParcelable("PRODUCT", product);
  //       Product product = (Product) extras.getSerializable("PRODUCT");
 
+        next = (ImageView) findViewById(R.id.next);
+        prev = (ImageView) findViewById(R.id.prev);
 
-        String category=String.valueOf(product.getCategory());
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Product p=product;
+                int id=product.getId();
+                p=null;
+                id++;
+                for (Product temp: MainListActivity.tempList) {
+                    if(temp.getId()==id){
+
+                        p = temp;
+
+                    }
+
+                }
+                if(p==null){
+                    Toast.makeText(ProductActivity.this, "Last Product", Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent = new Intent(ProductActivity.this, ProductActivity.class);
+                    intent.putExtra("PRODUCT", p);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Product p=product;
+                int id=product.getId();
+                p=null;
+                id++;
+                for (Product temp: MainListActivity.tempList) {
+                    if(temp.getId()+2==id){
+
+                        p = temp;
+
+                    }
+
+                }
+                if(p==null){
+                    Toast.makeText(ProductActivity.this, "First Product", Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent = new Intent(ProductActivity.this, ProductActivity.class);
+                    intent.putExtra("PRODUCT", p);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
+        String category=String.valueOf(product.getDesign());
         switch (category){
             case "1":
                 fragment = new Design1();

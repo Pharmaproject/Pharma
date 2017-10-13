@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SlidingPaneLayout
-    android:id="@+id/slidingpane"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="in.optho.opthoremedies.Activities.ProductActivity"
     android:layout_height="match_parent" >
 
+
+    <android.support.v4.widget.SlidingPaneLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/slidingpane">
 
     <!-- Left side pane. (List) -->
     <FrameLayout
@@ -20,8 +24,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="right"
-        android:layout_weight="1" />
+        android:layout_weight="1">
+    </FrameLayout>
+
+    </android.support.v4.widget.SlidingPaneLayout>
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true">
+        <ImageView
+            android:id="@+id/prev"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@color/blue_gray"
+            android:src="@android:drawable/ic_media_previous"
+            android:layout_alignLeft="@+id/content_frame"/>
+        <ImageView
+            android:id="@+id/next"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@color/blue_gray"
+            android:layout_alignParentRight="true"
+            android:src="@android:drawable/ic_media_next"/>
 
-</android.support.v4.widget.SlidingPaneLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -54,8 +54,6 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Activities.ProductPagerActivity"
-            android:screenOrientation="sensorLandscape"/>
     </application>
 
 </manifest>
