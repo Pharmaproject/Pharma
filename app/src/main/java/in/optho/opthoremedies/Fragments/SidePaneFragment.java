@@ -57,6 +57,8 @@ public class SidePaneFragment extends Fragment {
         }
 
 
+
+
         ProductDatabaseHelper db = new ProductDatabaseHelper(getActivity());
         productdb=db.getProductList();
         listAdapter = new MyListLayoutAdapter(getActivity(), productdb);

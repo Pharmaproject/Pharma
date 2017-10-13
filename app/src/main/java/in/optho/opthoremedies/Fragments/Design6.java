@@ -86,6 +86,8 @@ public class Design6 extends Fragment {
         BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), BitmapFactory.decodeByteArray(graphic, 0, graphic.length));
         layout.setBackground(bitmapDrawable);
 
+
+
         bit.SetImage(brand1,brand,c);
         bit.SetImage(opl1,openpunch,c);
         bit.SetImage(Science1,description,c);
