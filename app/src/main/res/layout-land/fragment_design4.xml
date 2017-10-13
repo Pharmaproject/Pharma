@@ -2,15 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.optho.opthoremedies.Fragments.Design1"
-    android:background="#00FF00">
+    tools:context="in.optho.opthoremedies.Fragments.Design1">
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
         android:id="@+id/opl1"
         android:layout_width="400dp"
         android:layout_height="100dp"
-        android:src="@drawable/opl1"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_alignParentTop="true"
@@ -24,7 +22,6 @@
         android:layout_height="150dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:src="@drawable/brand1"
         android:layout_marginEnd="39dp"
         android:layout_alignParentTop="true"
         android:layout_alignEnd="@+id/cartoon1" />
@@ -33,7 +30,6 @@
         android:id="@+id/Science1"
         android:layout_width="450dp"
         android:layout_height="300dp"
-        android:src="@drawable/science1"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_below="@+id/brand1"
@@ -45,7 +41,6 @@
         android:layout_height="200dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:src="@drawable/cartoon1"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 
@@ -53,7 +48,6 @@
         android:id="@+id/indication1"
         android:layout_width="450dp"
         android:layout_height="150dp"
-        android:src="@drawable/indication4"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_below="@+id/brand1"
@@ -63,7 +57,6 @@
         android:id="@+id/cpl1"
         android:layout_width="600dp"
         android:layout_height="80dp"
-        android:src="@drawable/cpl1"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_below="@+id/Science1"

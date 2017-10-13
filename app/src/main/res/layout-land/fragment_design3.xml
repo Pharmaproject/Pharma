@@ -2,15 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.optho.opthoremedies.Fragments.Design1"
-    android:background="#00aF00">
+    tools:context="in.optho.opthoremedies.Fragments.Design1">
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
         android:id="@+id/opl1"
         android:layout_width="500dp"
         android:layout_height="100dp"
-        android:src="@drawable/opl3"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_alignParentTop="true"
@@ -22,7 +20,6 @@
         android:layout_height="100dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:src="@drawable/brand1"
         android:layout_alignParentTop="true"
         android:layout_alignEnd="@+id/Science1"
         android:layout_marginEnd="59dp" />
@@ -31,7 +28,6 @@
         android:id="@+id/Science1"
         android:layout_width="500dp"
         android:layout_height="300dp"
-        android:src="@drawable/science3"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_below="@+id/opl1"
@@ -43,7 +39,6 @@
         android:layout_height="150dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:src="@drawable/cartoon3"
         android:layout_below="@+id/Science1"
         android:layout_alignEnd="@+id/cpl1" />
 
@@ -51,7 +46,6 @@
         android:id="@+id/indication1"
         android:layout_width="300dp"
         android:layout_height="200dp"
-        android:src="@drawable/indication4"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_above="@+id/cpl1"
@@ -61,7 +55,6 @@
         android:id="@+id/cpl1"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:src="@drawable/cpl3"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_alignParentBottom="true"
