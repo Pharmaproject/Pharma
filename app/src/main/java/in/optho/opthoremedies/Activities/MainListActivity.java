@@ -35,12 +35,13 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
 
 
 
-    //to store original data
+    //to store original data, do not alter this.
     ArrayList<Product> productdb=new ArrayList<>();
+
     //we will do all the sorting on filteredList
     ArrayList<Product> filteredList=new ArrayList<>();
 
-    //
+    //send sorted list to adapter
     public static ArrayList<Product> sortedList =new ArrayList<>();
 
 
