@@ -98,6 +98,7 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
 
                     int temp = storeddata.getInt(String.valueOf(product.getId()), 0);
                     edit.putInt(String.valueOf(product.getId()),++temp);
+                    edit.commit();
 
 
 
