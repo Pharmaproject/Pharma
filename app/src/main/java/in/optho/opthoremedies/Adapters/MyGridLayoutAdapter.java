@@ -97,7 +97,9 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
                     edit = storeddata.edit();
 
                     int temp = storeddata.getInt(String.valueOf(product.getId()), 0);
-                    edit.putInt(String.valueOf(product.getId()),++temp);
+                    temp++;
+                    edit.putInt(String.valueOf(product.getId()),temp);
+//                    Toast.makeText(view.getContext(), "Count: "+temp, Toast.LENGTH_SHORT).show();
                     edit.commit();
 
 
