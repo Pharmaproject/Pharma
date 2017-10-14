@@ -35,5 +35,20 @@
                 android:title="Most frequently used" />
         </menu>
     </item>
+    <item
+        android:id="@+id/filter"
+        android:orderInCategory="0"
+        app:showAsAction="always"
+        android:icon="@mipmap/filled_filter">
+        <menu>
+            <item
+                android:id="@+id/filterbyETN"
+                android:title="Filter by ETN" />
+            <item
+                android:id="@+id/filterbyOptho"
+                android:title="Filter by OPTHO" />
+        </menu>
+    </item>
+
 
 </menu>

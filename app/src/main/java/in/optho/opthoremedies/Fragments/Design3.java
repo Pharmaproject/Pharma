@@ -94,7 +94,6 @@ public class Design3 extends Fragment {
         bit.SetImage(indication1,indication,c);
         bit.SetImage(cpl1,closepunch,c);
 
-
         return view;
     }
 

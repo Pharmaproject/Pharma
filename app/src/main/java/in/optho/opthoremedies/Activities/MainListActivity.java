@@ -101,10 +101,22 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
             if (name.contains(newText)) {
                 newList.add(product);
             }
-            gridAdapter.setFilter(newList);
-            listAdapter.setFilter(newList);
-        }
 
+
+            tempList = newList;
+//            setDataChange(tempList);
+
+
+            /*gridAdapter.setFilter(tempList);
+            listAdapter.setFilter(tempList);
+*/
+
+//            gridAdapter.notifyDataSetChanged();
+//            listAdapter.notifyDataSetChanged();
+            gridAdapter.setFilter(tempList);
+            listAdapter.setFilter(tempList);
+//
+        }
         return false;
     }
 
@@ -150,9 +162,16 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
                     return product.getName().compareTo(t1.getName());
                 }
             });
-            gridAdapter.notifyDataSetChanged();
-            listAdapter.notifyDataSetChanged();
             tempList = productdb;
+
+
+            /*gridAdapter.notifyDataSetChanged();
+            listAdapter.notifyDataSetChanged();
+            */
+
+
+            setDataChange(tempList);
+
             Toast.makeText(this, "Sorted Alphabetically", Toast.LENGTH_LONG).show();
             return true;
         }
@@ -164,14 +183,12 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
                     return String.valueOf(product.getPriority()).compareTo(String.valueOf((t1.getPriority())));
                 }
             });
-            gridAdapter.notifyDataSetChanged();
-            listAdapter.notifyDataSetChanged();
-
-
-
             tempList = productdb;
+//            gridAdapter.notifyDataSetChanged();
+//            listAdapter.notifyDataSetChanged();
 
 
+            setDataChange(tempList);
 
 
             Toast.makeText(this, "Sorted by Default", Toast.LENGTH_LONG).show();
@@ -185,10 +202,10 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
                     return String.valueOf(product.getCategory()).compareTo(String.valueOf(t1.getCategory()));
                 }
             });
-            gridAdapter.notifyDataSetChanged();
 
             tempList = productdb;
-
+//            gridAdapter.notifyDataSetChanged();
+            setDataChange(tempList);
             Toast.makeText(this, "sorted by Category", Toast.LENGTH_LONG).show();
             return true;
         }
@@ -200,10 +217,10 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
                     return String.valueOf(product.getCounter()).compareTo(String.valueOf(t1.getCounter()));
                 }
             });
-            gridAdapter.notifyDataSetChanged();
-
-
             tempList = productdb;
+//            gridAdapter.notifyDataSetChanged();
+            setDataChange(tempList);
+
 
 
             Toast.makeText(this, "sorted by Most frequently used", Toast.LENGTH_LONG).show();
@@ -239,22 +256,14 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
         productdb=db.getProductList();
 
 
-
         tempList = productdb;
-
-
-
-
-
-
-
-
 
 
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        gridAdapter = new MyGridLayoutAdapter(MainListActivity.this, productdb);
-        listAdapter = new MyListLayoutAdapter(MainListActivity.this, productdb);
+//        setDataChange(tempList);
+        gridAdapter = new MyGridLayoutAdapter(MainListActivity.this, tempList);
+        listAdapter = new MyListLayoutAdapter(MainListActivity.this, tempList);
 
         recyclerView.setAdapter(gridAdapter);
         recyclerView.setHasFixedSize(true);
@@ -262,6 +271,17 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
 
         isGridView = true;
 
+
+    }
+
+    void setDataChange(ArrayList<Product> tempList){
+/*
+        gridAdapter = new MyGridLayoutAdapter(MainListActivity.this, tempList);
+        listAdapter = new MyListLayoutAdapter(MainListActivity.this, tempList);
+*/
+
+        gridAdapter.setFilter(tempList);
+        listAdapter.setFilter(tempList);
 
     }
     @Override

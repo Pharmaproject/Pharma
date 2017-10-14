@@ -114,8 +114,8 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
 
     public void setFilter(ArrayList<Product> newList){
 
-        productList = new ArrayList<>();
-        productList.addAll(newList);
+        productList = newList;
+//        productList.addAll(newList);
         notifyDataSetChanged();
     }
 

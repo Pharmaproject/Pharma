@@ -43,6 +43,8 @@ public class ProductActivity extends AppCompatActivity  {
         next = (ImageView) findViewById(R.id.next);
         prev = (ImageView) findViewById(R.id.prev);
 
+
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
