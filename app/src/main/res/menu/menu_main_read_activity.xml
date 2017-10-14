@@ -47,6 +47,10 @@
             <item
                 android:id="@+id/filterbyOptho"
                 android:title="Filter by OPTHO" />
+            <item
+                android:id="@+id/filterbyAll"
+                android:title="All" />
+
         </menu>
     </item>
 

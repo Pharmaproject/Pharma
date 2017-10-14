@@ -53,7 +53,7 @@ public class ProductActivity extends AppCompatActivity  {
                 int id=product.getId();
                 p=null;
                 id++;
-                for (Product temp: MainListActivity.tempList) {
+                for (Product temp: MainListActivity.sortedList) {
                     if(temp.getId()==id){
 
                         p = temp;
@@ -79,7 +79,7 @@ public class ProductActivity extends AppCompatActivity  {
                 int id=product.getId();
                 p=null;
                 id++;
-                for (Product temp: MainListActivity.tempList) {
+                for (Product temp: MainListActivity.sortedList) {
                     if(temp.getId()+2==id){
 
                         p = temp;

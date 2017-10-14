@@ -34,12 +34,14 @@ import in.optho.opthoremedies.R;
 public class MainListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
 
+
+    //to store original data
+    ArrayList<Product> productdb=new ArrayList<>();
+    //we will do all the sorting on filteredList
+    ArrayList<Product> filteredList=new ArrayList<>();
+
     //
-    public static ArrayList<Product> tempList=new ArrayList<>();
-
-
-
-
+    public static ArrayList<Product> sortedList =new ArrayList<>();
 
 
 
@@ -48,16 +50,14 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
     Toolbar toolbar;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager linearLayoutManager;
-//    private GridLayoutManager gridLayoutManager;
     private RecyclerView.LayoutManager gridLayoutManager;
     Animator animator;
     private MyGridLayoutAdapter gridAdapter;
-    private MyListLayoutAdapter listAdapter;
+
     private int column;
+    private MyListLayoutAdapter listAdapter;
 
     private static long back_pressed;
-
-    ArrayList<Product> productdb=new ArrayList<>();
 
     private boolean isGridView=true;
 
@@ -96,26 +96,18 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
 
         newText = newText.toLowerCase();
         ArrayList<Product> newList = new ArrayList<>();
-        for (Product product : productdb) {
+        for (Product product : filteredList) {
             String name = product.getName().toLowerCase();
             if (name.contains(newText)) {
                 newList.add(product);
             }
 
 
-            tempList = newList;
-//            setDataChange(tempList);
+            sortedList = newList;
 
+            gridAdapter.setFilter(sortedList);
+            listAdapter.setFilter(sortedList);
 
-            /*gridAdapter.setFilter(tempList);
-            listAdapter.setFilter(tempList);
-*/
-
-//            gridAdapter.notifyDataSetChanged();
-//            listAdapter.notifyDataSetChanged();
-            gridAdapter.setFilter(tempList);
-            listAdapter.setFilter(tempList);
-//
         }
         return false;
     }
@@ -132,7 +124,6 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
                 animateframe();
 
                 recyclerView.setLayoutManager(linearLayoutManager);
-//                MyListLayoutAdapter gridAdapter = new MyListLayoutAdapter(MainListActivity.this, productdb);
                 recyclerView.setAdapter(listAdapter);
                 isGridView = false;
                 item.setIcon(R.drawable.grid_icon);
@@ -143,7 +134,6 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
             }else{
                 animateframe();
                 recyclerView.setLayoutManager(gridLayoutManager);
-                //MyGridLayoutAdapter gridAdapter = new MyGridLayoutAdapter(MainListActivity.this, productdb);
                 recyclerView.setAdapter(gridAdapter);
                 isGridView = true;
                 item.setIcon(R.drawable.list_icon);
@@ -156,39 +146,30 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
         }
         if(id==R.id.sortAlphabet){
 
-            Collections.sort(productdb, new Comparator<Product>() {
+            Collections.sort(filteredList, new Comparator<Product>() {
                 @Override
                 public int compare(Product product, Product t1) {
                     return product.getName().compareTo(t1.getName());
                 }
             });
-            tempList = productdb;
+            sortedList = filteredList;
 
-
-            /*gridAdapter.notifyDataSetChanged();
-            listAdapter.notifyDataSetChanged();
-            */
-
-
-            setDataChange(tempList);
+            setDataChange(sortedList);
 
             Toast.makeText(this, "Sorted Alphabetically", Toast.LENGTH_LONG).show();
             return true;
         }
         if(id==R.id.sortDefault){
 
-            Collections.sort(productdb, new Comparator<Product>() {
+            Collections.sort(filteredList, new Comparator<Product>() {
                 @Override
                 public int compare(Product product, Product t1) {
                     return String.valueOf(product.getPriority()).compareTo(String.valueOf((t1.getPriority())));
                 }
             });
-            tempList = productdb;
-//            gridAdapter.notifyDataSetChanged();
-//            listAdapter.notifyDataSetChanged();
+            sortedList = filteredList;
 
-
-            setDataChange(tempList);
+            setDataChange(sortedList);
 
 
             Toast.makeText(this, "Sorted by Default", Toast.LENGTH_LONG).show();
@@ -196,39 +177,79 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
         }
         if(id==R.id.sortCategory){
 
-            Collections.sort(productdb, new Comparator<Product>() {
+            Collections.sort(filteredList, new Comparator<Product>() {
                 @Override
                 public int compare(Product product, Product t1) {
                     return String.valueOf(product.getCategory()).compareTo(String.valueOf(t1.getCategory()));
                 }
             });
 
-            tempList = productdb;
-//            gridAdapter.notifyDataSetChanged();
-            setDataChange(tempList);
+            sortedList = filteredList;
+            setDataChange(sortedList);
             Toast.makeText(this, "sorted by Category", Toast.LENGTH_LONG).show();
             return true;
         }
         if(id==R.id.sortMostFreqUsed){
 
-            Collections.sort(productdb, new Comparator<Product>() {
+            Collections.sort(filteredList, new Comparator<Product>() {
                 @Override
                 public int compare(Product product, Product t1) {
                     return String.valueOf(product.getCounter()).compareTo(String.valueOf(t1.getCounter()));
                 }
             });
-            tempList = productdb;
-//            gridAdapter.notifyDataSetChanged();
-            setDataChange(tempList);
 
-
+            Collections.reverse(filteredList);
+            sortedList = filteredList;
+            setDataChange(sortedList);
 
             Toast.makeText(this, "sorted by Most frequently used", Toast.LENGTH_LONG).show();
             return true;
-//            Toast.makeText(this, "feature not availabe", Toast.LENGTH_SHORT).show();
         }
+        if(id==R.id.filterbyETN){
 
+            ArrayList<Product> temp = new ArrayList<>();
+//                temp.clear();
+            for (Product p :productdb) {
+                //to do: cahnge the 1 with desired number of ETN category
 
+                if(p.getCategory()==1)
+                    temp.add(p);
+            }
+            filteredList = temp;
+            setDataChange(filteredList);
+
+            return true;
+        }
+        if(id==R.id.filterbyOptho){
+
+            ArrayList<Product> temp = new ArrayList<>();
+//            temp.clear();
+            for (Product p :productdb) {
+                //to do: cahnge the 2 with desired number of ETN category
+
+                if(p.getCategory()==2)
+                    temp.add(p);
+            }
+            filteredList = temp;
+            setDataChange(filteredList);
+
+            return true;
+        }
+        if(id==R.id.filterbyAll){
+
+            ArrayList<Product> temp = new ArrayList<>();
+//            temp.clear();
+            /*for (Product p :productdb) {
+                //to do: cahnge the 2 with desired number of ETN category
+
+                if(p.getCategory()==2)
+                    temp.add(p);
+            }*/
+            filteredList = productdb;
+            setDataChange(filteredList);
+
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -254,16 +275,16 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
         //fetching the data from the database in ArrayList
         ProductDatabaseHelper db = new ProductDatabaseHelper(this);
         productdb=db.getProductList();
+        filteredList = productdb;
 
-
-        tempList = productdb;
+        sortedList = productdb;
 
 
         recyclerView.setLayoutManager(gridLayoutManager);
 
-//        setDataChange(tempList);
-        gridAdapter = new MyGridLayoutAdapter(MainListActivity.this, tempList);
-        listAdapter = new MyListLayoutAdapter(MainListActivity.this, tempList);
+//        setDataChange(sortedList);
+        gridAdapter = new MyGridLayoutAdapter(MainListActivity.this, sortedList);
+        listAdapter = new MyListLayoutAdapter(MainListActivity.this, sortedList);
 
         recyclerView.setAdapter(gridAdapter);
         recyclerView.setHasFixedSize(true);
@@ -276,8 +297,8 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
 
     void setDataChange(ArrayList<Product> tempList){
 /*
-        gridAdapter = new MyGridLayoutAdapter(MainListActivity.this, tempList);
-        listAdapter = new MyListLayoutAdapter(MainListActivity.this, tempList);
+        gridAdapter = new MyGridLayoutAdapter(MainListActivity.this, sortedList);
+        listAdapter = new MyListLayoutAdapter(MainListActivity.this, sortedList);
 */
 
         gridAdapter.setFilter(tempList);
