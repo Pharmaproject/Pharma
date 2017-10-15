@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -27,25 +28,26 @@ public class ImageSetter extends AppGlideModule {
 
     public void SetImage(final ImageView view, byte[] data, final Context context) {
 
-
-        Glide.with(context.getApplicationContext())
-                .load(data)
-                .apply(new RequestOptions()
-                        .fitCenter()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .format(DecodeFormat.PREFER_ARGB_8888)
-                        .encodeFormat(Bitmap.CompressFormat.PNG))
-                .into(view);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            view.setElevation(20);
-        }
+        if(view!=null) {
+            Glide.with(context.getApplicationContext())
+                    .load(data)
+                    .apply(new RequestOptions()
+                            .fitCenter()
+//                        .skipMemoryCache(true)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .format(DecodeFormat.PREFER_ARGB_8888)
+                            .encodeFormat(Bitmap.CompressFormat.PNG))
+                    .into(view);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                view.setElevation(20);
+            }
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                 }
             });
-
+        }
  /*       Glide.with(context.getApplicationContext())
                 .load(data)
                 .apply(new RequestOptions()

@@ -55,6 +55,9 @@ public class Design6 extends Fragment {
         Bundle bundle = getArguments();
         product = bundle.getParcelable("PRODUCT");
         int id = product.getId();
+
+        System.out.println("Product : "+id + product.getName());
+
         brand =db.getBrand(id);
         openpunch = db.getOpenpunch(id);
         graphic = db.getGraphic(id);

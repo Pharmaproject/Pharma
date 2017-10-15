@@ -55,6 +55,7 @@
             android:focusableInTouchMode="true"
             android:inputType="number"
             android:padding="5dp"
+            android:imeOptions="flagNoExtractUi"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
             app:borderWidth="2dp"

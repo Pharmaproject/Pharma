@@ -53,8 +53,13 @@ public class Design1 extends Fragment {
         db = new ProductDatabaseHelper(getActivity());
         bit = new ImageSetter();
         Bundle bundle = getArguments();
+
+
         product = bundle.getParcelable("PRODUCT");
         int id = product.getId();
+        System.out.println("Product : "+product.getId() + product.getName());
+
+
         brand =db.getBrand(id);
         openpunch = db.getOpenpunch(id);
         graphic = db.getGraphic(id);

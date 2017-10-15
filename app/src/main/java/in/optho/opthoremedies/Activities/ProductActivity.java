@@ -65,6 +65,8 @@ public class ProductActivity extends AppCompatActivity  {
                     Intent intent = new Intent(ProductActivity.this, ProductActivity.class);
                     intent.putExtra("PRODUCT", p);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
+
                 }
             }
         });
@@ -91,6 +93,7 @@ public class ProductActivity extends AppCompatActivity  {
                     Intent intent = new Intent(ProductActivity.this, ProductActivity.class);
                     intent.putExtra("PRODUCT", p);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_right);
                 }
             }
         });

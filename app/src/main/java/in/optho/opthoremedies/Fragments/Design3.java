@@ -55,6 +55,8 @@ public class Design3 extends Fragment {
         Bundle bundle = getArguments();
         product = bundle.getParcelable("PRODUCT");
         int id = product.getId();
+        System.out.println("Product : "+id + product.getName());
+
         brand =db.getBrand(id);
         openpunch = db.getOpenpunch(id);
         graphic = db.getGraphic(id);
@@ -74,7 +76,7 @@ public class Design3 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_design3, container, false);
         Context c= getActivity().getApplicationContext();
 
-        final RelativeLayout layout =(RelativeLayout) view.findViewById(R.id.background3);
+        final RelativeLayout layout =(RelativeLayout) view.findViewById(R.id.background);
 
         opl1 = (ImageView) view.findViewById(R.id.opl1);
         brand1 = (ImageView) view.findViewById(R.id.brand1);

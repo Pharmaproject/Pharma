@@ -13,9 +13,11 @@
         android:id="@+id/slidingpane">
 
     <!-- Left side pane. (List) -->
-    <FrameLayout
+        <FrameLayout
         android:id="@+id/leftpane"
         android:layout_width="100dp"
+        android:paddingTop="50dp"
+        android:background="@color/colorBlack"
         android:layout_height="match_parent"
         android:layout_gravity="left" />
 
@@ -25,29 +27,34 @@
         android:layout_height="match_parent"
         android:layout_gravity="right"
         android:layout_weight="1">
+
     </FrameLayout>
 
     </android.support.v4.widget.SlidingPaneLayout>
 
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_alignParentTop="true"
         android:layout_centerVertical="true">
+
         <ImageView
             android:id="@+id/prev"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:background="@color/blue_gray"
-            android:src="@android:drawable/ic_media_previous"
-            android:layout_alignLeft="@+id/content_frame"/>
+            android:layout_alignLeft="@+id/content_frame"
+            android:background="@color/colorBlacktint"
+            android:src="@android:drawable/ic_media_previous" />
+
         <ImageView
             android:id="@+id/next"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:background="@color/blue_gray"
             android:layout_alignParentRight="true"
-            android:src="@android:drawable/ic_media_next"/>
+            android:background="@color/colorBlacktint"
+            android:src="@android:drawable/ic_media_next" />
 
 
     </RelativeLayout>

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import in.optho.opthoremedies.Activities.MainListActivity;
 import in.optho.opthoremedies.Adapters.MyListLayoutAdapter;
+import in.optho.opthoremedies.Adapters.MySideListAdapter;
 import in.optho.opthoremedies.Database.ProductDatabaseHelper;
 import in.optho.opthoremedies.Models.Product;
 import in.optho.opthoremedies.R;
@@ -28,7 +29,7 @@ public class SidePaneFragment extends Fragment {
     private int mColumnCount = 1;
     ArrayList<Product> productdb=new ArrayList<>();
 
-    private MyListLayoutAdapter listAdapter;
+    private MySideListAdapter listAdapter;
 
 
     /**
@@ -61,7 +62,7 @@ public class SidePaneFragment extends Fragment {
 
         ProductDatabaseHelper db = new ProductDatabaseHelper(getActivity());
         productdb=db.getProductList();
-        listAdapter = new MyListLayoutAdapter(getActivity(), productdb);
+        listAdapter = new MySideListAdapter(getActivity(), productdb);
 
     }
 

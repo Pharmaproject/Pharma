@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -74,10 +75,11 @@ public class SplashActivity extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         // Alarm Manager calls BroadCast for every Ten seconds (10 * 1000), BroadCase further calls service to check if new records are inserted in
         // Remote MySQL DB
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis() + 5000, 1000 * 60 * 1, pendingIntent);
+       // alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis() + 5000, 1000 * 60 * 10
+   //             , pendingIntent);
 
-       // alarmManager.cancel(pendingIntent); // cancel any existing alarms
-//        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY, AlarmManager.INTERVAL_DAY, pendingIntent);
+   //     alarmManager.cancel(pendingIntent); // cancel any existing alarms
+       alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY, AlarmManager.INTERVAL_DAY, pendingIntent);
 
         storeddata = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int noOfTimes = storeddata.getInt("Nonet", 0);
@@ -86,6 +88,7 @@ public class SplashActivity extends AppCompatActivity {
         final Boolean updateEmp = storeddata.getBoolean("updateEmp", false);
         final Boolean updatePro = storeddata.getBoolean("updatePro", false);
         int Days = storeddata.getInt("update",0);
+
         remain=11-Days;
         syncDialog = new Dialog(this,R.style.NewDialog);
         syncDialog.setContentView(R.layout.syncdialog);
@@ -97,6 +100,14 @@ public class SplashActivity extends AppCompatActivity {
         System.out.println("Local Emp Date: "+ DateEmpLocal);
         System.out.println("Local Product Date: "+ DateProLocal);
 
+        int Fresh = storeddata.getInt("FirstLaunch",0);
+        if(Fresh==0){
+            syncSQLiteEmployee();
+            syncSQLiteProduct();
+            edit = storeddata.edit();
+            edit.putInt("FirstLaunch",1);
+            edit.commit();
+        }
         Window window = syncDialog.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
 
@@ -143,6 +154,7 @@ public class SplashActivity extends AppCompatActivity {
             syncDialog.create();
 
         }
+
 
 
         if(updateEmp|updatePro) {

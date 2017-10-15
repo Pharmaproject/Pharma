@@ -235,8 +235,8 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
     public void insertUpdateProduct(HashMap<String, String> queryValues) {
         openDataBase();
 
-        Cursor cursor = myDataBase.rawQuery("select * from " +TABLE_NAME+" where id="+ queryValues.get("id") +";" , null);
         ContentValues values = new ContentValues();
+        values.put("id", queryValues.get("id"));
         values.put("datetime", queryValues.get("datetime"));
         values.put("code", queryValues.get("code"));
         values.put("name", queryValues.get("name"));
@@ -251,9 +251,8 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         values.put("description", Base64.decode(queryValues.get("description"), Base64.DEFAULT));
         values.put("closepunch", Base64.decode(queryValues.get("closepunch"), Base64.DEFAULT));
         values.put("customicon", Base64.decode(queryValues.get("customicon"), Base64.DEFAULT));
-
+        Cursor cursor = myDataBase.rawQuery("select * from " +TABLE_NAME+" where id="+ queryValues.get("id") +";" , null);
           if((cursor.getCount()==0)){
-              values.put("id", queryValues.get("id"));
               myDataBase.insert("product", null, values);
         }
         else {
