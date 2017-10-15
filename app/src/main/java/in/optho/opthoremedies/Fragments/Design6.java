@@ -24,6 +24,9 @@ import in.optho.opthoremedies.R;
  */
 public class Design6 extends Fragment {
 
+    private static final String ARG_SECTION_NUMBER = "section_number";
+
+
     private ImageView opl1;
     private ImageView brand1;
     private ImageView Science1;
@@ -113,5 +116,15 @@ public class Design6 extends Fragment {
 
 
     }
+
+    public static Design6 newInstance(int sectionNumber) {
+        Design6 fragment = new Design6();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
 
 }
