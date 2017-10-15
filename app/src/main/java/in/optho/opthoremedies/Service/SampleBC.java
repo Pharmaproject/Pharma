@@ -10,7 +10,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
-import android.util.Xml;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -29,7 +29,8 @@ import java.util.Date;
 import cz.msebera.android.httpclient.Header;
 
 public class SampleBC extends BroadcastReceiver {
-	static int noOfTimes = 0;
+    String TAG = "OPTHO";
+    static int noOfTimes = 0;
     boolean updateEmp;
     boolean updatePro;
     SharedPreferences storeddata;
@@ -207,6 +208,8 @@ public class SampleBC extends BroadcastReceiver {
 
             updateEmp= CompareDates(DateEmpLocal,DateEmpServer);
             updatePro= CompareDates(DateProLocal,DateProServer);
+
+
 
             if(updateEmp|updatePro){
                 int Days = storeddata.getInt("update",0);
