@@ -82,17 +82,19 @@ public class Design5 extends Fragment {
         cartoon1 = (ImageView) view.findViewById(R.id.cartoon1);
         indication1 = (ImageView) view.findViewById(R.id.indication1);
         cpl1 = (ImageView) view.findViewById(R.id.cpl1);
+        ImageView expandedImageView = (ImageView) view.findViewById(R.id.expanded_image);
 
         BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), BitmapFactory.decodeByteArray(graphic, 0, graphic.length));
+        bitmapDrawable.setAlpha(180);
         layout.setBackground(bitmapDrawable);
 
 
-        bit.SetImage(brand1,brand,c);
-        bit.SetImage(opl1,openpunch,c);
-        bit.SetImage(Science1,description,c);
-        bit.SetImage(cartoon1,carton,c);
-        bit.SetImage(indication1,indication,c);
-        bit.SetImage(cpl1,closepunch,c);
+        bit.SetImage(brand1,brand,c,view,expandedImageView);
+        bit.SetImage(opl1,openpunch,c,view,expandedImageView);
+        bit.SetImage(Science1,description,c,view,expandedImageView);
+        bit.SetImage(cartoon1,carton,c,view,expandedImageView);
+        bit.SetImage(indication1,indication,c,view,expandedImageView);
+        bit.SetImage(cpl1,closepunch,c,view,expandedImageView);
 
 
         return view;

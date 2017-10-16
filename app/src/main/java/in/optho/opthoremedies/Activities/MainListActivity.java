@@ -44,8 +44,6 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
     //send sorted list to adapter
     public static ArrayList<Product> sortedList =new ArrayList<>();
 
-
-
     int cx,cy,dx,dy;
     float finalRadius;
     Toolbar toolbar;
@@ -173,7 +171,7 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
             setDataChange(sortedList);
 
 
-            Toast.makeText(this, "Sorted by Default", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Default Sort", Toast.LENGTH_LONG).show();
             return true;
         }
         if(id==R.id.sortCategory){
@@ -187,7 +185,7 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
 
             sortedList = filteredList;
             setDataChange(sortedList);
-            Toast.makeText(this, "sorted by Category", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Sorted by Categories", Toast.LENGTH_LONG).show();
             return true;
         }
         if(id==R.id.sortMostFreqUsed){
@@ -203,17 +201,16 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
             sortedList = filteredList;
             setDataChange(sortedList);
 
-            Toast.makeText(this, "sorted by Most frequently used", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Most frequently accessed", Toast.LENGTH_LONG).show();
             return true;
         }
-        if(id==R.id.filterbyETN){
+        if(id==R.id.filterbyENT){
 
             ArrayList<Product> temp = new ArrayList<>();
 //                temp.clear();
             for (Product p :productdb) {
-                //to do: cahnge the 1 with desired number of ETN category
 
-                if(p.getCategory()==1)
+                if(p.getCategory()==10)
                     temp.add(p);
             }
             filteredList = temp;
@@ -226,9 +223,8 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
             ArrayList<Product> temp = new ArrayList<>();
 //            temp.clear();
             for (Product p :productdb) {
-                //to do: cahnge the 2 with desired number of ETN category
 
-                if(p.getCategory()==2)
+                if(p.getCategory()!=10)
                     temp.add(p);
             }
             filteredList = temp;
@@ -301,7 +297,6 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
         gridAdapter = new MyGridLayoutAdapter(MainListActivity.this, sortedList);
         listAdapter = new MyListLayoutAdapter(MainListActivity.this, sortedList);
 */
-
         gridAdapter.setFilter(tempList);
         listAdapter.setFilter(tempList);
 
@@ -370,6 +365,7 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
         int noOfColumns = (int) (dpWidth / scalingFactor);
         return noOfColumns;
     }
+
 
 
 }

@@ -22,24 +22,27 @@
             <TextView
                 android:id="@+id/itemno"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="23"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/colorBlack"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/itemode"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="empty"
+                android:textAlignment="center"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/colorBlack"
-                android:textSize="14sp" />
+                android:textSize="24sp" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

@@ -82,6 +82,7 @@ public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapte
                     Product product = productList.get(getAdapterPosition());
 
                     Intent intent = new Intent(itemView.getContext(), ProductActivity.class);
+                    intent.putExtra("list",productList);
                     intent.putExtra("PRODUCT", product);
                     itemView.getContext().startActivity(intent);
 
@@ -102,6 +103,7 @@ public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapte
 
         }
     }
+
 
 
 

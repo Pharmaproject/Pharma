@@ -82,7 +82,8 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
                     int id = productList.get(getAdapterPosition()).getId();
 //                    Toast.makeText(view.getContext(), "Clicked : "+product.getName(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(itemView.getContext(), ProductActivity.class);
-
+                    intent.putExtra("list",productList);
+                    intent.putExtra("PRODUCT", product);
 
                     intent.putExtra("PRODUCT",product);
 //                    intent.putExtra("ID",product.getId());

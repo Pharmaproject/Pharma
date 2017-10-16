@@ -53,15 +53,18 @@ public class SidePaneFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ProductDatabaseHelper db = new ProductDatabaseHelper(getActivity());
+        productdb=db.getProductList();
+
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+     //       mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            productdb = getArguments().getParcelableArrayList("list");
         }
 
 
 
 
-        ProductDatabaseHelper db = new ProductDatabaseHelper(getActivity());
-        productdb=db.getProductList();
+
         listAdapter = new MySideListAdapter(getActivity(), productdb);
 
     }

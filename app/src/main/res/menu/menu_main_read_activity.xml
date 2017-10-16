@@ -32,7 +32,7 @@
                 android:title="Category Sorting" />
             <item
                 android:id="@+id/sortMostFreqUsed"
-                android:title="Most frequently used" />
+                android:title="Most frequently accessed" />
         </menu>
     </item>
     <item
@@ -42,14 +42,14 @@
         android:icon="@mipmap/filled_filter">
         <menu>
             <item
-                android:id="@+id/filterbyETN"
-                android:title="Filter by ETN" />
+                android:id="@+id/filterbyENT"
+                android:title="ENT Products" />
             <item
                 android:id="@+id/filterbyOptho"
-                android:title="Filter by OPTHO" />
+                android:title="OPTHO Products" />
             <item
                 android:id="@+id/filterbyAll"
-                android:title="All" />
+                android:title="Show All" />
 
         </menu>
     </item>

@@ -224,9 +224,8 @@ public class SplashActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
 
-                if (remain > 0) {
                     NextActivity();
-                }
+
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
@@ -241,9 +240,9 @@ public class SplashActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
 
-                if (remain > 0) {
+
                     NextActivity();
-                }
+
 
             }
 
@@ -261,9 +260,7 @@ public class SplashActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
 
-                if (remain > 0) {
                     NextActivity();
-                }
             }
 
 
@@ -392,9 +389,9 @@ public class SplashActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
 
-                if (remain > 0) {
+
                     NextActivity();
-                }
+
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
@@ -409,9 +406,7 @@ public class SplashActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
 
-                if (remain > 0) {
                     NextActivity();
-                }
 
             }
 
@@ -429,9 +424,7 @@ public class SplashActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
 
-                if (remain > 0) {
                     NextActivity();
-                }
             }
 
 
@@ -467,7 +460,7 @@ public class SplashActivity extends AppCompatActivity {
             System.out.println(response.length());
             // If no of array elements is not zero
             if(response.length() != 0){
-                // Loop through each array element, get JSON object which has userid and username
+                // Loop through each array element, get JSON object which has user id and username
                 for (int i = 0; i < response.length(); i++) {
                     // Get JSON object
                     JSONObject obj = (JSONObject) response.get(i);
@@ -522,9 +515,15 @@ public class SplashActivity extends AppCompatActivity {
 
     // Reload MainActivity
     public void NextActivity() {
+
+        int Days = storeddata.getInt("update",0);
+
+        remain=11-Days;
         syncDialog.dismiss();
-        startActivity(new Intent(SplashActivity.this, IDActivity.class));
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        if(11-Days>0) {
+            startActivity(new Intent(SplashActivity.this, IDActivity.class));
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        }
     }
 
 

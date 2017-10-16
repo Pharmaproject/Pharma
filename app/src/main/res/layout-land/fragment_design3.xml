@@ -1,9 +1,21 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="in.optho.opthoremedies.Fragments.Design1">
+
+    <ImageView
+        android:id="@+id/expanded_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/background">
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
@@ -61,4 +73,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
 
+
+
 </RelativeLayout>
+</FrameLayout>

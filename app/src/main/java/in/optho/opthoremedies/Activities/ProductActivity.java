@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import in.optho.opthoremedies.Fragments.Design1;
 import in.optho.opthoremedies.Fragments.Design2;
 import in.optho.opthoremedies.Fragments.Design3;
@@ -37,12 +39,12 @@ public class ProductActivity extends AppCompatActivity  {
         pane.setPanelSlideListener(new PaneListener());
         Bundle extras = new Bundle();
         final Product product = getIntent().getParcelableExtra("PRODUCT"); // Parcelable
+        ArrayList<Product> list = getIntent().getParcelableArrayListExtra("list");
         extras.putParcelable("PRODUCT", product);
  //       Product product = (Product) extras.getSerializable("PRODUCT");
 
         next = (ImageView) findViewById(R.id.next);
         prev = (ImageView) findViewById(R.id.prev);
-
 
 
         next.setOnClickListener(new View.OnClickListener() {
@@ -136,8 +138,10 @@ public class ProductActivity extends AppCompatActivity  {
         ft.addToBackStack(null);
         ft.commit();
 
-
+        Bundle sidepane = new Bundle();
+        sidepane.putParcelableArrayList("list",list);
         fragment = new SidePaneFragment();
+        fragment.setArguments(sidepane);
         FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
         ft1.setCustomAnimations(R.anim.nothing, R.anim.slide_down);
         ft1.replace(R.id.leftpane, fragment);
