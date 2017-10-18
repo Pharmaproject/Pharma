@@ -39,7 +39,7 @@ public class ProductActivity extends AppCompatActivity  {
         pane.setPanelSlideListener(new PaneListener());
         Bundle extras = new Bundle();
         final Product product = getIntent().getParcelableExtra("PRODUCT"); // Parcelable
-        ArrayList<Product> list = getIntent().getParcelableArrayListExtra("list");
+        final ArrayList<Product> list = getIntent().getParcelableArrayListExtra("list");
         extras.putParcelable("PRODUCT", product);
  //       Product product = (Product) extras.getSerializable("PRODUCT");
 
@@ -67,6 +67,7 @@ public class ProductActivity extends AppCompatActivity  {
                     Toast.makeText(ProductActivity.this, "Last Product", Toast.LENGTH_SHORT).show();
                 }else{
                     Intent intent = new Intent(ProductActivity.this, ProductActivity.class);
+                    intent.putExtra("list",list);
                     intent.putExtra("PRODUCT", p);
                     startActivity(intent);
                     overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
@@ -95,6 +96,7 @@ public class ProductActivity extends AppCompatActivity  {
                     Toast.makeText(ProductActivity.this, "First Product", Toast.LENGTH_SHORT).show();
                 }else{
                     Intent intent = new Intent(ProductActivity.this, ProductActivity.class);
+                    intent.putExtra("list",list);
                     intent.putExtra("PRODUCT", p);
                     startActivity(intent);
                     overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_right);

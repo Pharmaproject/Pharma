@@ -3,6 +3,8 @@ package in.optho.opthoremedies.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +45,6 @@ public class MySideListAdapter extends RecyclerView.Adapter<MySideListAdapter.My
             }
         });
 
-
         return new MyViewHolder(v);
     }
 
@@ -53,8 +54,10 @@ public class MySideListAdapter extends RecyclerView.Adapter<MySideListAdapter.My
         holder.itemTV.setText(productList.get(position).getName());
         holder.snoTV.setText(Integer.toString(productList.get(position).getId()));
 
-
-
+  /*      if(productList.get(position).getCategory()==1) {
+        holder.card.setCardBackgroundColor(Color.BLUE);
+    }
+*/
 
     }
 
@@ -67,14 +70,14 @@ public class MySideListAdapter extends RecyclerView.Adapter<MySideListAdapter.My
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView itemTV;
         TextView snoTV;
-
+        CardView card;
 
         public MyViewHolder(final View itemView) {
             super(itemView);
 
             itemTV = (TextView) itemView.findViewById(R.id.itemode);
             snoTV = (TextView) itemView.findViewById(R.id.itemno);
-
+            card = (CardView) itemView.findViewById(R.id.card_layout);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -82,6 +85,7 @@ public class MySideListAdapter extends RecyclerView.Adapter<MySideListAdapter.My
                     Product product = productList.get(getAdapterPosition());
 
                     Intent intent = new Intent(itemView.getContext(), ProductActivity.class);
+                    intent.putExtra("list",productList);
                     intent.putExtra("PRODUCT", product);
                     itemView.getContext().startActivity(intent);
 
@@ -102,6 +106,8 @@ public class MySideListAdapter extends RecyclerView.Adapter<MySideListAdapter.My
 
         }
     }
+
+
 
 
 

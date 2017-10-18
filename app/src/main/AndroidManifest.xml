@@ -52,8 +52,12 @@
             android:process=":remote">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-
                 <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <data android:scheme="package"
+                    android:sspPrefix="in.optho.opthoremedies" />
             </intent-filter>
         </receiver>
 
