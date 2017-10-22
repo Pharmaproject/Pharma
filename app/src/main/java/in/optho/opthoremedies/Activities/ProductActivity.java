@@ -66,9 +66,12 @@ public class ProductActivity extends AppCompatActivity  {
                 if(p==null){
                     Toast.makeText(ProductActivity.this, "Last Product", Toast.LENGTH_SHORT).show();
                 }else{
-                    Intent intent = new Intent(ProductActivity.this, ProductActivity.class);
+
+                    Intent intent = getIntent();
                     intent.putExtra("list",list);
+                    Toast.makeText(ProductActivity.this, "ID: "+p.getId(), Toast.LENGTH_SHORT).show();
                     intent.putExtra("PRODUCT", p);
+                    finish();
                     startActivity(intent);
                     overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
 
@@ -174,10 +177,15 @@ public class ProductActivity extends AppCompatActivity  {
     @Override
     public void onBackPressed() {
 
+
+        finish();
+        /*
+
         if (pane.isOpen()){
             pane.closePane();
         }
         else startActivity(new Intent(ProductActivity.this,MainListActivity.class));
+*/
 
     }
 
