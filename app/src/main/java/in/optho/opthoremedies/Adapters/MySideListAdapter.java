@@ -56,9 +56,13 @@ public class MySideListAdapter extends RecyclerView.Adapter<MySideListAdapter.My
 
        if(productList.get(position).getCategory()==1) {
         holder.card.setCardBackgroundColor(Color.WHITE);
+           holder.itemTV.setTextColor(Color.BLACK);
+           holder.snoTV.setTextColor(Color.BLACK);
         }
         if(productList.get(position).getCategory()==2) {
             holder.card.setCardBackgroundColor(Color.rgb(155,197,255)); //Light blue
+            holder.itemTV.setTextColor(Color.BLACK);
+            holder.snoTV.setTextColor(Color.BLACK);
         }
         if(productList.get(position).getCategory()==3) {
             holder.card.setCardBackgroundColor(Color.rgb(1,108,255));  // blue
@@ -67,12 +71,18 @@ public class MySideListAdapter extends RecyclerView.Adapter<MySideListAdapter.My
         }
         if(productList.get(position).getCategory()==4) {
             holder.card.setCardBackgroundColor(Color.rgb(255,185,127)); //light orange
+            holder.itemTV.setTextColor(Color.BLACK);
+            holder.snoTV.setTextColor(Color.BLACK);
         }
         if(productList.get(position).getCategory()==5) {
             holder.card.setCardBackgroundColor(Color.rgb(255,137,39)); //orange
+            holder.itemTV.setTextColor(Color.BLACK);
+            holder.snoTV.setTextColor(Color.BLACK);
         }
         if(productList.get(position).getCategory()==6) {
             holder.card.setCardBackgroundColor(Color.rgb(157,251,177)); //light green
+            holder.itemTV.setTextColor(Color.BLACK);
+            holder.snoTV.setTextColor(Color.BLACK);
         }
         if(productList.get(position).getCategory()==7) {
             holder.card.setCardBackgroundColor(Color.rgb(124,124,124)); //grey
@@ -81,6 +91,8 @@ public class MySideListAdapter extends RecyclerView.Adapter<MySideListAdapter.My
         }
         if(productList.get(position).getCategory()==8) {
             holder.card.setCardBackgroundColor(Color.rgb(236,255,134)); //yellow
+            holder.itemTV.setTextColor(Color.BLACK);
+            holder.snoTV.setTextColor(Color.BLACK);
         }
         if(productList.get(position).getCategory()==9) {
             holder.card.setCardBackgroundColor(Color.BLACK); //black

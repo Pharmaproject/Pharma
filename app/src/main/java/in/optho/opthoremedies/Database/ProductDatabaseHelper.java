@@ -220,7 +220,7 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
             design = cursor.getInt(6);
 
             product=new Product(datetime,id,code,priority,name ,category,design,storeddata.getInt(String.valueOf(id),0));
-            if (product.getCategory()!=1){
+            if (product.getCategory()!=0){
                 prodList.add(product);
             }
 

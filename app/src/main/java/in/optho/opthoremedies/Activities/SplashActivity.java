@@ -67,6 +67,7 @@ public class SplashActivity extends AppCompatActivity {
         prgDialog = new ProgressDialog(this);
         prgDialog.setMessage("Transferring Data from Remote Server and Syncing Local Database. Please wait...");
         prgDialog.setCancelable(false);
+        prgDialog.setProgressStyle(1);
         // BroadCase Receiver Intent Object
         Intent alarmIntent = new Intent(getApplicationContext(), SampleBC.class);
         // Pending Intent Object
@@ -394,7 +395,6 @@ public class SplashActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet]",
                             Toast.LENGTH_LONG).show();
                 }
-
 
                     NextActivity();
 
