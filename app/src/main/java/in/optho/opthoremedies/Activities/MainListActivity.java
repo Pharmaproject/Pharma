@@ -176,7 +176,7 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
         }
         if(id==R.id.sortCategory){
 
-            Collections.sort(filteredList, new Comparator<`>() {
+            Collections.sort(filteredList, new Comparator<Product>() {
                 @Override
                 public int compare(Product product, Product t1) {
                     return String.valueOf(product.getCategory()).compareTo(String.valueOf(t1.getCategory()));
