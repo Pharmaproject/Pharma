@@ -77,6 +77,12 @@
         android:layout_marginRight="5dp"
         android:layout_toStartOf="@+id/cartoon1" />
 
+        <ImageView
+            android:id="@+id/cIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

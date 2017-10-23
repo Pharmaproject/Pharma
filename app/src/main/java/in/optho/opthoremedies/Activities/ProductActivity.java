@@ -98,9 +98,10 @@ public class ProductActivity extends AppCompatActivity  {
                 if(p==null){
                     Toast.makeText(ProductActivity.this, "First Product", Toast.LENGTH_SHORT).show();
                 }else{
-                    Intent intent = new Intent(ProductActivity.this, ProductActivity.class);
+                    Intent intent = getIntent();
                     intent.putExtra("list",list);
                     intent.putExtra("PRODUCT", p);
+                    finish();
                     startActivity(intent);
                     overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_right);
                 }

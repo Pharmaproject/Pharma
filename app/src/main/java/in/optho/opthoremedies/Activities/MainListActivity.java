@@ -176,7 +176,7 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
         }
         if(id==R.id.sortCategory){
 
-            Collections.sort(filteredList, new Comparator<Product>() {
+            Collections.sort(filteredList, new Comparator<`>() {
                 @Override
                 public int compare(Product product, Product t1) {
                     return String.valueOf(product.getCategory()).compareTo(String.valueOf(t1.getCategory()));
@@ -235,13 +235,8 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
         if(id==R.id.filterbyAll){
 
             ArrayList<Product> temp = new ArrayList<>();
-//            temp.clear();
-            /*for (Product p :productdb) {
-                //to do: cahnge the 2 with desired number of ETN category
 
-                if(p.getCategory()==2)
-                    temp.add(p);
-            }*/
+
             filteredList = productdb;
             setDataChange(filteredList);
 
