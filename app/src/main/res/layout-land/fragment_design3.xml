@@ -46,14 +46,14 @@
         android:layout_below="@+id/opl1"
         android:layout_alignEnd="@+id/cartoon1" />
 
-    <ImageView
-        android:id="@+id/cartoon1"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_below="@+id/Science1"
-        android:layout_alignEnd="@+id/cpl1" />
+        <ImageView
+            android:id="@+id/cartoon1"
+            android:layout_width="150dp"
+            android:layout_height="300dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignEnd="@+id/cpl1" />
 
     <ImageView
         android:id="@+id/indication1"

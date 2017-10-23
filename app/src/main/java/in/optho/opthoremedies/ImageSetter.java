@@ -131,7 +131,7 @@ public class ImageSetter extends AppGlideModule{
         // thumbnail.
         thumbView.setAlpha(0f);
         expandedImageView.bringToFront();
-        expandedImageView.setBackgroundColor(Color.argb(190,163, 224, 250));
+        expandedImageView.setBackgroundColor(Color.argb(220,132,132,132));
         AlphaAnimation animation1 = new AlphaAnimation(0.4f, 1.0f);
         animation1.setDuration(200);
         expandedImageView.setVisibility(View.VISIBLE);
@@ -201,8 +201,8 @@ public class ImageSetter extends AppGlideModule{
                 set.addListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        AlphaAnimation animation1 = new AlphaAnimation(1.0f, 0.1f);
-                        animation1.setDuration(200);
+                        AlphaAnimation animation1 = new AlphaAnimation(1.0f, 0.0f);
+                        animation1.setDuration(160);
                         expandedImageView.setAnimation(animation1);
                         thumbView.setAlpha(1f);
                         expandedImageView.setVisibility(View.GONE);
@@ -211,8 +211,8 @@ public class ImageSetter extends AppGlideModule{
 
                     @Override
                     public void onAnimationCancel(Animator animation) {
-                        AlphaAnimation animation1 = new AlphaAnimation(1.0f, 0.1f);
-                        animation1.setDuration(180);
+                        AlphaAnimation animation1 = new AlphaAnimation(1.0f, 0.0f);
+                        animation1.setDuration(160);
                         expandedImageView.setAnimation(animation1);
                         thumbView.setAlpha(1f);
                         expandedImageView.setVisibility(View.GONE);
