@@ -58,41 +58,15 @@ public class ProductActivity extends AppCompatActivity  {
             public void onClick(View view) {
 
 
-                Product p = list.get(++pos);
+                int i=list.size()-1;
+                if(pos<i){
+                    Product p = list.get(++pos);
 
 
-                if(p==null){
-                    Toast.makeText(ProductActivity.this, "Last Product", Toast.LENGTH_SHORT).show();
-                }else{
+
 
                     Intent intent = getIntent();
                     intent.putExtra("list",list);
-                    Toast.makeText(ProductActivity.this, "ID: "+p.getId(), Toast.LENGTH_SHORT).show();
-                    intent.putExtra("POS", pos);
-                    intent.putExtra("PRODUCT", p);
-
-                    finish();
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
-
-                }
-            }
-        });
-
-        prev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Product p = list.get(++pos);
-
-
-                if(p==null){
-                    Toast.makeText(ProductActivity.this, "Last Product", Toast.LENGTH_SHORT).show();
-                }else{
-
-                    Intent intent = getIntent();
-                    intent.putExtra("list",list);
-                    Toast.makeText(ProductActivity.this, "ID: "+p.getId(), Toast.LENGTH_SHORT).show();
                     intent.putExtra("POS", pos);
                     intent.putExtra("PRODUCT", p);
 
@@ -100,10 +74,45 @@ public class ProductActivity extends AppCompatActivity  {
                     startActivity(intent);
                     overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_right);
 
-                }
+
+
+                }else
+                    Toast.makeText(ProductActivity.this, "Last Product", Toast.LENGTH_SHORT).show();
+
 
             }
         });
+
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if(pos>0){
+                    Product p = list.get(--pos);
+
+
+
+
+                        Intent intent = getIntent();
+                        intent.putExtra("list",list);
+                        intent.putExtra("POS", pos);
+                        intent.putExtra("PRODUCT", p);
+
+                        finish();
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_right);
+
+
+
+                }else
+                    Toast.makeText(ProductActivity.this, "First Product", Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+
+
 
 
         String category=String.valueOf(product.getDesign());

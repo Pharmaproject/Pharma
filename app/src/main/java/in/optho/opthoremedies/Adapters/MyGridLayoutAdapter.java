@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,7 +42,6 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -80,7 +78,6 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
 
                     Product product = productList.get(getAdapterPosition());
                     int id = productList.get(getAdapterPosition()).getId();
-//                    Toast.makeText(view.getContext(), "Clicked : "+product.getName(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(itemView.getContext(), ProductActivity.class);
                     intent.putExtra("list",productList);
                     intent.putExtra("PRODUCT", product);
@@ -101,7 +98,6 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
                     int temp = storeddata.getInt(String.valueOf(product.getId()), 0);
                     temp++;
                     edit.putInt(String.valueOf(product.getId()),temp);
-//                    Toast.makeText(view.getContext(), "Count: "+temp, Toast.LENGTH_SHORT).show();
                     edit.commit();
 
 
