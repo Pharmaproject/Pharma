@@ -14,12 +14,13 @@
         android:id="@+id/layoutButton"
         android:icon="@drawable/list_icon"
         app:showAsAction="always"
-        android:title="favourite"/>
+        android:title="Grid/List"/>
     <item
         android:id="@+id/menu"
         android:orderInCategory="0"
         app:showAsAction="always"
-        android:icon="@drawable/icon_sort">
+        android:icon="@drawable/icon_sort"
+        android:title="Product Sorting">
         <menu>
             <item
                 android:id="@+id/sortAlphabet"
@@ -39,6 +40,7 @@
         android:id="@+id/filter"
         android:orderInCategory="0"
         app:showAsAction="always"
+        android:title="Filter Products"
         android:icon="@mipmap/filled_filter">
         <menu>
             <item
