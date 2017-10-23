@@ -22,7 +22,6 @@ import java.util.HashMap;
 import in.optho.opthoremedies.Models.Product;
 
 import static android.content.Context.MODE_PRIVATE;
-import static android.net.Uri.decode;
 
 
 /**
@@ -221,7 +220,10 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
             design = cursor.getInt(6);
 
             product=new Product(datetime,id,code,priority,name ,category,design,storeddata.getInt(String.valueOf(id),0));
-            prodList.add(product);
+            if (product.getCategory()!=1){
+                prodList.add(product);
+            }
+
         }
 
 

@@ -267,6 +267,8 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
         //fetching the data from the database in ArrayList
         ProductDatabaseHelper db = new ProductDatabaseHelper(this);
         productdb=db.getProductList();
+
+
         filteredList = productdb;
 
 

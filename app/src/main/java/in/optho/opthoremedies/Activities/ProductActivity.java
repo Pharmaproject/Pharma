@@ -57,7 +57,8 @@ public class ProductActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
 
-                Product p = list.get(++pos);;
+
+                Product p = list.get(++pos);
 
 
                 if(p==null){

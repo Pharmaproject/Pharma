@@ -80,13 +80,19 @@ public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapte
                 public void onClick(View view) {
 
                     Product product = productList.get(getAdapterPosition());
-
+                    int id = productList.get(getAdapterPosition()).getId();
+//                    Toast.makeText(view.getContext(), "Clicked : "+product.getName(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(itemView.getContext(), ProductActivity.class);
                     intent.putExtra("list",productList);
                     intent.putExtra("PRODUCT", product);
+                    intent.putExtra("POS", getIndex(product,productList));
+
+                    intent.putExtra("PRODUCT",product);
+//                    intent.putExtra("ID",product.getId());
                     itemView.getContext().startActivity(intent);
 
                     //increase the counter by 1 on each click
+
                     SharedPreferences storeddata;
                     SharedPreferences.Editor edit;
 
@@ -94,7 +100,10 @@ public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapte
                     edit = storeddata.edit();
 
                     int temp = storeddata.getInt(String.valueOf(product.getId()), 0);
-                    edit.putInt(String.valueOf(product.getId()),++temp);
+                    temp++;
+                    edit.putInt(String.valueOf(product.getId()),temp);
+//                    Toast.makeText(view.getContext(), "Count: "+temp, Toast.LENGTH_SHORT).show();
+                    edit.commit();
 
 
 
@@ -104,6 +113,13 @@ public class MyListLayoutAdapter extends RecyclerView.Adapter<MyListLayoutAdapte
         }
     }
 
+
+
+
+    private int getIndex(Product product, ArrayList<Product> list){
+        int pos=list.indexOf(product);
+        return pos;
+    }
 
 
 
