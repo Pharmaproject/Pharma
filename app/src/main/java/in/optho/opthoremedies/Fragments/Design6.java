@@ -33,6 +33,7 @@ public class Design6 extends Fragment {
     private ImageView cartoon1;
     private ImageView indication1;
     private ImageView cpl1;
+    private ImageView cIcon;
     ProductDatabaseHelper db;
 
     private byte[] brand;
@@ -88,6 +89,7 @@ public class Design6 extends Fragment {
         cartoon1 = (ImageView) view.findViewById(R.id.cartoon1);
         indication1 = (ImageView) view.findViewById(R.id.indication1);
         cpl1 = (ImageView) view.findViewById(R.id.cpl1);
+        cIcon= (ImageView) view.findViewById(R.id.cIcon);
         ImageView expandedImageView = (ImageView) view.findViewById(R.id.expanded_image);
 
         BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), BitmapFactory.decodeByteArray(graphic, 0, graphic.length));
@@ -103,6 +105,7 @@ public class Design6 extends Fragment {
         bit.SetImage(cartoon1,carton,c,view,expandedImageView);
         bit.SetImage(indication1,indication,c,view,expandedImageView);
         bit.SetImage(cpl1,closepunch,c,view,expandedImageView);
+        bit.SetImage(cIcon,customicon,c,view,expandedImageView);
 
 
 
