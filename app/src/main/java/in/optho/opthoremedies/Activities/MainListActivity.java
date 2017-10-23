@@ -269,6 +269,17 @@ public class MainListActivity extends AppCompatActivity implements SearchView.On
         productdb=db.getProductList();
         filteredList = productdb;
 
+
+        Collections.sort(filteredList, new Comparator<Product>() {
+            @Override
+            public int compare(Product product, Product t1) {
+                return String.valueOf(product.getPriority()).compareTo(String.valueOf((t1.getPriority())));
+            }
+        });
+
+        sortedList = filteredList;
+
+
         sortedList = productdb;
 
 

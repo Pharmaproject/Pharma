@@ -84,6 +84,7 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
                     Intent intent = new Intent(itemView.getContext(), ProductActivity.class);
                     intent.putExtra("list",productList);
                     intent.putExtra("PRODUCT", product);
+                    intent.putExtra("POS", getIndex(product,productList));
 
                     intent.putExtra("PRODUCT",product);
 //                    intent.putExtra("ID",product.getId());
@@ -111,6 +112,15 @@ public class MyGridLayoutAdapter extends RecyclerView.Adapter<MyGridLayoutAdapte
 
         }
     }
+
+    private int getIndex(Product product, ArrayList<Product> list){
+        int pos=list.indexOf(product);
+        return pos;
+    }
+
+
+
+
     public void sort(Comparator comparator) {
         Collections.sort(productList, comparator);
         notifyItemRangeChanged(0, getItemCount());

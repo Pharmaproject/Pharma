@@ -30,6 +30,8 @@ public class ProductActivity extends AppCompatActivity  {
     ImageView next;
     ImageView prev;
 
+    ArrayList<Product> list;
+    int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +41,12 @@ public class ProductActivity extends AppCompatActivity  {
         pane.setPanelSlideListener(new PaneListener());
         Bundle extras = new Bundle();
         final Product product = getIntent().getParcelableExtra("PRODUCT"); // Parcelable
-        final ArrayList<Product> list = getIntent().getParcelableArrayListExtra("list");
+        list = getIntent().getParcelableArrayListExtra("list");
+        pos = getIntent().getIntExtra("POS",0);
+
+
         extras.putParcelable("PRODUCT", product);
+
  //       Product product = (Product) extras.getSerializable("PRODUCT");
 
         next = (ImageView) findViewById(R.id.next);
@@ -51,18 +57,9 @@ public class ProductActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
 
-                Product p=product;
-                int id=product.getId();
-                p=null;
-                id++;
-                for (Product temp: MainListActivity.sortedList) {
-                    if(temp.getId()==id){
+                Product p = list.get(++pos);;
 
-                        p = temp;
 
-                    }
-
-                }
                 if(p==null){
                     Toast.makeText(ProductActivity.this, "Last Product", Toast.LENGTH_SHORT).show();
                 }else{
@@ -70,7 +67,9 @@ public class ProductActivity extends AppCompatActivity  {
                     Intent intent = getIntent();
                     intent.putExtra("list",list);
                     Toast.makeText(ProductActivity.this, "ID: "+p.getId(), Toast.LENGTH_SHORT).show();
+                    intent.putExtra("POS", pos);
                     intent.putExtra("PRODUCT", p);
+
                     finish();
                     startActivity(intent);
                     overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
@@ -83,28 +82,25 @@ public class ProductActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
 
-                Product p=product;
-                int id=product.getId();
-                p=null;
-                id++;
-                for (Product temp: MainListActivity.sortedList) {
-                    if(temp.getId()+2==id){
+                Product p = list.get(++pos);
 
-                        p = temp;
 
-                    }
-
-                }
                 if(p==null){
-                    Toast.makeText(ProductActivity.this, "First Product", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductActivity.this, "Last Product", Toast.LENGTH_SHORT).show();
                 }else{
+
                     Intent intent = getIntent();
                     intent.putExtra("list",list);
+                    Toast.makeText(ProductActivity.this, "ID: "+p.getId(), Toast.LENGTH_SHORT).show();
+                    intent.putExtra("POS", pos);
                     intent.putExtra("PRODUCT", p);
+
                     finish();
                     startActivity(intent);
                     overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_right);
+
                 }
+
             }
         });
 
@@ -178,16 +174,14 @@ public class ProductActivity extends AppCompatActivity  {
     @Override
     public void onBackPressed() {
 
-
-        finish();
-        /*
-
         if (pane.isOpen()){
             pane.closePane();
         }
-        else startActivity(new Intent(ProductActivity.this,MainListActivity.class));
-*/
+        else finish();
+
+
 
     }
+
 
 }

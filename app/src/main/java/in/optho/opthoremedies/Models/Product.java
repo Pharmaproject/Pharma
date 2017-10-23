@@ -15,17 +15,6 @@ public class Product implements Parcelable {
     private String datetime;
     private int counter;
 
-    private int sno;
-
-    public int getSno() {
-        return sno;
-    }
-
-    public void setSno(int sno) {
-        this.sno = sno;
-    }
-
-
     public String getDatetime() {
         return datetime;
     }
