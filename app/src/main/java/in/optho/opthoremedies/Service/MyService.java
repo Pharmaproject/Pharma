@@ -26,14 +26,12 @@ public class MyService extends Service {
 
 	@Override
 	public void onCreate() {
-		Toast.makeText(this, "Service was Created", Toast.LENGTH_LONG).show();
 
 	}
 
 	@Override
 	public void onStart(Intent intent, int startId) {
 
-		Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
 		Intent resultIntent = new Intent(this, SplashActivity.class);
 		PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0,
 				resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -73,7 +71,9 @@ public class MyService extends Service {
                 mNotifyBuilder.setAutoCancel(false);
                 mNotifyBuilder.setContentIntent(PendingIntent.getActivity(this, 3, new Intent(), 0));
                 mNotifyBuilder.addAction(R.drawable.pin_code_round_full,"Download Now",pendingIntentYes);
-                // Post a notification
+				mNotifyBuilder.setVibrate(new long[]{1000, 500, 1000, 500, 1000});
+
+				// Post a notification
                 mNotificationManager.notify(9002, mNotifyBuilder.build());
 
             }
@@ -85,7 +85,6 @@ public class MyService extends Service {
 
 	@Override
 	public void onDestroy() {
-		Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
 
 	}
 }

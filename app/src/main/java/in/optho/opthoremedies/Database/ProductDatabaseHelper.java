@@ -1,13 +1,18 @@
 package in.optho.opthoremedies.Database;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 import com.loopj.android.http.Base64;
@@ -19,7 +24,10 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import in.optho.opthoremedies.Activities.SplashActivity;
 import in.optho.opthoremedies.Models.Product;
+import in.optho.opthoremedies.R;
+import in.optho.opthoremedies.Service.changenotify;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -50,6 +58,8 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
     private String datetime;
     private int counter;
 
+
+
     /**
      * Constructor
      * Takes and keeps a reference of the passed context in order to access to the application assets and resources.
@@ -60,6 +70,8 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, dbVersion);
         this.myContext = context;
         DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
+
+
 
     }
 
@@ -234,7 +246,7 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         return prodList;
     }
 
-    public void insertUpdateProduct(HashMap<String, String> queryValues) {
+    public void insertUpdateProduct(HashMap<String, String> queryValues, Context c) {
         openDataBase();
 
         ContentValues values = new ContentValues();
@@ -259,9 +271,15 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         }
         else {
             // TODO  SQL Update record
-            myDataBase.update("product", values, "id=" + queryValues.get("id"), null);
 
-        }
+              myDataBase.update("product", values, "id=" + queryValues.get("id"), null);
+              final Intent intnt = new Intent(c, changenotify.class);
+              // Set unsynced count in intent data
+              intnt.putExtra("intntdata", queryValues.get("name"));
+              // Call MyService
+              c.startService(intnt);
+
+          }
         myDataBase.close();
 
 
@@ -426,6 +444,7 @@ public class ProductDatabaseHelper extends SQLiteOpenHelper {
         close();
         return a;
     }
+
 
 
 

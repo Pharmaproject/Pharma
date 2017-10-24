@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mine_shaft"
+    tools:context="in.optho.opthoremedies.Activities.LoginActivity">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/logocrop"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true" />
+
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_image"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="sans-serif-thin"
+                android:text="Restricted Access"
+                android:layout_gravity="center"
+                android:textColor="@color/warning_color"
+                android:textSize="30sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginStart="200dp"
+                    android:tint="@color/colorWhiteHigh"
+                    app:srcCompat="@drawable/ic_lock_outline_black_24dp" />
+
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/linearLayout2"
+                    android:layout_marginEnd="145dp"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-thin"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Enter 6 Digit Admin PIN"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white"
+                    android:textSize="34sp" />
+            </LinearLayout>
+
+
+            <com.chaos.view.PinView
+                android:id="@+id/pinView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_name"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:focusableInTouchMode="true"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="number"
+                android:padding="5dp"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                app:borderWidth="3dp"
+                app:itemCount="6"
+                app:itemRadius="6dp"
+                app:itemSize="48dp"
+                app:itemSpacing="4dp" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pinView4"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="21dp"
+                android:fontFamily="sans-serif-condensed"
+                android:layout_gravity="center"
+                android:text="Warning:This will Clear all Data"
+                android:textColor="@color/warning_color"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+        android:id="@+id/ClearBtn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_below="@+id/textView7"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        android:background="@color/blue_gray"
+        android:padding="5dp"
+                android:layout_gravity="center"
+        android:text="Proceed"
+        android:textColor="@color/colorWhite" />
+
+        </LinearLayout>
+</ScrollView>

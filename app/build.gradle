@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+dependencies {
+    compile 'com.android.support.constraint:constraint-layout:+'
+}
 android {
     signingConfigs {
         release {

@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.os.Vibrator;
 
 import com.andrognito.pinlockview.IndicatorDots;
 import com.andrognito.pinlockview.PinLockListener;
@@ -52,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         mIndicatorDots = (IndicatorDots) findViewById(R.id.indicator_dots);
         mPinLockView.attachIndicatorDots(mIndicatorDots);
 
-        loginBtn = (Button) findViewById(R.id.loginBtn);
+        loginBtn = (Button) findViewById(R.id.ClearBtn);
 
         db = new EmployeeDatabaseHelper(this);
 

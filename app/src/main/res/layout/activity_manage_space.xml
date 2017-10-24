@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mine_shaft"
+    tools:context="in.optho.opthoremedies.Activities.LoginActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="194dp"
+        android:src="@drawable/logocrop" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="42dp"
+        android:layout_toEndOf="@+id/linearLayout"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-thin"
+        android:maxLines="1"
+        android:text="Enter 6 Digit Admin PIN"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        android:layout_below="@+id/imageView5"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:tint="@color/colorWhiteHigh"
+        app:srcCompat="@drawable/ic_lock_outline_black_24dp"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/textView5"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-thin"
+        android:text="Restricted Access"
+        android:textColor="@color/warning_color"
+        android:textSize="30sp"
+        android:layout_below="@+id/imageView4"
+        android:layout_alignStart="@+id/textView6" />
+
+    <com.chaos.view.PinView
+        android:id="@+id/pinView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:focusableInTouchMode="true"
+        android:imeOptions="flagNoExtractUi"
+        android:inputType="number"
+        android:padding="5dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:borderWidth="3dp"
+        app:itemCount="6"
+        app:itemRadius="6dp"
+        app:itemSize="48dp"
+        app:itemSpacing="4dp"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="56dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Warning:This will Clear all Data"
+        android:textColor="@color/warning_color"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/pinView4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp" />
+
+    <Button
+        android:id="@+id/ClearBtn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/blue_gray"
+        android:padding="5dp"
+        android:text="Proceed"
+        android:textColor="@color/colorWhite"
+        android:layout_marginTop="87dp"
+        android:layout_below="@+id/pinView4"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

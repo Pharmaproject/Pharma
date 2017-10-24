@@ -21,7 +21,7 @@
     <color name="dark_gray">#9baab2</color>
     <color name="light_gray_bar">#eaf2f5</color>
 
-    <color name="warning_color">#f4511e</color>
+    <color name="warning_color">#f4251e</color>
     <color name="hint_color">#42000000</color>
     <color name="success_color">#009688</color>
 

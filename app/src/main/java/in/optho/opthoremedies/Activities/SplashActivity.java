@@ -47,7 +47,9 @@ public class SplashActivity extends AppCompatActivity {
     EmployeeDatabaseHelper controller;
     ProductDatabaseHelper controller2;
     Dialog syncDialog;
-    int remain;
+    int remain, Fresh;
+    Boolean updatePro;
+    Boolean updateEmp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +78,15 @@ public class SplashActivity extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         // Alarm Manager calls BroadCast for every Ten seconds (10 * 1000), BroadCase further calls service to check if new records are inserted in
         // Remote MySQL DB
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis() + 5000, 1000 * 60 , pendingIntent);
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 14);
+        cal.set(Calendar.MINUTE, 50);
+        cal.set(Calendar.SECOND, 0);
+        if (System.currentTimeMillis() > cal.getTimeInMillis()) {
+            cal.add(Calendar.DATE, 1);
+        }
+        alarmManager.cancel(pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY , pendingIntent);
 
    //     alarmManager.cancel(pendingIntent); // cancel any existing alarms
 
@@ -92,8 +102,8 @@ public class SplashActivity extends AppCompatActivity {
         int noOfTimes = storeddata.getInt("Nonet", 0);
         System.out.println(storeddata.getAll());
 
-        final Boolean updateEmp = storeddata.getBoolean("updateEmp", false);
-        final Boolean updatePro = storeddata.getBoolean("updatePro", false);
+        updateEmp = storeddata.getBoolean("updateEmp", false);
+        updatePro = storeddata.getBoolean("updatePro", false);
         int Days = storeddata.getInt("update",0);
 
         remain=11-Days;
@@ -107,13 +117,19 @@ public class SplashActivity extends AppCompatActivity {
         System.out.println("Local Emp Date: "+ DateEmpLocal);
         System.out.println("Local Product Date: "+ DateProLocal);
 
-        int Fresh = storeddata.getInt("FirstLaunch",0);
+        Fresh = storeddata.getInt("FirstLaunch",0);
         if(Fresh==0){
-            syncSQLiteEmployee();
-            syncSQLiteProduct();
+            alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),pendingIntent);
             edit = storeddata.edit();
             edit.putInt("FirstLaunch",1);
             edit.commit();
+            Intent mStartActivity = new Intent(this, SplashActivity.class);
+            int mPendingIntentId = 123456;
+            Toast.makeText(getApplicationContext(), "First Launch, checking for updates. Restarting app", Toast.LENGTH_LONG).show();
+            PendingIntent mPendingIntent = PendingIntent.getActivity(this, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+            AlarmManager mgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 10000, mPendingIntent);
+            finish();
         }
         Window window = syncDialog.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
@@ -320,7 +336,7 @@ public class SplashActivity extends AppCompatActivity {
                     controller.insertUpdateUser(queryValues);
 
                 }
-                String DateEmpServer=storeddata.getString("DateEmpServer","");
+                String DateEmpServer=storeddata.getString("DateEmpServer","2017-10-06 00:00:00");
                 System.out.println("Updating Local Emp Date: "+DateEmpServer);
                 edit = storeddata.edit();
                 edit.putString("dateEmp",DateEmpServer);
@@ -330,6 +346,9 @@ public class SplashActivity extends AppCompatActivity {
                 System.out.println(storeddata.getAll());
 
                 // load the Main Activity
+                if(updatePro) {
+                    syncSQLiteProduct();
+                }else
                 NextActivity();
             }
             else  Toast.makeText(getApplicationContext(), "Requested Data not received", Toast.LENGTH_LONG).show();
@@ -459,7 +478,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void updateSQLiteProduct(JSONArray response){
-
+        Context c=this.getApplicationContext();
 
         try {
             // Extract JSON array from the response
@@ -492,10 +511,10 @@ public class SplashActivity extends AppCompatActivity {
                     queryValues.put("customicon", obj.get("customicon").toString());
 
                     // Insert product into SQLite DB
-                    controller2.insertUpdateProduct(queryValues);
+                    controller2.insertUpdateProduct(queryValues, c);
 
                 }
-                String DateProServer=storeddata.getString("DateProServer","");
+                String DateProServer=storeddata.getString("DateProServer","2017-10-06 00:00:00");
                 System.out.println("Updating Local Product Date: "+DateProServer);
                 edit = storeddata.edit();
                 edit.putString("datePro",DateProServer);
@@ -526,7 +545,7 @@ public class SplashActivity extends AppCompatActivity {
 
         remain=11-Days;
         syncDialog.dismiss();
-        if(11-Days>0) {
+        if(11-Days>0&&Fresh!=0) {
             startActivity(new Intent(SplashActivity.this, IDActivity.class));
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
